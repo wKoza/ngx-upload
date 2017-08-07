@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.0"></a>
+# 1.0.0-alpha.0 (2017-08-07)
+
+
+### Bug Fixes
+
+* **package.json:** change name ([f51e23a](https://github.com/wKoza/ngx-upload/commit/f51e23a))
+
+
+
 <a name="1.0.0-alpha.1"></a>
 # 1.0.0-alpha.1 (2017-08-07)
 
