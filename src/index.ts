@@ -55,7 +55,7 @@ export class NgxUploadModule {
             ngModule: NgxUploadModule,
             providers: [
 
-                {provide: NGX_LOGGER_OPTIONS, useValue: (loggerOptions) ? loggerOptions : ngxUploadOptions},
+                {provide: NGX_LOGGER_OPTIONS, useValue: (loggerOptions) ? loggerOptions : ngxloggerOptions},
                 {
                     provide: NGX_DROP_TARGET_OPTIONS,
                     useValue: (dropTargetOptions) ? dropTargetOptions : ngxDropTargetOptions

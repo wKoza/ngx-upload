@@ -34,7 +34,7 @@ const uploadOptions: UploadOptions = {
     FormsModule,
     HttpModule,
     RouterModule.forRoot(routes, {useHash: true}),
-    NgxUploadModule.forRoot(null, uploadOptions),
+    NgxUploadModule.forRoot(null, null, uploadOptions),
     NgbModule.forRoot(),
     MaterialModule
   ],

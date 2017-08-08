@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UploadService} from '@wKoza/ngx-upload';
+import {UploadService} from '@wkoza/ngx-upload';
 import {Person} from './person.model';
 
 @Component({

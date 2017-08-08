@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {UploadService} from '@wKoza/ngx-upload';
+import {UploadService} from '@wkoza/ngx-upload';
 import {Person} from './person.model';
-import {DropTargetOptions} from '@wKoza/ngx-upload';
+import {DropTargetOptions} from '@wkoza/ngx-upload';
 
 @Component({
   selector: 'app-root',
