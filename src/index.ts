@@ -1,12 +1,22 @@
 import {isDevMode, ModuleWithProviders, NgModule} from '@angular/core';
 
-import {NGX_UPLOAD_OPTIONS, ngxUploadOptions, NgxUploadOptions} from './utils/configuration.model';
+import {
+    DropTargetOptions,
+    LoggerOptions,
+    NGX_UPLOAD_OPTIONS,
+    NGX_DROP_TARGET_OPTIONS,
+    NGX_LOGGER_OPTIONS,
+    ngxUploadOptions,
+    ngxDropTargetOptions,
+    ngxloggerOptions,
+    UploadOptions
+} from './utils/configuration.model';
 import {NgxDragAndDropDirective} from './directives/dropzone.directive';
 import {ConsoleLogger, NgxUploadLogger, NoOpLogger} from './utils/logger.model';
 import {UploadService} from './services/upload.service';
 
 export {UploadService} from './services/upload.service';
-export {NgxUploadOptions, DropTargetOptions, LoggerOptions} from './utils/configuration.model';
+export {DropTargetOptions, UploadOptions, LoggerOptions} from './utils/configuration.model';
 
 const ngxDeclarations = [
     NgxDragAndDropDirective
@@ -18,12 +28,11 @@ const ngxDeclarations = [
  * @returns {any}
  * @private
  */
-export function _loggerFactory(options: NgxUploadOptions): NgxUploadLogger {
-    const loggerOptions = options.logger || {};
-    const enabled = loggerOptions.enabled != null ? loggerOptions.enabled : isDevMode();
+export function _loggerFactory(options: LoggerOptions): NgxUploadLogger {
+    const enabled = options.enabled != null ? options.enabled : isDevMode();
     if (enabled) {
         const _console: Console = typeof console === 'object' ? console : <any>{};
-        const debug = loggerOptions.debug != null ? loggerOptions.debug : true;
+        const debug = options.debug != null ? options.debug : true;
         return new ConsoleLogger(_console, debug);
     }
     return new NoOpLogger();
@@ -38,12 +47,20 @@ export function _loggerFactory(options: NgxUploadOptions): NgxUploadLogger {
     ]
 })
 export class NgxUploadModule {
-    static forRoot(): ModuleWithProviders {
+    static forRoot(dropTargetOptions?: DropTargetOptions,
+                   loggerOptions?: LoggerOptions,
+                   uploadOptions?: UploadOptions): ModuleWithProviders {
+
         return {
             ngModule: NgxUploadModule,
             providers: [
 
-                {provide: NGX_UPLOAD_OPTIONS, useValue: ngxUploadOptions},
+                {provide: NGX_LOGGER_OPTIONS, useValue: (loggerOptions) ? loggerOptions : ngxUploadOptions},
+                {
+                    provide: NGX_DROP_TARGET_OPTIONS,
+                    useValue: (dropTargetOptions) ? dropTargetOptions : ngxDropTargetOptions
+                },
+                {provide: NGX_UPLOAD_OPTIONS, useValue: (uploadOptions) ? uploadOptions : ngxUploadOptions},
                 {
                     provide: NgxUploadLogger,
                     useFactory: _loggerFactory,

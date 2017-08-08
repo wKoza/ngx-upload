@@ -1,5 +1,9 @@
 # Ngx-upload
 
+## About
+
+Ngx-upload is a module for the Angular framework. Ngx-upload supports drag and drop, upload progress and manages a file upload queue.
+
 ## Demo
 https://wkoza.github.io/ngx-upload/
 
@@ -160,7 +164,7 @@ You may also find it useful to view the [demo source](https://github.com/wKoza/n
 
 ## Documentation
 All documentation is auto-generated from the source via [compodoc](https://compodoc.github.io/compodoc/) and can be viewed here:
-https://wkoza.github.io/ngx-upload/docs/
+https://ngx-upload.github.io/docs/
 
 ## Development
 

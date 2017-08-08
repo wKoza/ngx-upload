@@ -1,0 +1,21 @@
+.full-width {
+  width: 100%;
+}
+
+.my-drop-zone {
+  width: 100%;
+  height: 300px;
+  cursor: pointer;
+  border: 3px dotted rgba(0,0,0,0.08);
+//  background: rgba(0,0,0,0.12);
+  padding: 1em;
+  background-image: url('../../assets/reflex-camera.svg');
+  background-size: 100px 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+}
+
+tr th {
+  text-align: center
+}

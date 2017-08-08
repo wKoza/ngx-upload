@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {FormGroup} from '@angular/forms';
 import {NgxUploadLogger} from '../utils/logger.model';
+import {UploadOptions} from '../utils/configuration.model';
 
 @Injectable()
 export class UploadService {
@@ -27,11 +28,11 @@ export class UploadService {
     private headers: Map<string, string[]>;
 
 
-    constructor(private logger: NgxUploadLogger) {
+    constructor(private logger: NgxUploadLogger, private options: UploadOptions) {
         this.queue = new Array<FileItem>();
         this.isUploading = false;
-        this.method = 'POST';
-        this.url = 'http://localhost:8090/upload';
+        this.method = options.method;
+        this.url = options.url;
         this.headers = new Map();
         this.disableMultipart = false;
     }
@@ -102,7 +103,15 @@ export class UploadService {
                 const ok = xhr.status >= 200 && xhr.status < 300;
                 this.isUploading = false;
 
-                if (ok) {
+                if (this.url === 'ngx_upload_mock') {
+                    // A successful response is delivered on the event stream.
+                    responseObserver.next(xhr.response);
+                    item.ɵonSuccess(xhr.response, 200, xhr.response.headers);
+                    this.onSuccess(item);
+                    // The full body has been received and delivered, no further events
+                    // are possible. This request is complete.
+                    responseObserver.complete();
+                } else if (ok) {
                     // A successful response is delivered on the event stream.
                     responseObserver.next(xhr.response);
                     item.ɵonSuccess(xhr.response, xhr.status, xhr.response.headers);
