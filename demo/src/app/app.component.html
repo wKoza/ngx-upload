@@ -14,14 +14,14 @@
       <li ngbDropdown class="d-inline-block">
         <a class="nav-link dropdown-toggle"  id="dropdownBasic1" ngbDropdownToggle>With Bootstrap</a>
         <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-          <a class="dropdown-item" href="simple-bootstrap">Simple file upload</a>
+          <a class="dropdown-item" [routerLink]="['simple-bootstrap']">Simple file upload</a>
         </div>
       </li>
 
       <li ngbDropdown class="d-inline-block">
         <a class="nav-link dropdown-toggle"  id="dropdownBasic2" ngbDropdownToggle>With Material</a>
         <div class="dropdown-menu" aria-labelledby="dropdownBasic2">
-          <a class="dropdown-item" href="simple-material">Simple file upload</a>
+          <a class="dropdown-item" [routerLink]="['simple-material']">Simple file upload</a>
         </div>
       </li>
     </ul>
