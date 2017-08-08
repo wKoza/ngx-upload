@@ -1,11 +1,7 @@
 # Ngx-upload
 
-## About
-
-Ngx-upload is a module for the Angular framework. Ngx-upload supports drag and drop, upload progress and manages a file upload queue.
-
 ## Demo
-https://wkoza.github.io/ngx-upload/
+https://ngx-upload.github.io
 
 ## Table of contents
 
@@ -17,7 +13,8 @@ https://wkoza.github.io/ngx-upload/
 
 ## About
 
-Upload module for Angular
+Ngx-upload is a module for the Angular framework. Ngx-upload supports drag and drop, upload progress and manages a file upload queue.
+
 ## Installation
 
 Install through npm:
@@ -31,7 +28,7 @@ Then include in your apps module:
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {NgxUploadModule} from '@wKoza/ngx-upload';
+import {NgxUploadModule} from '@wkoza/ngx-upload';
 
 @NgModule({
   imports: [
@@ -40,7 +37,7 @@ import {NgxUploadModule} from '@wKoza/ngx-upload';
     NgxUploadModule.forRoot()
   ]
 })
-export class MyModule {}
+export class AppModule {}
 ```
 
 Finally use in one of your apps components:
@@ -152,11 +149,11 @@ export class MyComponent {}
 ```
 
 
-You may also find it useful to view the [demo source](https://github.com/wKoza/ngx-upload-demo/tree/master/src/app).
+You may also find it useful to view the [demo source](https://github.com/wKoza/ngx-upload/tree/master/demo/src/app).
 
 ### Usage without a module bundler
 ```
-<script src="node_modules/@wKoza/ngx-upload/bundles/ngx-upload.umd.js"></script>
+<script src="node_modules/@wkoza/ngx-upload/bundles/ngx-upload.umd.js"></script>
 <script>
     // everything is exported ngx-upload namespace
 </script>
