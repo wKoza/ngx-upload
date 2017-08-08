@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.1"></a>
+# [1.0.0-alpha.1](https://github.com/wKoza/ngx-upload/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2017-08-08)
+
+
+### Features
+
+* **demo:** add demo application ([51a00c9](https://github.com/wKoza/ngx-upload/commit/51a00c9))
+
+
+
 <a name="1.0.0-alpha.0"></a>
 # 1.0.0-alpha.0 (2017-08-07)
 
