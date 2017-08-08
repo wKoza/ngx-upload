@@ -1,7 +1,7 @@
-import {Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2} from '@angular/core';
+import {Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, Inject} from '@angular/core';
 import {UploadService} from '../services/upload.service';
 import {NgForm} from '@angular/forms';
-import {DropTargetOptions} from '../utils/configuration.model';
+import {DropTargetOptions, NGX_DROP_TARGET_OPTIONS} from '../utils/configuration.model';
 import {NgxUploadLogger} from '../utils/logger.model';
 
 
@@ -14,7 +14,6 @@ import {NgxUploadLogger} from '../utils/logger.model';
 })
 export class NgxDragAndDropDirective implements OnInit {
 
-    options: DropTargetOptions;
 
     @Input()
     set ngxDragAndDrop(options: DropTargetOptions) {
@@ -29,17 +28,11 @@ export class NgxDragAndDropDirective implements OnInit {
     @Output() onDrop = new EventEmitter();
 
     ngOnInit(): void {
-        this.options = {
-            color: 'rgba(0,0,0,0.12)',
-            colorDrag: 'grey',
-            colorDrop: 'rgba(0,0,0,0.12)'
-        };
-
         this.renderer.setStyle(this.el.nativeElement, 'background-color', this.options.color);
-
     }
 
-    constructor(private el: ElementRef, private renderer: Renderer2, private uploader: UploadService, private logger: NgxUploadLogger) {
+    constructor(private el: ElementRef, private renderer: Renderer2, private uploader: UploadService,
+                private logger: NgxUploadLogger, @Inject(NGX_DROP_TARGET_OPTIONS) private options: DropTargetOptions) {
 
     }
 
@@ -59,7 +52,7 @@ export class NgxDragAndDropDirective implements OnInit {
         const transfer = this.getTransfer(event);
 
         if (!this.isFile(this.getTransfer(event).types)) {
-            console.log('It is not a file');
+            this.logger.debug('It is not a file');
             return;
         }
 

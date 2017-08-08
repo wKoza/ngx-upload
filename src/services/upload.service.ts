@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {FileItem} from './FileItem.model';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {FormGroup} from '@angular/forms';
 import {NgxUploadLogger} from '../utils/logger.model';
-import {UploadOptions} from '../utils/configuration.model';
+import {NGX_UPLOAD_OPTIONS, UploadOptions} from '../utils/configuration.model';
 
 @Injectable()
 export class UploadService {
@@ -28,7 +28,7 @@ export class UploadService {
     private headers: Map<string, string[]>;
 
 
-    constructor(private logger: NgxUploadLogger, private options: UploadOptions) {
+    constructor(private logger: NgxUploadLogger, @Inject(NGX_UPLOAD_OPTIONS) options: UploadOptions) {
         this.queue = new Array<FileItem>();
         this.isUploading = false;
         this.method = options.method;
