@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.4"></a>
+# [1.0.0-alpha.4](https://github.com/wKoza/ngx-upload/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2017-08-09)
+
+
+### Bug Fixes
+
+* **config:** fix route ([9aa2e24](https://github.com/wKoza/ngx-upload/commit/9aa2e24))
+* **docs:** fix readme ([90053e8](https://github.com/wKoza/ngx-upload/commit/90053e8))
+
+
+
 <a name="1.0.0-alpha.3"></a>
 # [1.0.0-alpha.3](https://github.com/wKoza/ngx-upload/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2017-08-08)
 
