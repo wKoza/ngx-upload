@@ -25,9 +25,9 @@ export const NGX_UPLOAD_OPTIONS = new InjectionToken<UploadOptions>('Ngx Upload 
 
 
 export const ngxDropTargetOptions: DropTargetOptions = {
-    color: 'rgba(0,0,0,0.12)',
-    colorDrag: 'grey',
-    colorDrop: 'rgba(0,0,0,0.12)'
+    color: '',
+    colorDrag: '',
+    colorDrop: ''
 };
 
 export const ngxloggerOptions: LoggerOptions = {

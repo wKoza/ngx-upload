@@ -3,8 +3,6 @@
 [![codecov](https://codecov.io/gh/wKoza/ngx-upload/branch/master/graph/badge.svg)](https://codecov.io/gh/wKoza/ngx-upload)
 [![npm version](https://badge.fury.io/js/%40wkoza%2Fngx-upload.svg)](https://badge.fury.io/js/%40wkoza%2Fngx-upload)
 [![devDependency Status](https://david-dm.org/wKoza/ngx-upload/dev-status.svg)](https://david-dm.org/wKoza/ngx-upload?type=dev)
-[![GitHub issues](https://img.shields.io/github/issues/wKoza/ngx-upload.svg)](https://github.com/wKoza/ngx-upload/issues)
-[![GitHub stars](https://img.shields.io/github/stars/wKoza/ngx-upload.svg)](https://github.com/wKoza/ngx-upload/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/wKoza/ngx-upload/master/LICENSE)
 
 ## Demo
@@ -20,16 +18,23 @@ https://ngx-upload.github.io
 
 ## About
 
-Ngx-upload is a module for the Angular framework. Ngx-upload supports drag and drop, upload progress and manages a file upload queue.
+Ngx-upload is a module for the Angular framework. Ngx-upload supports drag and drop, upload progress and manages a file upload queue for you.
+Ngx-upload is bound to anyone presentation framework but you can use it with ng(x)-bootstrap or Angular Material Design without any problems.
 
 ## Installation
 
 Install through npm:
 ```
-npm install --save @wkoza/ngx-upload
+npm install @wkoza/ngx-upload
+```
+OR
+```
+yarn add @wkoza/ngx-upload
 ```
 
-Then include in your apps module:
+## Setup
+
+Just include ngx-upload in your module with `FormsModule` or `ReactiveFormsModule`:
 
 ```typescript
 import {BrowserModule} from '@angular/platform-browser';
@@ -40,153 +45,120 @@ import {NgxUploadModule} from '@wkoza/ngx-upload';
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule, // or ReactiveFormsModule
     NgxUploadModule.forRoot()
   ]
 })
 export class AppModule {}
 ```
 
-Finally use in one of your apps components:
+Ngx-upload become with a mock configuration. In a real application, you must configure by declaring the configuration object `UploadOptions` like this :
+
 ```typescript
-import { Component } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {NgxUploadModule} from '@wkoza/ngx-upload';
 
-@Component({
-  template: `
-  <div style="margin-left: 15px; margin-right: 15px; margin-top: 60px">
-  <h1>Simple upload example with Bootstrap</h1>
-  <hr>
+const uploadOptions: UploadOptions = {
+  method : 'POST',
+  url: 'your_backend_upload_url'
+};
 
-  <form #myForm="ngForm">
-  <div class="form-group row">
-    <label class="col-2 col-form-label">Name</label>
-    <div class="col-10">
-      <input class="form-control" type="text" [(ngModel)]="model.name" name="name">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-2 col-form-label">Email</label>
-    <div class="col-10">
-      <input class="form-control" type="email" [(ngModel)]="model.email" name="email">
-    </div>
-  </div>
-  </form>
-
-  <div class="form-group row">
-    <div class="col-md-3">
-      <h3>Add files</h3>
-      <div>
-        <div class="well my-drop-zone" ngxDragAndDrop (onDrop)="onDrop($event)" [formBinded]="myForm">
-          Drop files here to upload
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-9" style="margin-bottom: 40px">
-      <h3>Upload queue <span *ngIf="uploader.queue.length>0"> - {{ uploader.queue.length }} item(s)</span></h3>
-
-      <div class="card text-right">
-        <div style="margin: 15px">
-          <ngb-progressbar showValue="true" type="success" [striped]="true" [animated]="true"
-                           [value]="uploader.progress"></ngb-progressbar>
-        </div>
-        <div class="card-block">
-          <button type="button" class="btn btn-outline-success btn-s" (click)="uploader.uploadAll()"
-                  [disabled]="!uploader.getNotUploadedItems().length">
-            Upload all
-          </button>
-          <button type="button" class="btn btn-outline-warning btn-s" (click)="uploader.cancelAll()"
-                  [disabled]="!uploader.isUploading || !uploader.queue.length">
-             Cancel all
-          </button>
-          <button type="button" class="btn btn-outline-danger btn-s" (click)="uploader.removeAllFromQueue()"
-                  [disabled]="!uploader.getNotUploadedItems().length">
-             Remove all
-          </button>
-        </div>
-      </div>
-      <div class="card" style="margin-top: 20px">
-
-        <table class="table" style="font-size: 14px">
-          <thead>
-          <tr>
-            <th width="50%">Name</th>
-            <th>Size</th>
-            <th>Progress</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let itemFile of uploader.queue"
-              [ngClass]="{'table-success' : itemFile.isSuccess, 'table-danger' : itemFile.isError, 'table-warning' : itemFile.isUploading  }">
-            <td>{{ itemFile.file.name }}</td>
-            <td>{{ itemFile.file.size/1024/1024 | number:'1.0-2' }} MB</td>
-            <td>
-              <div>
-                <ngb-progressbar type="success" showValue="true" [striped]="true" [animated]="true"
-                                 [value]="itemFile.progress"></ngb-progressbar>
-              </div>
-            </td>
-            <td style="text-align: center">
-              <button type="button" class="btn btn-outline-success btn-sm" (click)="itemFile.upload()"
-                      [disabled]="itemFile.isReady || itemFile.isUploading || itemFile.isSuccess">
-                 Upload
-              </button>
-              <button type="button" class="btn btn-outline-warning btn-sm" (click)="itemFile.cancel()"
-                      [disabled]="!itemFile.isUploading">
-               Cancel
-              </button>
-              <button type="button" class="btn btn-outline-danger btn-sm" (click)="itemFile.remove()"
-                      [disabled]="itemFile.isUploaded">
-                Remove
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </div>
-  </div>
-
-  `
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule, // or ReactiveFormsModule
+    NgxUploadModule.forRoot(uploadOptions)
+  ]
 })
-export class MyComponent {}
+export class AppModule {}
 ```
 
+Ngx-upload also proposes to configure the drop zone aspect. Then, you can change the css class of your drop zone regarding the drop event:
+ - When you drag a file
+ - When you drop a file
+ - In other cases
 
-You may also find it useful to view the [demo source](https://github.com/wKoza/ngx-upload/tree/master/demo/src/app).
+For this, you should add the configuration object `DropTargetOptions` like this :
 
-### Usage without a module bundler
+```typescript
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {NgxUploadModule} from '@wkoza/ngx-upload';
+
+const uploadOptions: UploadOptions = {
+  method : 'POST',
+  url: 'your_backend_upload_url'
+};
+
+export const ngxDropTargetOptions: DropTargetOptions = {
+  color: 'dropZoneColor',
+  colorDrag: 'dropZoneColorDrag',
+  colorDrop: 'dropZoneColorDrop'
+};
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule, // or ReactiveFormsModule
+    NgxUploadModule.forRoot(uploadOptions, ngxDropTargetOptions)
+  ]
+})
+export class AppModule {}
 ```
-<script src="node_modules/@wkoza/ngx-upload/bundles/ngx-upload.umd.js"></script>
-<script>
-    // everything is exported ngx-upload namespace
-</script>
+
+In this example, you should also declare these css classes in your own css :
+
+```css
+
+.dropZoneColor {
+  border: 3px dotted rgba(0,0,0,0.08);
+  background-color: rgba(0,0,0,0.12)
+}
+
+.dropZoneColorDrag {
+  border: 3px dotted rgba(0,0,0,0.28);
+  background-color: grey
+}
+
+.dropZoneColorDrop {
+  border: 3px dotted rgba(0,0,0,0.08);
+  background-color: rgba(0,0,0,0.12)
+}
 ```
+
+## Usage
+
+### Drop zone
+
+Ngx-upload offers one directive for your drop zone called `ngxDragAndDrop`. It allows to add the files in the upload queue. During the drop event, it throws an event called `onDrop` that you can catch :
+
+```html
+<div class="my-drop-zone" ngxDragAndDrop (onDrop)="onDrop($event)" [formBinded]="myForm">
+        Drop files here to upload
+</div>
+```
+
+To finish, we can overwrite the `DropTargetOptions` for a specific case due to property binding :
+
+```html
+<div class="my-drop-zone" [ngxDragAndDrop]="options" (onDrop)="onDrop($event)" [formBinded]="myForm">
+        Drop files here to upload
+</div>
+```
+
+### Upload queue
+
+Each file is added to a queue that you can manage with `uploader` service. Take a look at [those examples](https://github.com/wKoza/ngx-upload/tree/master/demo/src/app) for more details :
+
+
+
 
 ## Documentation
 All documentation is auto-generated from the source via [compodoc](https://compodoc.github.io/compodoc/) and can be viewed here:
 https://ngx-upload.github.io/docs/
-
-## Development
-
-### Prepare your environment
-* Install [Node.js](http://nodejs.org/) and NPM
-* Install local dev dependencies: `npm install` while current directory is this repo
-
-### Development server
-Run `npm start` to start a development server on port 8000 with auto reload + tests.
-
-### Testing
-Run `npm test` to run tests once or `npm run test:watch` to continually run tests.
-
-### Release
-* Bump the version in package.json (once the module hits 1.0 this will become automatic)
-```bash
-npm run release
-```
 
 ## License
 

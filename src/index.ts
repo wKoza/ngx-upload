@@ -47,9 +47,9 @@ export function _loggerFactory(options: LoggerOptions): NgxUploadLogger {
     ]
 })
 export class NgxUploadModule {
-    static forRoot(dropTargetOptions?: DropTargetOptions,
-                   loggerOptions?: LoggerOptions,
-                   uploadOptions?: UploadOptions): ModuleWithProviders {
+    static forRoot(uploadOptions?: UploadOptions,
+                   dropTargetOptions?: DropTargetOptions,
+                   loggerOptions?: LoggerOptions): ModuleWithProviders {
 
         return {
             ngModule: NgxUploadModule,

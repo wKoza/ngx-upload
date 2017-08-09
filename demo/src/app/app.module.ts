@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {Routes, RouterModule} from '@angular/router';
-import {NgxUploadModule, UploadOptions} from '@wkoza/ngx-upload';
+import {DropTargetOptions, NgxUploadModule, UploadOptions} from '@wkoza/ngx-upload';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SimpleBootstrapComponent} from './bootstrap/simple.component';
@@ -23,6 +23,12 @@ const uploadOptions: UploadOptions = {
   url: 'ngx_upload_mock'
 };
 
+export const ngxDropTargetOptions: DropTargetOptions = {
+  color: 'dropZoneColor',
+  colorDrag: 'dropZoneColorDrag',
+  colorDrop: 'dropZoneColorDrop'
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +40,7 @@ const uploadOptions: UploadOptions = {
     FormsModule,
     HttpModule,
     RouterModule.forRoot(routes, {useHash: true}),
-    NgxUploadModule.forRoot(null, null, uploadOptions),
+    NgxUploadModule.forRoot(uploadOptions, ngxDropTargetOptions),
     NgbModule.forRoot(),
     MaterialModule
   ],
