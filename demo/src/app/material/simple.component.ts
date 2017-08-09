@@ -13,9 +13,9 @@ export class SimpleMaterialComponent implements OnInit {
   model: Person;
 
   options: DropTargetOptions = {
-    color : 'green',
-    colorDrag : 'purple',
-    colorDrop : 'green'
+    color : 'dropZoneColorMaterial',
+    colorDrag : 'dropZoneColorDragMaterial',
+    colorDrop : 'dropZoneColorDropMaterial'
   };
 
   constructor(public uploader: UploadService) {
