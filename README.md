@@ -1,5 +1,5 @@
 # Ngx-upload
-[![Build Status](https://travis-ci.org/wKoza/ngx-upload.svg)](https://travis-ci.org/wkoza/ocLazyLoad)
+[![Build Status](https://travis-ci.org/wkoza/ngx-upload.svg)](https://travis-ci.org/wkoza/ngx-upload)
 [![codecov](https://codecov.io/gh/wKoza/ngx-upload/branch/master/graph/badge.svg)](https://codecov.io/gh/wKoza/ngx-upload)
 [![npm version](https://badge.fury.io/js/%40wkoza%2Fngx-upload.svg)](https://badge.fury.io/js/%40wkoza%2Fngx-upload)
 [![devDependency Status](https://david-dm.org/wKoza/ngx-upload/dev-status.svg)](https://david-dm.org/wKoza/ngx-upload?type=dev)
@@ -12,8 +12,9 @@ https://ngx-upload.github.io
 
 - [About](#about)
 - [Installation](#installation)
+- [Setup](#setup)
+- [Usage](#usage)
 - [Documentation](#documentation)
-- [Development](#development)
 - [License](#license)
 
 ## About
