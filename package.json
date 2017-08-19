@@ -79,6 +79,7 @@
     "karma-typescript-angular2-transform": "^1.0.0",
     "karma-webpack": "^2.0.1",
     "mocha": "^3.3.0",
+    "reflect-metadata": "^0.1.10",
     "rxjs": "^5.0.1",
     "standard-version": "^4.0.0",
     "ts-loader": "2.1.0",
