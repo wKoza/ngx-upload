@@ -32,7 +32,7 @@ module.exports = webpackMerge(commonConfig, {
 
     output: {
         path: root('dist'),
-        filename: 'js/[name].bundle.js',
+        filename: 'js/[name].[hash].js',
         chunkFilename: 'js/[id].chunk.js'
     },
 
