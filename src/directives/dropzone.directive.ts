@@ -40,9 +40,11 @@ export class NgxDragAndDropDirective implements OnInit {
         this.renderer.addClass(this.el.nativeElement, this.options.color);
     }
 
-    constructor(private el: ElementRef, private renderer: Renderer2, private uploader: UploadService,
-                private logger: NgxUploadLogger, @Inject(NGX_DROP_TARGET_OPTIONS) private options: DropTargetOptions) {
-    }
+    constructor(private el: ElementRef,
+                private renderer: Renderer2,
+                private uploader: UploadService,
+                private logger: NgxUploadLogger,
+                @Inject(NGX_DROP_TARGET_OPTIONS) private options: DropTargetOptions) { }
 
 
     @HostListener('dragleave', ['$event']) onDragLeave(event: DragEvent) {
@@ -50,23 +52,22 @@ export class NgxDragAndDropDirective implements OnInit {
         this.renderer.removeClass(this.el.nativeElement, this.options.colorDrag);
         this.renderer.removeClass(this.el.nativeElement, this.options.colorDrop);
         this.renderer.addClass(this.el.nativeElement, this.options.color);
-        this.preventAndStop(event);
+        this.stopAndPrevent(event);
     }
 
-    @HostListener('drop', ['$event']) dropEvent(event: DragEvent) {
+    @HostListener('drop', ['$event']) dropEvent(event: Event) {
         this.logger.info('drop event');
         this.renderer.removeClass(this.el.nativeElement, this.options.color);
         this.renderer.removeClass(this.el.nativeElement, this.options.colorDrag);
         this.renderer.addClass(this.el.nativeElement, this.options.colorDrop);
         const transfer = this.getTransfer(event);
-        if (!this.isFile(transfer.types)) {
-            this.logger.debug('It is not a file');
+        if (!transfer) {
             return;
         }
         const droppedFiles = transfer.files;
         transfer.dropEffect = 'copy';
         this.onDrop.next(droppedFiles);
-        this.preventAndStop(event);
+        this.stopAndPrevent(event);
         this.uploader.addToQueue(transfer.files, this.formBinded.form);
     }
 
@@ -77,24 +78,30 @@ export class NgxDragAndDropDirective implements OnInit {
         this.renderer.removeClass(this.el.nativeElement, this.options.color);
         this.renderer.removeClass(this.el.nativeElement, this.options.colorDrop);
         this.renderer.addClass(this.el.nativeElement, this.options.colorDrag);
-        this.preventAndStop(event);
+        const transfer = this.getTransfer(event);
+        if (!this.haveFiles(transfer.types)) {
+            return;
+        }
+        this.stopAndPrevent(event);
     }
 
-    private preventAndStop(event: DragEvent) {
-        event.preventDefault();
+    private stopAndPrevent(event: Event) {
         event.stopPropagation();
+        event.preventDefault();
     }
 
-    private  getTransfer(event): DataTransfer {
+    private getTransfer(event): DataTransfer {
         return event.dataTransfer ? event.dataTransfer : event.originalEvent.dataTransfer;
     }
 
-    private isFile(types: string[]) {
+    private haveFiles(types: any) {
         if (!types) {
             return false;
         }
         if (types.indexOf) {
             return types.indexOf('Files') !== -1;
+        } else if (types.contains) {
+            return types.contains('Files');
         } else {
             return false;
         }
