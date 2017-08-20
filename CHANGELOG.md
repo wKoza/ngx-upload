@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.6"></a>
+# [1.0.0-alpha.6](https://github.com/wKoza/ngx-upload/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2017-08-20)
+
+
+### Bug Fixes
+
+* **demo:** add ie polyfill ([111f431](https://github.com/wKoza/ngx-upload/commit/111f431))
+
+
+
 <a name="1.0.0-alpha.5"></a>
 # [1.0.0-alpha.5](https://github.com/wKoza/ngx-upload/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2017-08-09)
 
