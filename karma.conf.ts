@@ -43,6 +43,9 @@ export default config => {
           enforce: 'post'
         }]
       },
+      node: {
+        fs: 'empty'
+      },
       plugins: [
         new webpack.SourceMapDevToolPlugin({
           filename: null,

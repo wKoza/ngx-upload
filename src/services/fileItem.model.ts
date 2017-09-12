@@ -1,4 +1,5 @@
-import {UploadService} from './upload.service';
+import { AbstractUploadService } from './abstractUpload.service';
+import { NgxUploadLogger } from '../utils/logger.model';
 
 export class FileItem {
 
@@ -16,28 +17,27 @@ export class FileItem {
 
   ɵxhr: XMLHttpRequest;
 
-  constructor(public file: File, private uploadService: UploadService) {
+  constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger) {
   }
 
   upload() {
     console.log('upload item');
     this.uploadService.uploadFileItem(this).subscribe(
-      (res: Response) => console.log(res.status),
+      (res: Response) => this.logger.debug(res.status),
       (err) => {
-        console.log('err cb');
-        console.log(err)
+        this.logger.error(err);
       },
-      () => console.log('complete')
+      () => this.logger.debug('complete')
     );
   }
 
   cancel() {
-    console.log('upload cancel');
+    this.logger.debug('upload cancel');
     this.uploadService.cancelFileItem(this);
   }
 
   remove() {
-    console.log('upload remove');
+    this.logger.debug('upload remove');
     this.uploadService.removeFromQueue(this);
   }
 
@@ -65,7 +65,6 @@ export class FileItem {
     this.isCancel = false;
     this.isError = false;
     this.progress = 100;
-    // this.index = null;
     this.onSuccess(response, status, headers);
   }
 
@@ -77,7 +76,6 @@ export class FileItem {
     this.isCancel = false;
     this.isError = true;
     this.progress = 0;
-    // this.index = null;
     this.onError(response, status, headers);
   }
 
@@ -89,7 +87,6 @@ export class FileItem {
     this.isCancel = true;
     this.isError = false;
     this.progress = 0;
-    // this.index = null;
     this.onCancel(response, status, headers);
   }
 

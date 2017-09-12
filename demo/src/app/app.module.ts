@@ -1,16 +1,19 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {Routes, RouterModule} from '@angular/router';
-import {DropTargetOptions, NgxUploadModule, UploadOptions} from '@wkoza/ngx-upload';
+import {
+  DropTargetOptions, HttpClientUploadService, LoggerOptions, NgxUploadModule, UploadOptions,
+  XhrUploadService
+} from '@wkoza/ngx-upload';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SimpleBootstrapComponent} from './bootstrap/simple.component';
 import {SimpleMaterialComponent} from './material/simple.component';
 import {MaterialModule} from './material/material.module';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {path: '', redirectTo: 'simple-bootstrap', pathMatch: 'full'},
@@ -20,7 +23,8 @@ const routes: Routes = [
 
 const uploadOptions: UploadOptions = {
   method : 'POST',
-  url: 'ngx_upload_mock'
+  url: 'ngx_upload_mock', // 'http://localhost:8090/upload'
+  httpStrategy: HttpClientUploadService
 };
 
 export const ngxDropTargetOptions: DropTargetOptions = {
@@ -28,6 +32,11 @@ export const ngxDropTargetOptions: DropTargetOptions = {
   colorDrag: 'dropZoneColorDrag',
   colorDrop: 'dropZoneColorDrop'
 };
+
+export const loggerOptions: LoggerOptions = {
+  enabled: true,
+  debug: true
+}
 
 @NgModule({
   declarations: [
@@ -38,9 +47,10 @@ export const ngxDropTargetOptions: DropTargetOptions = {
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+      HttpClientModule,
+  //  HttpModule,
     RouterModule.forRoot(routes, {useHash: true}),
-    NgxUploadModule.forRoot(uploadOptions, ngxDropTargetOptions),
+    NgxUploadModule.forRoot(uploadOptions, ngxDropTargetOptions, loggerOptions),
     NgbModule.forRoot(),
     MaterialModule
   ],
