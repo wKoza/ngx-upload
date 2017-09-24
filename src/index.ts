@@ -1,4 +1,4 @@
-import {isDevMode, ModuleWithProviders, NgModule} from '@angular/core';
+import { isDevMode, ModuleWithProviders, NgModule } from '@angular/core';
 
 import {
     DropTargetOptions,
@@ -11,12 +11,17 @@ import {
     ngxloggerOptions,
     UploadOptions
 } from './utils/configuration.model';
-import {NgxDragAndDropDirective} from './directives/dropzone.directive';
-import {ConsoleLogger, NgxUploadLogger, NoOpLogger} from './utils/logger.model';
-import {UploadService} from './services/upload.service';
+import { NgxDragAndDropDirective } from './directives/dropzone.directive';
+import { ConsoleLogger, NgxUploadLogger, NoOpLogger } from './utils/logger.model';
+import { XhrUploadService } from './services/xhrUpload.service';
+import { HttpClientUploadService } from './services/httpClientUpload.service';
 
-export {UploadService} from './services/upload.service';
-export {DropTargetOptions, UploadOptions, LoggerOptions} from './utils/configuration.model';
+export { DropTargetOptions, UploadOptions, LoggerOptions } from './utils/configuration.model';
+export { FileItem } from './services/fileItem.model';
+export { XhrUploadService } from './services/xhrUpload.service';
+export { HttpClientUploadService } from './services/httpClientUpload.service';
+export { UploadService } from './utils/configuration.model';
+
 
 const ngxDeclarations = [
     NgxDragAndDropDirective
@@ -64,9 +69,10 @@ export class NgxUploadModule {
                 {
                     provide: NgxUploadLogger,
                     useFactory: _loggerFactory,
-                    deps: [NGX_UPLOAD_OPTIONS]
+                    deps: [NGX_LOGGER_OPTIONS]
                 },
-                UploadService
+                XhrUploadService,
+                HttpClientUploadService
             ]
         }
 

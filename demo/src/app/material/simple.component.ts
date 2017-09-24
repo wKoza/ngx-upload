@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {UploadService} from '@wkoza/ngx-upload';
+
 import {Person} from './person.model';
-import {DropTargetOptions} from '@wkoza/ngx-upload';
+import { DropTargetOptions, XhrUploadService } from '@wkoza/ngx-upload';
+
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class SimpleMaterialComponent implements OnInit {
     colorDrop : 'dropZoneColorDropMaterial'
   };
 
-  constructor(public uploader: UploadService) {
+  constructor(public uploader: XhrUploadService) {
   }
 
   ngOnInit() {

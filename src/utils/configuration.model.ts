@@ -1,6 +1,11 @@
-import {InjectionToken} from '@angular/core';
+import { InjectionToken } from '@angular/core';
+
+import { XhrUploadService } from '../services/xhrUpload.service';
+import { HttpClientUploadService } from '../services/httpClientUpload.service';
 
 export type Method = 'POST' | 'GET';
+
+export type UploadService = typeof XhrUploadService | typeof HttpClientUploadService;
 
 export interface DropTargetOptions {
     color: string,
@@ -14,8 +19,9 @@ export interface LoggerOptions {
 }
 
 export interface UploadOptions {
-   method?: Method,
-   url: string
+    method?: Method,
+    url: string,
+    httpStrategy?: UploadService
 }
 
 
@@ -31,11 +37,12 @@ export const ngxDropTargetOptions: DropTargetOptions = {
 };
 
 export const ngxloggerOptions: LoggerOptions = {
-    enabled : false,
+    enabled: false,
     debug: true
 };
 
 export const ngxUploadOptions: UploadOptions = {
-    method : 'POST',
-    url: 'ngx_upload_mock'
+    method: 'POST',
+    url: 'ngx_upload_mock',
+    httpStrategy: XhrUploadService
 };

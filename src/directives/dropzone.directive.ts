@@ -7,12 +7,15 @@ import {
     OnInit,
     Output,
     Renderer2,
-    Inject
+    Inject, Injector
 } from '@angular/core';
-import {UploadService} from '../services/upload.service';
-import {NgForm} from '@angular/forms';
-import {DropTargetOptions, NGX_DROP_TARGET_OPTIONS} from '../utils/configuration.model';
-import {NgxUploadLogger} from '../utils/logger.model';
+import { NgForm } from '@angular/forms';
+import {
+    DropTargetOptions, NGX_DROP_TARGET_OPTIONS, NGX_UPLOAD_OPTIONS,
+    UploadOptions
+} from '../utils/configuration.model';
+import { NgxUploadLogger } from '../utils/logger.model';
+import { AbstractUploadService } from '../services/abstractUpload.service';
 
 
 /**
@@ -24,11 +27,13 @@ import {NgxUploadLogger} from '../utils/logger.model';
 })
 export class NgxDragAndDropDirective implements OnInit {
 
+    uploader: AbstractUploadService;
+
     @Input()
-    set ngxDragAndDrop(options: DropTargetOptions) {
-        if (options) {
-            this.logger.debug(JSON.stringify(options));
-            this.options = options;
+    set ngxDragAndDrop(dropOptions: DropTargetOptions) {
+        if (dropOptions) {
+            this.logger.debug(JSON.stringify(dropOptions));
+            this.dropOptions = dropOptions;
         }
     }
 
@@ -37,29 +42,33 @@ export class NgxDragAndDropDirective implements OnInit {
     @Output() onDrop = new EventEmitter();
 
     ngOnInit(): void {
-        this.renderer.addClass(this.el.nativeElement, this.options.color);
+        this.renderer.addClass(this.el.nativeElement, this.dropOptions.color);
+        this.logger.info('strategy : ' + this.uploadOptions.httpStrategy !.toString());
+        this.uploader = this.injector.get(this.uploadOptions.httpStrategy);
     }
 
     constructor(private el: ElementRef,
                 private renderer: Renderer2,
-                private uploader: UploadService,
+                private injector: Injector,
                 private logger: NgxUploadLogger,
-                @Inject(NGX_DROP_TARGET_OPTIONS) private options: DropTargetOptions) { }
+                @Inject(NGX_DROP_TARGET_OPTIONS) private dropOptions: DropTargetOptions,
+                @Inject(NGX_UPLOAD_OPTIONS) private uploadOptions: UploadOptions) {
+    }
 
 
     @HostListener('dragleave', ['$event']) onDragLeave(event: DragEvent) {
-        this.logger.info('dragleave event');
-        this.renderer.removeClass(this.el.nativeElement, this.options.colorDrag);
-        this.renderer.removeClass(this.el.nativeElement, this.options.colorDrop);
-        this.renderer.addClass(this.el.nativeElement, this.options.color);
+        this.logger.debug('dragleave event');
+        this.renderer.removeClass(this.el.nativeElement, this.dropOptions.colorDrag);
+        this.renderer.removeClass(this.el.nativeElement, this.dropOptions.colorDrop);
+        this.renderer.addClass(this.el.nativeElement, this.dropOptions.color);
         this.stopAndPrevent(event);
     }
 
     @HostListener('drop', ['$event']) dropEvent(event: Event) {
-        this.logger.info('drop event');
-        this.renderer.removeClass(this.el.nativeElement, this.options.color);
-        this.renderer.removeClass(this.el.nativeElement, this.options.colorDrag);
-        this.renderer.addClass(this.el.nativeElement, this.options.colorDrop);
+        this.logger.debug('drop event');
+        this.renderer.removeClass(this.el.nativeElement, this.dropOptions.color);
+        this.renderer.removeClass(this.el.nativeElement, this.dropOptions.colorDrag);
+        this.renderer.addClass(this.el.nativeElement, this.dropOptions.colorDrop);
         const transfer = this.getTransfer(event);
         if (!transfer) {
             return;
@@ -68,16 +77,16 @@ export class NgxDragAndDropDirective implements OnInit {
         transfer.dropEffect = 'copy';
         this.onDrop.next(droppedFiles);
         this.stopAndPrevent(event);
-        this.uploader.addToQueue(transfer.files, this.formBinded.form);
+        this.uploader.addToQueue(transfer.files, this.formBinded ? this.formBinded.form : null);
     }
 
 
     @HostListener('dragover', ['$event'])
     onDragOver(event: DragEvent) {
-        this.logger.info('dragover event');
-        this.renderer.removeClass(this.el.nativeElement, this.options.color);
-        this.renderer.removeClass(this.el.nativeElement, this.options.colorDrop);
-        this.renderer.addClass(this.el.nativeElement, this.options.colorDrag);
+        this.logger.debug('dragover event');
+        this.renderer.removeClass(this.el.nativeElement, this.dropOptions.color);
+        this.renderer.removeClass(this.el.nativeElement, this.dropOptions.colorDrop);
+        this.renderer.addClass(this.el.nativeElement, this.dropOptions.colorDrag);
         const transfer = this.getTransfer(event);
         if (!this.haveFiles(transfer.types)) {
             return;
@@ -85,7 +94,7 @@ export class NgxDragAndDropDirective implements OnInit {
         this.stopAndPrevent(event);
     }
 
-    private stopAndPrevent(event: Event) {
+    private stopAndPrevent(event: Event): void {
         event.stopPropagation();
         event.preventDefault();
     }
@@ -94,7 +103,7 @@ export class NgxDragAndDropDirective implements OnInit {
         return event.dataTransfer ? event.dataTransfer : event.originalEvent.dataTransfer;
     }
 
-    private haveFiles(types: any) {
+    private haveFiles(types: any): boolean {
         if (!types) {
             return false;
         }

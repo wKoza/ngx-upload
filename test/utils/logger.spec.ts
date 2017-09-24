@@ -1,8 +1,8 @@
 import {TestBed, async, inject} from '@angular/core/testing';
 import {BrowserModule} from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
-import {ConsoleLogger, NgxUploadLogger, NoOpLogger} from '../../../src/utils/logger.model';
-import {LoggerOptions, NGX_LOGGER_OPTIONS} from '../../../src/utils/configuration.model';
+import {ConsoleLogger, NgxUploadLogger, NoOpLogger} from '../../src/utils/logger.model';
+import {LoggerOptions, NGX_LOGGER_OPTIONS} from '../../src/utils/configuration.model';
 
 
 function _testLoggerFactory(options: LoggerOptions): NgxUploadLogger {

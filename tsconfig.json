@@ -7,11 +7,15 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
     "noImplicitAny": false,
-    "lib": ["es2015", "dom"]
+    "lib": ["es2015", "dom"],
+    "baseUrl": "./node_modules"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/**/*"
   ],
   "exclude": [
     "node_modules",
