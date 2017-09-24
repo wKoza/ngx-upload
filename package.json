@@ -1,6 +1,6 @@
 {
   "name": "@wkoza/ngx-upload",
-  "version": "1.0.0-alpha.7",
+  "version": "1.0.0-beta.0",
   "description": "Upload module for Angular",
   "main": "./bundles/ngx-upload.umd.js",
   "module": "./index.js",
