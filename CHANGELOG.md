@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/wKoza/ngx-upload/compare/v1.0.0-beta.0...v1.0.0) (2017-10-13)
+
+
+### Features
+
+* **docs:** update documentation ([63beece](https://github.com/wKoza/ngx-upload/commit/63beece))
+
+
+
 <a name="1.0.0-beta.0"></a>
 # [1.0.0-beta.0](https://github.com/wKoza/ngx-upload/compare/v1.0.0-alpha.7...v1.0.0-beta.0) (2017-09-24)
 
