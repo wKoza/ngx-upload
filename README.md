@@ -169,25 +169,25 @@ To finish, we can overwrite the `DropTargetOptions` for a specific case due to p
 Each file is added to a queue that you can manage with `uploader` service. Here is an example :
 
 ```html
-<div class="col-md-9" style="margin-bottom: 40px">
+  <div class="col-md-9" style="margin-bottom: 40px">
     <h3>Upload queue <span *ngIf="uploader.queue.length>0"> - {{ uploader.queue.length }} item(s)</span></h3>
 
     <div class="card text-right">
       <div style="margin: 15px">
-        <!-- ngb-progressbar showValue="true" type="success" [striped]="true" [animated]="true"
-                         [value]="uploader.progress"></ngb-progressbar -->
+        <ngb-progressbar showValue="true" type="success" [striped]="true" [animated]="true"
+                         [value]="uploader.progressTotal"></ngb-progressbar>
       </div>
       <div class="card-block">
         <button type="button" class="btn btn-outline-success btn-s" (click)="uploader.uploadAll()"
-                [disabled]="!uploader.getNotUploadedItems().length">
+                [disabled]="!activeUploadAllBtn()">
           Upload all
         </button>
         <button type="button" class="btn btn-outline-warning btn-s" (click)="uploader.cancelAll()"
-                [disabled]="!uploader.isUploading || !uploader.queue.length">
+                [disabled]="!activeCancelAllBtn()">
            Cancel all
         </button>
         <button type="button" class="btn btn-outline-danger btn-s" (click)="uploader.removeAllFromQueue()"
-                [disabled]="!uploader.getNotUploadedItems().length">
+                [disabled]="!activeRemoveAllBtn()">
            Remove all
         </button>
       </div>
@@ -210,21 +210,24 @@ Each file is added to a queue that you can manage with `uploader` service. Here 
           <td>{{ itemFile.file.size/1024/1024 | number:'1.0-2' }} MB</td>
           <td>
             <div>
-              <ngb-progressbar type="success" showValue="true" [striped]="true" [animated]="true"
-                               [value]="itemFile.progress"></ngb-progressbar>
+              <ngb-progressbar type="success" showValue="true"
+                               [striped]="true" [animated]="true"
+                               [value]="itemFile.progress">
+
+              </ngb-progressbar>
             </div>
           </td>
           <td style="text-align: center">
             <button type="button" class="btn btn-outline-success btn-sm" (click)="itemFile.upload()"
-                    [disabled]="itemFile.isReady || itemFile.isUploading || itemFile.isSuccess">
+                    [disabled]="!itemFile.isReady">
                Upload
             </button>
             <button type="button" class="btn btn-outline-warning btn-sm" (click)="itemFile.cancel()"
-                    [disabled]="!itemFile.isUploading">
+                    [disabled]="!itemFile.uploadInProgress || itemFile.isCancel">
              Cancel
             </button>
             <button type="button" class="btn btn-outline-danger btn-sm" (click)="itemFile.remove()"
-                    [disabled]="itemFile.isUploaded">
+                    [disabled]="itemFile.isSuccess || itemFile.uploadInProgress">
               Remove
             </button>
           </td>
@@ -232,6 +235,8 @@ Each file is added to a queue that you can manage with `uploader` service. Here 
         </tbody>
       </table>
     </div>
+
+  </div>
 
 ```
 

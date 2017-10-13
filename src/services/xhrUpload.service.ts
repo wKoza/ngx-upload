@@ -7,6 +7,7 @@ import { NGX_UPLOAD_OPTIONS, UploadOptions } from '../utils/configuration.model'
 import { AbstractUploadService } from './abstractUpload.service';
 
 import 'rxjs/add/observable/of';
+import { Subscription } from 'rxjs/Subscription';
 
 
 // send an event for each upload event. These events can be catched by the user for call a callback
@@ -15,13 +16,15 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class XhrUploadService extends AbstractUploadService {
 
+    private xhr: XMLHttpRequest;
+    sub: Subscription;
 
     constructor(protected logger: NgxUploadLogger, @Inject(NGX_UPLOAD_OPTIONS) options: UploadOptions) {
         super(logger, options);
     }
 
 
-    uploadFileItem(fileItem: FileItem): Observable<Response> {
+    uploadFileItem(fileItem: FileItem): void {
 
         this.logger.info('enter uploadService.uploadFileItem()');
 
@@ -31,57 +34,55 @@ export class XhrUploadService extends AbstractUploadService {
         this.onBeforeUploadItem(item);
 
         if (item.isCancel) {
-            return Observable.of();
+            return;
         }
 
-        item.isUploading = true;
-        this.isUploading = true;
+        item.uploadInProgress = true;
 
-        return new Observable<Response>((responseObserver: Observer<Response>) => {
+        fileItem.sub = new Observable<Response>((responseObserver: Observer<Response>) => {
 
-            const xhr = item.ɵxhr = new XMLHttpRequest();
-            xhr.open(this.method, this.url, true);
+            this.xhr = new XMLHttpRequest();
+            this.xhr.open(this.method, this.url, true);
 
             if (!!this.withCredentials) {
-                xhr.withCredentials = true;
+                this.xhr.withCredentials = true;
             }
 
             // Add all the requested headers.
             this.headers.forEach((values, name) => {
-                xhr.setRequestHeader(name, values.join(','));
+                this.xhr.setRequestHeader(name, values.join(','));
             });
 
             /** load event */
             const onLoad = () => {
 
-                const ok = xhr.status >= 200 && xhr.status < 300;
-                this.isUploading = false;
+                const ok = this.xhr.status >= 200 && this.xhr.status < 300;
 
                 if (this.url === 'ngx_upload_mock') {
                     // A successful response is delivered on the event stream.
-                    responseObserver.next(xhr.response);
-                    this.onSuccess(item, xhr.response, xhr.status, xhr.getAllResponseHeaders());
+                    responseObserver.next(this.xhr.response);
+                    this.onSuccess(item, this.xhr.response, this.xhr.status, this.xhr.getAllResponseHeaders());
                     // The full body has been received and delivered, no further events
                     // are possible. This request is complete.
                     responseObserver.complete();
                 } else if (ok) {
                     // A successful response is delivered on the event stream.
-                    responseObserver.next(xhr.response);
-                    this.onSuccess(item, xhr.response, xhr.status, xhr.getAllResponseHeaders());
+                    responseObserver.next(this.xhr.response);
+                    this.onSuccess(item, this.xhr.response, this.xhr.status, this.xhr.getAllResponseHeaders());
                     // The full body has been received and delivered, no further events
                     // are possible. This request is complete.
                     responseObserver.complete();
                 } else {
                     // An unsuccessful request is delivered on the error channel.
-                    responseObserver.error(xhr.response);
-                    this.onError(item, xhr.response, xhr.status, xhr.getAllResponseHeaders());
+                    responseObserver.error(this.xhr.response);
+                    this.onError(item, this.xhr.response, this.xhr.status, this.xhr.getAllResponseHeaders());
                 }
             };
 
             // error event handler
             const onError = (err: ErrorEvent) => {
-                responseObserver.error(xhr.response);
-                this.onError(item, xhr.response, xhr.status, xhr.getAllResponseHeaders());
+                responseObserver.error(this.xhr.response);
+                this.onError(item, this.xhr.response, this.xhr.status, this.xhr.getAllResponseHeaders());
             };
 
             /**
@@ -91,14 +92,14 @@ export class XhrUploadService extends AbstractUploadService {
             const onProgress = (event) => {
                 const progress = Math.round(event.lengthComputable ? event.loaded * 100 / event.total : 0);
                 this.logger.debug('progress : ' + progress);
-                // this.onProgressItem(item, progress);
+                this.onProgressItem(item, progress);
             };
 
 
             // By default, register for load and error events.
-            xhr.addEventListener('load', onLoad);
-            xhr.addEventListener('error', onError);
-            xhr.upload.addEventListener('progress', onProgress);
+            this.xhr.addEventListener('load', onLoad);
+            this.xhr.addEventListener('error', onError);
+            this.xhr.upload.addEventListener('progress', onProgress);
 
             let sendable;
 
@@ -111,21 +112,25 @@ export class XhrUploadService extends AbstractUploadService {
                 sendable = item.file;
             }
 
-            xhr.send(sendable);
+            this.xhr.send(sendable);
 
-            // This is the return from the Observable function, which is the
-            // request cancellation handler.
             return () => {
                 // On a cancellation, remove all registered event listeners.
-                xhr.removeEventListener('error', onError);
-                xhr.removeEventListener('load', onLoad);
-                xhr.upload.removeEventListener('progress', onProgress);
+                console.log('stop !!!!@');
+                this.xhr.removeEventListener('error', onError);
+                this.xhr.removeEventListener('load', onLoad);
+                this.xhr.upload.removeEventListener('progress', onProgress);
                 // Finally, abort the in-flight request.
-                xhr.abort();
+                this.xhr.abort();
             };
-        });
+        }).subscribe();
     }
 
+
+    cancelFileItem(fileItem: FileItem) {
+        this.progressTotal = this.computeTotalProgress();
+        this.onCancel$.next(fileItem);
+    }
 
 }
 

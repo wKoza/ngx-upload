@@ -91,9 +91,8 @@ describe('HttpClientUploadService', () => {
         const fileItem = httpClientUploadService.queue[0] as FileItem;
         fileItem.ɵonBeforeUploadItem();
 
-        expect(fileItem.isUploading).toBe(false);
+        expect(fileItem.uploadInProgress).toBe(false);
         expect(fileItem.isReady).toBe(true);
-        expect(fileItem.isUploaded).toBe(false);
         expect(fileItem.isSuccess).toBe(false);
         expect(fileItem.isCancel).toBe(false);
         expect(fileItem.isError).toBe(false);
@@ -117,7 +116,6 @@ describe('HttpClientUploadService', () => {
         expect(httpClientUploadService.queue.length).toBe(3);
         httpClientUploadService.removeAllFromQueue();
         expect(httpClientUploadService.queue.length).toBe(0);
-
     });
 
 
@@ -125,21 +123,17 @@ describe('HttpClientUploadService', () => {
         const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'),new FileAPI.File('./image2.jpg'),new FileAPI.File('./image3.jpg'));
         httpClientUploadService.addToQueue(files, null);
         expect(httpClientUploadService.queue.length).toBe(3);
-        expect(httpClientUploadService.getNotUploadedItems().length).toBe(3);
-
+        expect(httpClientUploadService.queue.filter(item => (item.isReady)).length).toBe(3);
     });
 
     it('should upload fileItem ', () => {
         const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
         httpClientUploadService.addToQueue(files, null);
-        httpClientUploadService.uploadFileItem(httpClientUploadService.queue[0]).subscribe((res) => {
-             expect(1).toEqual(1);
-        });
+        httpClientUploadService.uploadFileItem(httpClientUploadService.queue[0]);
 
-        const req = httpMock.expectOne('ngx_upload_mock')
+        const req = httpMock.expectOne('ngx_upload_mock');
         expect(req.request.method).toEqual('POST');
         req.flush('success');
-
     });
 
 });

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import {Person} from './person.model';
 import { FileItem, HttpClientUploadService, XhrUploadService } from '@wkoza/ngx-upload';
@@ -17,11 +17,14 @@ export class SimpleBootstrapComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this.uploader.queue = [];
+
         this.model = new Person();
 
         this.uploader.onCancel$.subscribe(
             (data: FileItem) => {
-                console.log('file deleted: ' + data.file);
+                console.log('file canceled: ' + data.file.name);
 
             });
 
@@ -41,14 +44,16 @@ export class SimpleBootstrapComponent implements OnInit {
 
     }
 
-
-    onDrop(data: File) {
-        console.log('dropped:', this.parseFile(data[0]))
+    activeRemoveAllBtn(): boolean {
+        return this.uploader.queue.some(item => (item.isReady || item.isCancel || item.isError));
     }
 
+    activeUploadAllBtn(): boolean {
+        return this.uploader.queue.some(item => (item.isReady));
+    }
 
-    parseFile(file) {
-        return (`File information: ${file.name} | type: ${file.type} | size: ${file.size} bytes`);
+    activeCancelAllBtn(): boolean {
+        return this.uploader.queue.some((item: FileItem) => item.uploadInProgress);
     }
 
 

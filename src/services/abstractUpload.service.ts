@@ -1,5 +1,4 @@
 import { FileItem } from './fileItem.model';
-import { Observable } from 'rxjs/Observable';
 import { FormGroup } from '@angular/forms';
 import { NgxUploadLogger } from '../utils/logger.model';
 import { Method, UploadOptions } from '../utils/configuration.model';
@@ -9,7 +8,6 @@ import { Subject } from 'rxjs/Subject';
 export abstract class AbstractUploadService {
 
     queue: FileItem[];
-    isUploading: boolean;
     progressTotal = 0;
     method: Method;
     url: string;
@@ -28,9 +26,9 @@ export abstract class AbstractUploadService {
     public onProgress$ = new Subject<{ item: FileItem, progress: number }>(); // https://embed.plnkr.co/P8xCEwSKgcOg07pwDrlO/
 
 
+
     constructor(protected logger: NgxUploadLogger, options: UploadOptions) {
         this.queue = new Array<FileItem>();
-        this.isUploading = false;
         this.method = options.method !;
         this.url = options.url;
         this.headers = new Map();
@@ -60,23 +58,16 @@ export abstract class AbstractUploadService {
     }
 
 
-    abstract uploadFileItem(fileItem: FileItem, options?: any): Observable<any>;
+    abstract uploadFileItem(fileItem: FileItem, options?: any): void;
 
 
-    cancelFileItem(fileItem: FileItem) {
-        fileItem.isCancel = true;
-        if (fileItem.isUploading) {
-            fileItem.ɵxhr.abort();
-        }
-        fileItem.ɵonCancel(fileItem.ɵxhr.response, fileItem.ɵxhr.status, fileItem.ɵxhr.response.headers);
-        this.onCancel$.next(fileItem)
-    }
+    abstract cancelFileItem(fileItem: FileItem): void;
 
     /**
      * Uploads all not uploaded items of queue
      */
     uploadAll() {
-        const items = this.getNotUploadedItems().filter(item => !item.isUploading);
+        const items = this.queue.filter(item => (item.isReady));
         if (!items.length) {
             return;
         }
@@ -90,7 +81,7 @@ export abstract class AbstractUploadService {
      * Uploads all not uploaded items of queue
      */
     cancelAll() {
-        const items: FileItem[] = this.getNotUploadedItems();
+        const items: FileItem[] = this.queue.filter(item => (item.uploadInProgress));
         if (!items.length) {
             return;
         }
@@ -98,13 +89,14 @@ export abstract class AbstractUploadService {
         for (const item of items) {
             item.cancel();
         }
+        this.progressTotal = this.computeTotalProgress();
     }
 
     /**
      * Uploads all not uploaded items of queue
      */
     removeAllFromQueue() {
-        const items: FileItem[] = this.getNotUploadedItems();
+        const items: FileItem[] = this.queue.filter(item => (!item.uploadInProgress && !item.isSuccess));
         if (!items.length) {
             return;
         }
@@ -117,20 +109,14 @@ export abstract class AbstractUploadService {
     removeFromQueue(fileItem: FileItem) {
         const index = this.queue.indexOf(fileItem);
         const item = this.queue[index];
-        if (item.isUploading) {
+        if (item.uploadInProgress) {
             item.cancel();
         }
         this.queue.splice(index, 1);
-        this.progressTotal = this.getTotalProgress();
+        this.progressTotal = this.computeTotalProgress();
     }
 
-    /**
-     * Returns not uploaded items
-     * @returns {Array}
-     */
-    public getNotUploadedItems() {
-        return this.queue.filter(item => !item.isUploaded);
-    }
+
 
 
     /**
@@ -139,16 +125,17 @@ export abstract class AbstractUploadService {
      * @returns {Number}
      * @private
      */
-    getTotalProgress(value?) {
-
-        const notUploaded = this.getNotUploadedItems().length;
-        const uploaded = notUploaded ? this.queue.length - notUploaded : this.queue.length;
-        const ratio = 100 / this.queue.length;
-        const current = (value || 0) * ratio / 100;
-
-        this.logger.info('getTotalProgress : ' + Math.round(uploaded * ratio + current));
-
-        return Math.round(uploaded * ratio + current);
+    computeTotalProgress(): number {
+        let totalCurrent = 0;
+        let total = 0;
+        for (const item of this.queue) {
+            if (item.uploadInProgress || item.isSuccess) {
+                totalCurrent += (item.file.size / 100) * item.progress || 0;
+                total += item.file.size;
+                console.log(totalCurrent + ' / ' + total);
+            }
+        }
+        return Math.round((totalCurrent * 100) / total);
     }
 
 
@@ -169,7 +156,7 @@ export abstract class AbstractUploadService {
      */
     protected onProgressItem(item: FileItem, progress: number): void {
         this.logger.info(`call onProgressItem ${item} ${progress}`);
-        this.progressTotal = this.getTotalProgress(progress);
+        this.progressTotal = this.computeTotalProgress();
         item.ɵonProgress(progress);
         this.onProgress$.next({item, progress});
     }
@@ -181,7 +168,7 @@ export abstract class AbstractUploadService {
      */
     protected onError(item: FileItem, body: any, status: number, headers: any) {
         this.logger.info(`call onError ${item} ${body} ${status} ${headers}`);
-        item.ɵonError(body, status, headers);
+        item.ɵonError();
         this.onError$.next({item, body, status, headers});
     }
 
@@ -190,9 +177,10 @@ export abstract class AbstractUploadService {
      * @param item
      * @param xhr
      */
-    protected onSuccess(item: FileItem, body: any, status: number, headers: any) { // TODO headers n'est pas any
+    protected onSuccess(item: FileItem, body: any, status: number, headers: any) { // TODO headers is not any
         this.logger.info(`call onSuccess ${item} ${body} ${status} ${headers}`);
-        item.ɵonSuccess(body, status, headers);
+        this.progressTotal = this.computeTotalProgress();
+        item.ɵonSuccess();
         this.onSuccess$.next({item, body, status, headers});
     }
 
