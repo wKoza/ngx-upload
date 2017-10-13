@@ -1,114 +1,84 @@
 import { AbstractUploadService } from './abstractUpload.service';
 import { NgxUploadLogger } from '../utils/logger.model';
+import { Subscription } from 'rxjs/Subscription';
 
 export class FileItem {
 
-  isUploading: boolean;
-  isReady: boolean;
-  isUploaded: boolean;
-  isSuccess: boolean;
-  isCancel: boolean;
-  isError: boolean;
-  progress = 0;
+    uploadInProgress: boolean;
+    isReady = true;
+    isSuccess: boolean;
+    isCancel: boolean;
+    isError: boolean;
+    progress = 0;
 
-  formData: FormData = new FormData();
+    formData: FormData = new FormData();
 
-  alias = 'file';
+    alias = 'file';
 
-  ɵxhr: XMLHttpRequest;
+    sub: Subscription;
 
-  constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger) {
-  }
+    constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger) {
+    }
 
-  upload() {
-    console.log('upload item');
-    this.uploadService.uploadFileItem(this).subscribe(
-      (res: Response) => this.logger.debug(res.status),
-      (err) => {
-        this.logger.error(err);
-      },
-      () => this.logger.debug('complete')
-    );
-  }
+    upload() {
+        console.log('upload item');
+        this.uploadService.uploadFileItem(this);
+    }
 
-  cancel() {
-    this.logger.debug('upload cancel');
-    this.uploadService.cancelFileItem(this);
-  }
+    cancel() {
+        this.logger.debug('upload cancel');
+        if (this.uploadInProgress) {
+            this.ɵonCancel();
+            this.uploadService.cancelFileItem(this);
+        }
+    }
 
-  remove() {
-    this.logger.debug('upload remove');
-    this.uploadService.removeFromQueue(this);
-  }
+    remove() {
+        this.logger.debug('upload remove');
+        this.uploadService.removeFromQueue(this);
+    }
 
-  ɵonBeforeUploadItem() {
-    this.isReady = true;
-    this.isUploading = false;
-    this.isUploaded = false;
-    this.isSuccess = false;
-    this.isCancel = false;
-    this.isError = false;
-    this.progress = 0;
-    this.onBeforeUpload();
-  }
+    ɵonBeforeUploadItem() {
+        this.isReady = true;
+        this.uploadInProgress = false;
+        this.isSuccess = false;
+        this.isCancel = false;
+        this.isError = false;
+        this.progress = 0;
+    }
 
-  ɵonProgress(progress: number) {
-    this.progress = progress;
-    this.onProgress(progress);
-  }
+    ɵonProgress(progress: number) {
+        this.isReady = false;
+        this.progress = progress;
+    }
 
-  ɵonSuccess(response, status, headers) {
-    this.isReady = false;
-    this.isUploading = false;
-    this.isUploaded = true;
-    this.isSuccess = true;
-    this.isCancel = false;
-    this.isError = false;
-    this.progress = 100;
-    this.onSuccess(response, status, headers);
-  }
+    ɵonSuccess() {
+        this.isReady = false;
+        this.uploadInProgress = false;
+        this.isSuccess = true;
+        this.isCancel = false;
+        this.isError = false;
+        this.progress = 100;
+    }
 
-  ɵonError(response, status, headers) {
-    this.isReady = false;
-    this.isUploading = false;
-    this.isUploaded = true;
-    this.isSuccess = false;
-    this.isCancel = false;
-    this.isError = true;
-    this.progress = 0;
-    this.onError(response, status, headers);
-  }
+    ɵonError() {
+        this.isReady = false;
+        this.uploadInProgress = false;
+        this.isSuccess = false;
+        this.isCancel = false;
+        this.isError = true;
+        this.progress = 0;
+    }
 
-  ɵonCancel(response, status, headers) {
-    this.isReady = false;
-    this.isUploading = false;
-    this.isUploaded = false;
-    this.isSuccess = false;
-    this.isCancel = true;
-    this.isError = false;
-    this.progress = 0;
-    this.onCancel(response, status, headers);
-  }
+    ɵonCancel() {
+        this.isReady = true;
+        this.uploadInProgress = false;
+        this.isSuccess = false;
+        this.isCancel = true;
+        this.isError = false;
+        this.progress = 0;
+        this.sub.unsubscribe();
+    }
 
-  /**
-   * Callback
-   * @private
-   */
-  onBeforeUpload() {
-  }
-
-  onProgress(progress: number) {
-  }
-
-  onSuccess(response, status, headers) {
-  }
-
-
-  onError(response, status, headers) {
-  }
-
-
-  onCancel(response, status, headers) {
-  }
 
 }

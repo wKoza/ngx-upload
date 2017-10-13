@@ -20,7 +20,7 @@
     <div class="col-md-3">
       <h3>Add files</h3>
       <div>
-        <div class="my-drop-zone" [ngxDragAndDrop]="options" (onDrop)="onDrop($event)" [formBinded]="myForm">
+        <div class="my-drop-zone" [ngxDragAndDrop]="options" [formBinded]="myForm">
           Drop files here to upload
         </div>
       </div>
@@ -31,27 +31,24 @@
 
       <md-card class="text-right">
         <div style="margin: 15px">
-
-
-          <!-- md-progress-bar
+          <md-progress-bar
             [color]="'primary'"
             [mode]="'determinate'"
-            [value]="uploader.progress">
-          </md-progress-bar -->
-
+            [value]="uploader.progressTotal">
+          </md-progress-bar>
 
         </div>
         <div class="card-block">
           <button md-raised-button [color]="'primary'" (click)="uploader.uploadAll()"
-                  [disabled]="!uploader.getNotUploadedItems().length">
+                  [disabled]="!activeUploadAllBtn()">
             Upload all
           </button>
           <button md-raised-button [color]="'accent'" (click)="uploader.cancelAll()"
-                  [disabled]="!uploader.isUploading || !uploader.queue.length">
+                  [disabled]="!activeCancelAllBtn()">
             Cancel all
           </button>
           <button md-raised-button [color]="'warn'" (click)="uploader.removeAllFromQueue()"
-                  [disabled]="!uploader.getNotUploadedItems().length">
+                  [disabled]="!activeRemoveAllBtn()">
             Remove all
           </button>
         </div>
@@ -86,15 +83,15 @@
               </td>
               <td style="text-align: center">
                 <button md-raised-button [color]="'primary'" (click)="itemFile.upload()"
-                        [disabled]="itemFile.isReady || itemFile.isUploading || itemFile.isSuccess">
+                        [disabled]="!itemFile.isReady">
                   Upload
                 </button>
                 <button md-raised-button [color]="'accent'" (click)="itemFile.cancel()"
-                        [disabled]="!itemFile.isUploading">
+                        [disabled]="!itemFile.uploadInProgress || itemFile.isCancel">
                   Cancel
                 </button>
                 <button md-raised-button [color]="'warn'" (click)="itemFile.remove()"
-                        [disabled]="itemFile.isUploaded">
+                        [disabled]="itemFile.uploadInProgress || itemFile.isSuccess">
                   Remove
                 </button>
               </td>

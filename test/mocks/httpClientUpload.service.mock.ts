@@ -20,5 +20,9 @@ export class HttpClientUploadServiceMock extends AbstractUploadService {
         return Observable.empty();
     }
 
+    cancelFileItem(fileItem: FileItem) {
+
+    }
+
 }
 
