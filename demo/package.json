@@ -5,9 +5,10 @@
   "scripts": {
     "clean": "rimraf doc dist coverage",
     "start": "webpack-dev-server --config webpack.dev.js --inline --progress --profile --port 8080",
-    "build": "npm run clean && webpack --progress --profile --bail --config webpack.release.js",
+    "build": "npm run clean && webpack --progress --profile --bail --config webpack.release.js && npm run build-ie-polyfills",
     "lint": "tslint --force \"src/**/*.ts\"",
     "test": "karma start && remap-istanbul -i coverage/json/coverage-final.json -o coverage/html -t html",
+    "build-ie-polyfills": "node node_modules/webpack/bin/webpack.js -p src/ie-polyfills.js src/generated/ie-polyfills.min.js && copyfiles -f src/generated/ie-polyfills.min.js dist/js",
     "docs": "typedoc --options typedoc.json src/app/app.component.ts"
   },
   "dependencies": {
