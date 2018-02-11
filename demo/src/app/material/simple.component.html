@@ -1,105 +1,111 @@
 <div style="margin-left: 15px; margin-right: 15px; margin-top: 60px">
-  <h1>Simple upload example with Material</h1>
-  <hr>
+    <h1>Simple upload example with Material</h1>
+    <hr>
 
-  <form #myForm="ngForm">
-    <div>
-      <md-input-container class="full-width">
-        <input mdInput placeholder="Name" [(ngModel)]="model.name" name="name">
-      </md-input-container>
-    </div>
-    <div>
-      <md-input-container class="full-width">
-        <input mdInput placeholder="Email" [(ngModel)]="model.email" name="email">
-      </md-input-container>
-    </div>
-  </form>
-
-
-  <div class="form-group row">
-    <div class="col-md-3">
-      <h3>Add files</h3>
-      <div>
-        <div class="my-drop-zone" [ngxDragAndDrop]="options" [formBinded]="myForm">
-          Drop files here to upload
+    <form>
+        <div>
+            <mat-input-container class="full-width">
+                <input matInput placeholder="Name" [(ngModel)]="model.name" name="name">
+            </mat-input-container>
         </div>
-      </div>
-    </div>
+        <div>
 
-    <div class="col-md-9" style="margin-bottom: 40px">
-      <h3>Upload queue <span *ngIf="uploader.queue.length>0"> - {{ uploader.queue.length }} item(s)</span></h3>
-
-      <md-card class="text-right">
-        <div style="margin: 15px">
-          <md-progress-bar
-            [color]="'primary'"
-            [mode]="'determinate'"
-            [value]="uploader.progressTotal">
-          </md-progress-bar>
-
+            <mat-input-container class="full-width">
+                <input matInput placeholder="Email" [(ngModel)]="model.email" name="email">
+            </mat-input-container>
         </div>
-        <div class="card-block">
-          <button md-raised-button [color]="'primary'" (click)="uploader.uploadAll()"
-                  [disabled]="!activeUploadAllBtn()">
-            Upload all
-          </button>
-          <button md-raised-button [color]="'accent'" (click)="uploader.cancelAll()"
-                  [disabled]="!activeCancelAllBtn()">
-            Cancel all
-          </button>
-          <button md-raised-button [color]="'warn'" (click)="uploader.removeAllFromQueue()"
-                  [disabled]="!activeRemoveAllBtn()">
-            Remove all
-          </button>
-        </div>
-      </md-card>
-      <div class="card" style="margin-top: 20px">
 
 
-        <md-card>
-          <table style="font-size: 14px; width:100%">
-            <thead>
-            <tr>
-              <th width="50%">Name</th>
-              <th>Size</th>
-              <th>Progress</th>
-              <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let itemFile of uploader.queue"
-                [ngClass]="{'table-success' : itemFile.isSuccess, 'table-danger' : itemFile.isError, 'table-warning' : itemFile.isUploading  }">
-              <td>{{ itemFile.file.name }}</td>
-              <td>{{ itemFile.file.size/1024/1024 | number:'1.0-2' }} MB</td>
-              <td>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <h3>Add files</h3>
                 <div>
-                  <md-progress-bar
-                    class="example-margin"
-                    [color]="'primary'"
-                    [mode]="'determinate'"
-                    [value]="itemFile.progress">
-                  </md-progress-bar>
+                    <div class="my-drop-zone" [ngxDragAndDrop]="options">
+                        Drop files here to upload
+                    </div>
                 </div>
-              </td>
-              <td style="text-align: center">
-                <button md-raised-button [color]="'primary'" (click)="itemFile.upload()"
-                        [disabled]="!itemFile.isReady">
-                  Upload
-                </button>
-                <button md-raised-button [color]="'accent'" (click)="itemFile.cancel()"
-                        [disabled]="!itemFile.uploadInProgress || itemFile.isCancel">
-                  Cancel
-                </button>
-                <button md-raised-button [color]="'warn'" (click)="itemFile.remove()"
-                        [disabled]="itemFile.uploadInProgress || itemFile.isSuccess">
-                  Remove
-                </button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </md-card>
-      </div>
-    </div>
-  </div>
+            </div>
+
+            <div class="col-md-9" style="margin-bottom: 40px">
+                <h3>Upload queue <span *ngIf="uploader.queue.length>0"> - {{ uploader.queue.length }} item(s)</span>
+                </h3>
+
+                <mat-card class="text-right">
+                    <div style="margin: 15px">
+                        <mat-progress-bar
+                                [color]="'primary'"
+                                [mode]="'determinate'"
+                                [value]="uploader.progressTotal">
+                        </mat-progress-bar>
+
+                    </div>
+                    <div class="card-block">
+                        <button mat-raised-button [color]="'primary'" (click)="uploader.uploadAll()"
+                                [disabled]="!activeUploadAllBtn()">
+                            Upload all
+                        </button>
+                        <button mat-raised-button [color]="'accent'" (click)="uploader.cancelAll()"
+                                [disabled]="!activeCancelAllBtn()">
+                            Cancel all
+                        </button>
+                        <button mat-raised-button [color]="'warn'" (click)="uploader.removeAllFromQueue()"
+                                [disabled]="!activeRemoveAllBtn()">
+                            Remove all
+                        </button>
+                    </div>
+                </mat-card>
+                <div class="card" style="margin-top: 20px">
+
+
+                    <mat-card>
+                        <table style="font-size: 14px; width:100%">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th width="50%">Name</th>
+                                <th>Size</th>
+                                <th>Progress</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let itemFile of uploader.queue"
+                                [ngClass]="{'table-success' : itemFile.isSuccess, 'table-danger' : itemFile.isError, 'table-warning' : itemFile.isUploading  }">
+                                <td>
+                                    <div [ngxThumbnail]="itemFile"></div>
+                                </td>
+                                <td>{{ itemFile.file.name }}</td>
+                                <td>{{ itemFile.file.size/1024/1024 | number:'1.0-2' }} MB</td>
+                                <td>
+                                    <div>
+                                        <mat-progress-bar
+                                                class="example-margin"
+                                                [color]="'primary'"
+                                                [mode]="'determinate'"
+                                                [value]="itemFile.progress">
+                                        </mat-progress-bar>
+                                    </div>
+                                </td>
+                                <td style="text-align: center">
+                                    <button mat-raised-button [color]="'primary'" (click)="itemFile.upload()"
+                                            [disabled]="!itemFile.isReady">
+                                        Upload
+                                    </button>
+                                    <button mat-raised-button [color]="'accent'" (click)="itemFile.cancel()"
+                                            [disabled]="!itemFile.uploadInProgress || itemFile.isCancel">
+                                        Cancel
+                                    </button>
+                                    <button mat-raised-button [color]="'warn'" (click)="itemFile.remove()"
+                                            [disabled]="itemFile.uploadInProgress || itemFile.isSuccess">
+                                        Remove
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
