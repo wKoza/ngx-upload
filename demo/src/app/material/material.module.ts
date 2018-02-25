@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
-import {MdButtonModule, MdCardModule, MdInputModule, MdProgressBarModule} from '@angular/material';
+
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCardModule, MatInputModule, MatProgressBarModule } from '@angular/material';
 
 
 @NgModule({
-  imports: [BrowserAnimationsModule, MdButtonModule, MdInputModule, MdProgressBarModule, MdCardModule],
-  exports: [BrowserAnimationsModule, MdButtonModule, MdInputModule, MdProgressBarModule, MdCardModule],
+  imports: [BrowserAnimationsModule, MatButtonModule, MatInputModule, MatProgressBarModule, MatCardModule],
+  exports: [BrowserAnimationsModule, MatButtonModule, MatInputModule, MatProgressBarModule, MatCardModule],
 })
 export class MaterialModule {
 }

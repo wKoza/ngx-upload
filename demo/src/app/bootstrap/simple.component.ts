@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 
 import {Person} from './person.model';
 import { FileItem, HttpClientUploadService, XhrUploadService } from '@wkoza/ngx-upload';
 
+import * as ts from 'typescript';
 
 @Component({
     selector: 'app-root',
@@ -13,10 +14,12 @@ export class SimpleBootstrapComponent implements OnInit {
 
     model: Person;
 
-    constructor(public uploader: HttpClientUploadService) {
+    constructor(public uploader: HttpClientUploadService, private renderer: Renderer2) {
     }
 
     ngOnInit() {
+
+        console.log(ts.version);
 
         this.uploader.queue = [];
 
@@ -38,9 +41,25 @@ export class SimpleBootstrapComponent implements OnInit {
             (data: any) => {
                 console.log(`upload file successful:  ${data.item} ${data.body} ${data.status} ${data.headers}`);
 
+
+
             }
         );
 
+
+    }
+
+    makeThumbnail(item: FileItem, el: any) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            // get loaded data and render thumbnail.
+            //   document.getElementById("thumbnail").src = e.target.result;
+           // this.renderer.setProperty(el,'src',e.target.result)
+        };
+
+        // read the image file as a data URL.
+        reader.readAsDataURL(item.file);
 
     }
 

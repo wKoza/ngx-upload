@@ -21,11 +21,10 @@ export abstract class AbstractUploadService {
 
     public onCancel$ = new Subject<FileItem>();
     public onError$ = new Subject<{ item: FileItem, body: any, status: number, headers: any }>();
-    public onSuccess$ = new Subject<{ item: FileItem, body: any, status: number, headers: any }>(); // TODO headers n'est pas any mais Array
+    public onSuccess$ = new Subject<{ item: FileItem, body: any, status: number, headers: any }>(); // TODO headers isn't `any` but `Array`
     public onBeforeUploadItem$ = new Subject<FileItem>();
-    public onProgress$ = new Subject<{ item: FileItem, progress: number }>(); // https://embed.plnkr.co/P8xCEwSKgcOg07pwDrlO/
-
-
+    public onProgress$ = new Subject<{ item: FileItem, progress: number }>();
+    public onAddToQueue$ = new Subject<FileItem>();
 
     constructor(protected logger: NgxUploadLogger, options: UploadOptions) {
         this.queue = new Array<FileItem>();
@@ -53,6 +52,8 @@ export abstract class AbstractUploadService {
             }
 
             this.queue.push(fileItem);
+
+            this.onAddToQueue$.next(fileItem);
         }
 
     }
@@ -137,7 +138,6 @@ export abstract class AbstractUploadService {
         }
         return Math.round((totalCurrent * 100) / total);
     }
-
 
     /**
      * Prepares file status before upload

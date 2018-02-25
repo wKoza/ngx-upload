@@ -7,9 +7,9 @@ import {
     OnInit,
     Output,
     Renderer2,
-    Inject, Injector
+    Inject, Injector, Optional
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
 import {
     DropTargetOptions, NGX_DROP_TARGET_OPTIONS, NGX_UPLOAD_OPTIONS,
     UploadOptions
@@ -37,24 +37,32 @@ export class NgxDragAndDropDirective implements OnInit {
         }
     }
 
-    @Input() formBinded: NgForm;
-
     @Output() onDrop = new EventEmitter();
 
-    ngOnInit(): void {
-        this.renderer.addClass(this.el.nativeElement, this.dropOptions.color);
-        this.logger.info('strategy : ' + this.uploadOptions.httpStrategy !.toString());
-        this.uploader = this.injector.get(this.uploadOptions.httpStrategy);
-    }
+    private formGroup: FormGroup | null;
 
     constructor(private el: ElementRef,
                 private renderer: Renderer2,
                 private injector: Injector,
                 private logger: NgxUploadLogger,
                 @Inject(NGX_DROP_TARGET_OPTIONS) private dropOptions: DropTargetOptions,
-                @Inject(NGX_UPLOAD_OPTIONS) private uploadOptions: UploadOptions) {
+                @Inject(NGX_UPLOAD_OPTIONS) private uploadOptions: UploadOptions,
+                @Optional() private ngForm: NgForm, @Optional() private formGroupDirective: FormGroupDirective) {
+
+        if (this.ngForm) {
+            this.formGroup = ngForm.form;
+        } else if (this.formGroupDirective) {
+            this.formGroup = formGroupDirective.form;
+        } else {
+            this.formGroup = null;
+        }
     }
 
+    ngOnInit(): void {
+        this.renderer.addClass(this.el.nativeElement, this.dropOptions.color);
+        this.logger.info('strategy : ' + this.uploadOptions.httpStrategy!.toString());
+        this.uploader = this.injector.get(this.uploadOptions.httpStrategy);
+    }
 
     @HostListener('dragleave', ['$event']) onDragLeave(event: DragEvent) {
         this.logger.debug('dragleave event');
@@ -77,7 +85,7 @@ export class NgxDragAndDropDirective implements OnInit {
         transfer.dropEffect = 'copy';
         this.onDrop.next(droppedFiles);
         this.stopAndPrevent(event);
-        this.uploader.addToQueue(transfer.files, this.formBinded ? this.formBinded.form : null);
+        this.uploader.addToQueue(transfer.files, this.formGroup);
     }
 
 

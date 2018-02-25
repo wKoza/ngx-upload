@@ -15,6 +15,7 @@ import { NgxDragAndDropDirective } from './directives/dropzone.directive';
 import { ConsoleLogger, NgxUploadLogger, NoOpLogger } from './utils/logger.model';
 import { XhrUploadService } from './services/xhrUpload.service';
 import { HttpClientUploadService } from './services/httpClientUpload.service';
+import { NgxThumbnailDirective } from './directives/thumbnail.directive';
 
 export { DropTargetOptions, UploadOptions, LoggerOptions } from './utils/configuration.model';
 export { FileItem } from './services/fileItem.model';
@@ -22,9 +23,8 @@ export { XhrUploadService } from './services/xhrUpload.service';
 export { HttpClientUploadService } from './services/httpClientUpload.service';
 export { UploadService } from './utils/configuration.model';
 
-
 const ngxDeclarations = [
-    NgxDragAndDropDirective
+    NgxDragAndDropDirective, NgxThumbnailDirective
 ];
 
 /**

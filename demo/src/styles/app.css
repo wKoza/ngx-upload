@@ -1,9 +1,8 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 h1 {
   margin: 5px ;
 }
-
-@import '../../../demo/node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
-
 
 .dropZoneColor {
   border: 3px dotted rgba(0,0,0,0.08);
@@ -19,4 +18,3 @@ h1 {
   border: 3px dotted rgba(0,0,0,0.08);
   background-color: rgba(0,0,0,0.12)
 }
-

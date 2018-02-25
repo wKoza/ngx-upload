@@ -144,11 +144,11 @@ In this example, you should also declare these css classes in your own css :
 Ngx-upload offers one directive for your drop zone called `ngxDragAndDrop`. It allows to add the files in the upload queue. During the drop event, it throws an event called `onDrop` that you can catch :
 
 ```html
-<form #myForm="ngForm">
+<form>
 
 ...
 
-<div class="my-drop-zone" ngxDragAndDrop [formBinded]="myForm">
+<div class="my-drop-zone" ngxDragAndDrop>
         Drop files here to upload
 </div>
 
@@ -159,7 +159,7 @@ Ngx-upload offers one directive for your drop zone called `ngxDragAndDrop`. It a
 To finish, we can overwrite the `DropTargetOptions` for a specific case due to property binding :
 
 ```html
-<div class="my-drop-zone" [ngxDragAndDrop]="options" [formBinded]="myForm">
+<div class="my-drop-zone" [ngxDragAndDrop]="options">
         Drop files here to upload
 </div>
 ```
@@ -197,6 +197,7 @@ Each file is added to a queue that you can manage with `uploader` service. Here 
       <table class="table" style="font-size: 14px">
         <thead>
         <tr>
+          <th></th>
           <th width="50%">Name</th>
           <th>Size</th>
           <th>Progress</th>
@@ -206,6 +207,9 @@ Each file is added to a queue that you can manage with `uploader` service. Here 
         <tbody>
         <tr *ngFor="let itemFile of uploader.queue"
             [ngClass]="{'table-success' : itemFile.isSuccess, 'table-danger' : itemFile.isError, 'table-warning' : itemFile.isUploading  }">
+          <td>
+            <div [ngxThumbnail]="itemFile"></div>
+          </td>
           <td>{{ itemFile.file.name }}</td>
           <td>{{ itemFile.file.size/1024/1024 | number:'1.0-2' }} MB</td>
           <td>
