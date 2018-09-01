@@ -2,7 +2,7 @@ import { FileItem } from './fileItem.model';
 import { FormGroup } from '@angular/forms';
 import { NgxUploadLogger } from '../utils/logger.model';
 import { Method, UploadOptions } from '../utils/configuration.model';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 
 export abstract class AbstractUploadService {

@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, EMPTY} from 'rxjs';
 
-import 'rxjs/add/observable/empty';
 import { AbstractUploadService } from '../../src/services/abstractUpload.service';
 import { NgxUploadLogger } from '../../src/utils/logger.model';
 import { NGX_UPLOAD_OPTIONS, UploadOptions } from '../../src/utils/configuration.model';
@@ -17,7 +16,7 @@ export class HttpClientUploadServiceMock extends AbstractUploadService {
 
 
     uploadFileItem(fileItem: FileItem, options?: any): Observable<any> {
-        return Observable.empty();
+        return EMPTY;
     }
 
     cancelFileItem(fileItem: FileItem) {

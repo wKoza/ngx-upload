@@ -1,6 +1,6 @@
 import { AbstractUploadService } from './abstractUpload.service';
 import { NgxUploadLogger } from '../utils/logger.model';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 export class FileItem {
 
