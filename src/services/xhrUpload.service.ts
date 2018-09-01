@@ -1,13 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 import { FileItem } from './fileItem.model';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 import { NgxUploadLogger } from '../utils/logger.model';
 import { NGX_UPLOAD_OPTIONS, UploadOptions } from '../utils/configuration.model';
 import { AbstractUploadService } from './abstractUpload.service';
-
-import 'rxjs/add/observable/of';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, Observer, Observable } from 'rxjs';
 
 
 // send an event for each upload event. These events can be catched by the user for call a callback

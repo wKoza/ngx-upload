@@ -3,8 +3,6 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import {Person} from './person.model';
 import { FileItem, HttpClientUploadService, XhrUploadService } from '@wkoza/ngx-upload';
 
-import * as ts from 'typescript';
-
 @Component({
     selector: 'app-root',
     templateUrl: './simple.component.html',

@@ -12,20 +12,20 @@
     "docs": "typedoc --options typedoc.json src/app/app.component.ts"
   },
   "dependencies": {
-    "@angular/animations": "^5.2.4",
-    "@angular/common": "~5.2.0",
-    "@angular/compiler": "~5.2.0",
-    "@angular/core": "~5.2.0",
-    "@angular/forms": "~5.2.0",
+    "@angular/animations": "~6.1.0",
+    "@angular/common": "~6.1.0",
+    "@angular/compiler": "~6.1.0",
+    "@angular/core": "~6.1.0",
+    "@angular/forms": "~6.1.0",
     "@angular/material": "^5.2.0",
-    "@angular/platform-browser": "~5.2.0",
-    "@angular/platform-browser-dynamic": "~5.2.0",
-    "@angular/router": "~5.2.0",
+    "@angular/platform-browser": "~6.1.0",
+    "@angular/platform-browser-dynamic": "~6.1.0",
+    "@angular/router": "~6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0",
     "@wkoza/ngx-upload": "^1.0.0",
     "core-js": "2.4.1",
-    "rxjs": "5.5.2",
-    "zone.js": "0.8.14"
+    "rxjs": "~6.2.0",
+    "zone.js": "0.8.26"
   },
   "optionalDependencies": {
     "fsevents": "1.0.14"
@@ -33,8 +33,8 @@
   "devDependencies": {
     "@angular-devkit/build-optimizer": "0.0.38",
     "@angular/cdk": "^5.2.0",
-    "@angular/compiler-cli": "~5.2.0",
-    "@angular/language-service": "~5.2.0",
+    "@angular/compiler-cli": "~6.1.0",
+    "@angular/language-service": "~6.1.0",
     "@ngtools/webpack": "1.9.4",
     "@types/jasmine": "2.5.47",
     "@types/node": "6.0.68",
@@ -78,7 +78,7 @@
     "tslint": "5.7.0",
     "tslint-loader": "3.5.3",
     "typedoc": "0.5.10",
-    "typescript": "2.4.2",
+    "typescript": "^2.7.2",
     "url-loader": "0.5.8",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.9.4",

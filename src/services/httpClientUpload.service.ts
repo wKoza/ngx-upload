@@ -4,10 +4,7 @@ import { NgxUploadLogger } from '../utils/logger.model';
 import { NGX_UPLOAD_OPTIONS, UploadOptions } from '../utils/configuration.model';
 import { HttpClient, HttpErrorResponse, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { AbstractUploadService } from './abstractUpload.service';
-
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 // send an event for each upload event. These events can be catched by the user for call a callback
 

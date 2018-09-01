@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/wKoza/ngx-upload/compare/v1.0.0...v1.1.0) (2018-02-11)
+
+
+### Bug Fixes
+
+* **build:** fix travis chrome headless ([#5](https://github.com/wKoza/ngx-upload/issues/5)) ([940d324](https://github.com/wKoza/ngx-upload/commit/940d324))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/wKoza/ngx-upload/compare/v1.0.0-beta.0...v1.0.0) (2017-10-13)
 
