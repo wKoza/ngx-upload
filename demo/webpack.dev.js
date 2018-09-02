@@ -1,28 +1,25 @@
 const commonConfig = require('./webpack.common.js');
-const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-
 const path = require('path');
-const nodeModules = path.join(process.cwd(), 'node_modules');
 
 // Webpack Plugins
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 
 module.exports = webpackMerge(commonConfig, {
 
     devtool: 'cheap-module-source-map',
 
+    mode: 'development',
+
     entry: {
         'polyfills': './src/polyfills.ts',
-        'main': ['./src/main.ts'],
-        'styles': ['./src/styles/app.css']
+        'ie-polyfills': './src/ie-polyfills.ts',
+        'main': ['./src/main.ts', './src/styles/app.css']
     },
 
     output: {
-        path: root('dist'),
         filename: 'js/[name].bundle.js',
         chunkFilename: 'js/[id].chunk.js'
     },
@@ -30,35 +27,56 @@ module.exports = webpackMerge(commonConfig, {
 
     module: {
         rules: [
-            // Loads external css styles into the DOM
+
+            {
+                "test": /\.(eot|svg|cur)$/,
+                "loader": "file-loader",
+                "options": {
+                    "name": "[name].[hash:20].[ext]"
+                }
+            },
+            {
+                "test": /\.(jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
+                "loader": "url-loader",
+                "options": {
+                    "name": "[name].[hash:20].[ext]",
+                    "limit": 10000
+                }
+            },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
                 include: [root('src', 'styles')]
             },
             {
-                test: /\.ts$/,
+                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
                 loaders: ['@ngtools/webpack']
             }
         ]
     },
-
-
-
+    optimization: {
+        splitChunks: {
+            chunks: "async",
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
+            cacheGroups: {
+                vendor: {
+                    name: "vendor",
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    enforce: true
+                }
+            }
+        },
+        minimize: false
+    },
 
     plugins: [
 
-        // Reference: https://webpack.github.io/docs/code-splitting.html
-        // Reference: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
-        new CommonsChunkPlugin({
-            name: "vendor",
-            minChunks: function (module) {
-                return module.resource && module.resource.startsWith(nodeModules)
-            },
-            chunks: [
-                "main"
-            ]
-        }),
 
         new AngularCompilerPlugin({
             mainPath: "./src/main.ts",
@@ -71,17 +89,13 @@ module.exports = webpackMerge(commonConfig, {
         // Reference: https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
             template: './src/index.html',
+            excludeAssets: [/ie-polyfills.*.js/],
             chunksSortMode: function (a, b) {
-                var order = ["polyfills", "vendor", "main", "styles"];
+                const order = ["polyfills", "vendor", "main"];
                 return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
             }
         }),
-
-        // Extract css files
-        // Reference: https://github.com/webpack/extract-text-webpack-plugin
-        // Disabled when in test mode or not in build mode
-        new ExtractTextPlugin({filename: 'css/[name].[hash].css', disable: true}),
-
+        new HtmlWebpackExcludeAssetsPlugin()
     ],
 
     /**
@@ -89,27 +103,26 @@ module.exports = webpackMerge(commonConfig, {
      * Reference: http://webpack.github.io/docs/configuration.html#devserver
      * Reference: http://webpack.github.io/docs/webpack-dev-server.html
      */
-    devServer : {
+    devServer: {
         historyApiFallback: true,
-        watchOptions: { aggregateTimeout: 300, poll: 1000},
-        open: true,
-        overlay: true,
         stats: {
             colors: true,
             hash: true,
             timings: true,
-            chuckModules: false,
+            chunks: false,
+            chunkModules: false,
+            children: false, // listing all children is very noisy in AOT and hides warnings/errors
             modules: true,
             maxModules: 0,
             reasons: false,
             warnings: true,
-            version: false,
-            assets: false,
-            chunks: true,
-            children: false
-        } // none (or false), errors-only, minimal, normal (or true) and verbose
+            assets: false, // listing all assets is very noisy when using assets directories
+            version: false
+        }, // none (or false), errors-only, minimal, normal (or true) and verbose,
+        watchOptions: { aggregateTimeout: 300, poll: 1000 },
+        open:true,
+        overlay: true
     },
-
 
 
     node: {

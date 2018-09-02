@@ -1,12 +1,11 @@
 // root() is defined at the bottom
 const path = require('path');
 const webpack = require('webpack');
+const rxPaths = require('rxjs/_esm5/path-mapping');
 
 // Webpack Plugins
 const autoprefixer = require('autoprefixer');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const rxPaths = require('rxjs/_esm5/path-mapping');
 
 
 if (process.env.ENV != null) {
@@ -20,7 +19,7 @@ module.exports = function makeWebpackConfig() {
      * Reference: http://webpack.github.io/docs/configuration.html
      * This is the object where all configuration gets set
      */
-    var config = {};
+    let config = {};
 
     /**
      * Resolve
@@ -38,24 +37,25 @@ module.exports = function makeWebpackConfig() {
     config.module = {
         rules: [
 
-            // Support for *.json files.
-            {test: /\.json$/, use: 'json-loader'},
-            // For Material
-            {
-                test: /\.svg$/,
-                loader: 'svg-inline-loader'
-            },
-
-            // Support for CSS as raw text
-            // all css in src/style will be bundled in an external css file
             {
                 test: /\.css$/,
                 use: ['to-string-loader', 'css-loader'],
                 exclude: [root('src', 'styles')]
             },
-
+            // For Material
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader'
+            },
+            // Support for *.json files.
+            {test: /\.json$/, loader: 'json-loader'},
             // support for .html as raw text
-            {test: /\.html$/, use: 'raw-loader', exclude: root('src', 'assets')}
+            {test: /\.html$/, loader: 'raw-loader'},
+            {
+                // Remove this when Angular drop System.import()
+                test: /[\/\\]@angular[\/\\]core[\/\\].+\.js$/,
+                parser: {system: true}
+            }
         ]
     };
 

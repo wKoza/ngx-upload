@@ -17,7 +17,6 @@ export class SimpleBootstrapComponent implements OnInit {
 
     ngOnInit() {
 
-        console.log(ts.version);
 
         this.uploader.queue = [];
 

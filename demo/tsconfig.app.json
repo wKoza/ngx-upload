@@ -5,14 +5,19 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "noImplicitAny": false,
+    "sourceMap": true,
     "suppressImplicitAnyIndexErrors": true,
     "lib": ["es2015", "dom"],
+    "baseUrl": "src",
     "typeRoots": [
       "node_modules/@types"
     ]
   },
   "compileOnSave": false,
-  "buildOnSave": false
+  "buildOnSave": false,
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false
+  }
 }

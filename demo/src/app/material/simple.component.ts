@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Person } from './person.model';
-import { DropTargetOptions, FileItem, HttpClientUploadService, XhrUploadService } from '@wkoza/ngx-upload';
+import { DropTargetOptions, FileItem, HttpClientUploadService } from '@wkoza/ngx-upload';
 
 
 @Component({

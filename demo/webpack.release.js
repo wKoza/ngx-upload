@@ -1,34 +1,31 @@
-var commonConfig = require('./webpack.common.js');
+const commonConfig = require('./webpack.common.js');
 
-var path = require('path');
-var webpack = require('webpack');
-var webpackMerge = require('webpack-merge');
-
-const nodeModules = path.join(process.cwd(), 'node_modules');
+const path = require('path');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
 
 // Webpack Plugins
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const ModuleConcatenationPlugin = webpack.optimize.ModuleConcatenationPlugin;
 const NoEmitOnErrorsPlugin = webpack.NoEmitOnErrorsPlugin;
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
-const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
-
-const autoprefixer = require('autoprefixer');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
+const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 
 module.exports = webpackMerge(commonConfig, {
 
     devtool: 'source-map',
 
+    mode: 'production',
 
     entry: {
         'polyfills': './src/polyfills.ts',
-        'main': ['./src/main.ts'],
-        'styles': ['./src/styles/app.css']
+        'ie-polyfills': './src/ie-polyfills.ts',
+        'main': ['./src/main.ts', './src/styles/app.css']
     },
 
     output: {
@@ -39,17 +36,34 @@ module.exports = webpackMerge(commonConfig, {
 
     module: {
         rules: [
+
+            {
+                'test': /\.(eot|svg|cur)$/,
+                'loader': 'file-loader',
+                'options': {
+                    'name': 'assets/[name].[hash:20].[ext]'
+                }
+            },
+            {
+                'test': /\.(jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
+                'loader': 'url-loader',
+                'options': {
+                    'name': 'assets/[name].[hash:20].[ext]',
+                    'limit': 10000
+                }
+            },
+
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader'
-                }),
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader"
+                ],
                 include: [root('src', 'styles')]
             },
             {
                 test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-                loader: '@ngtools/webpack'
+                loaders: ['@ngtools/webpack']
             },
             {
                 test: /\.js$/,
@@ -61,73 +75,91 @@ module.exports = webpackMerge(commonConfig, {
 
         ]
     },
+    optimization: {
+        splitChunks: {
+            chunks: "async",
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
+            cacheGroups: {
+                vendor: {
+                    name: "vendor",
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    enforce: true
+                }
+            }
+        },
+        minimizer: [
+            new UglifyJsWebpackPlugin({
+                parallel: true,
+                sourceMap: true,
+                uglifyOptions: {
+                    output: {
+                        comments: false
+                    },
+                    mangle: true,
+                    compress: {
+                        warnings: false,
+                        conditionals: true,
+                        unused: true,
+                        comparisons: true,
+                        sequences: true,
+                        dead_code: true,
+                        evaluate: true,
+                        if_return: true,
+                        join_vars: true,
+                        negate_iife: false,
+                        pure_getters: true,
+                        passes: 3
+                    }
+                },
+                extractComments: true
+            })
+        ]
+    },
 
     plugins: [
 
+        // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
+        // Only emit files when there are no errors
         new NoEmitOnErrorsPlugin(),
 
         new ProgressPlugin(),
 
-        new CommonsChunkPlugin({
-            name: "vendor",
-            minChunks: function (module) {
-                return module.resource && module.resource.startsWith(nodeModules)
-            },
-            chunks: [
-                "main"
-            ]
-        }),
-        // Extract css files
-        // Reference: https://github.com/webpack/extract-text-webpack-plugin
-        // Disabled when in test mode or not in build mode
-        new ExtractTextPlugin({filename: 'css/[name].[hash].css'}),
+        new OptimizeCssAssetsPlugin(),
 
         new AngularCompilerPlugin({
-            "mainPath": "src/main.ts",
-            "tsConfigPath": "tsconfig.app.json"
+            'mainPath': './src/main.ts',
+            'tsConfigPath': './tsconfig.app.json'
         }),
 
         // Inject script and link tags into html files
         // Reference: https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
             template: './src/index.html',
+            excludeAssets: [/ie-polyfills.*.js/],
             chunksSortMode: function (a, b) {
-                var order = ["polyfills", "vendor", "main", "styles"];
+                const order = ["polyfills", "vendor", "main"];
                 return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
             }
+        }),
+        new HtmlWebpackExcludeAssetsPlugin(),
+
+        // Extract css files
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: '[name].[hash].css',
+            chunkFilename: "[id].[hash].css"
         }),
 
         new ModuleConcatenationPlugin(),
 
-        new PurifyPlugin(),
-
-        // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-        // Minify all javascript, switch loaders to minimizing mode
-        new UglifyJsPlugin({
-            sourceMap: true,
-            beautify: false,
-            output: {
-                comments: false
-            },
-            mangle: {
-                screw_ie8: true
-            },
-            compress: {
-                screw_ie8: true,
-                warnings: false,
-                conditionals: true,
-                unused: true,
-                comparisons: true,
-                sequences: true,
-                dead_code: true,
-                evaluate: true,
-                if_return: true,
-                join_vars: true,
-                negate_iife: false,
-                pure_getters: true,
-                passes: 3
-            }
-        })
+        new PurifyPlugin()
 
     ],
     node: {

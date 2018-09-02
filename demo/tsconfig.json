@@ -4,15 +4,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "skipLibCheck": true,
-    "lib": ["es2015", "dom"],
-    "baseUrl": "./node_modules"
+    "lib": ["es2015", "dom"]
   },
-  "include": [
-    "src/**/*"
-  ],
-
   "compileOnSave": false,
   "buildOnSave": false
 }
