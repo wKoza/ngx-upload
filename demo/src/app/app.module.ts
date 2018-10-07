@@ -25,11 +25,6 @@ const routes: Routes = [
     {path: 'simple-material', component: SimpleMaterialComponent}
 ];
 
-const endpoint: UploadEndPoint = {
-    method: 'POST',
-    url: 'http://localhost:8090/upload' //'ngx_upload_mock' //
-};
-
 export const ngxDropTargetOptions: DropTargetOptions = {
     color: 'dropZoneColor',
     colorDrag: 'dropZoneColorDrag',
@@ -47,7 +42,7 @@ export const ngxDropTargetOptions: DropTargetOptions = {
         FormsModule,
         HttpClientModule,
         RouterModule.forRoot(routes, {useHash: true}),
-        NgxUploadModule.forRoot(HttpClientUploadService, ngxDropTargetOptions),
+        NgxUploadModule.forRoot(ngxDropTargetOptions),
         NgbModule.forRoot(),
         BrowserAnimationsModule,
         MatFormFieldModule,

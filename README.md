@@ -36,50 +36,25 @@ yarn add @wkoza/ngx-upload
 
 ## Setup
 
-Just include ngx-upload in your root module with `FormsModule` or `ReactiveFormsModule`:
+Just include ngx-upload in your root module with `HttpClient` and (`FormsModule` or `ReactiveFormsModule`):
 
 ```typescript
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {NgxUploadModule} from '@wkoza/ngx-upload';
 
 @NgModule({
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule, // or ReactiveFormsModule
     NgxUploadModule.forRoot()
   ]
 })
 export class AppModule {}
 ```
-
-Ngx-upload become with a mock configuration. In a real application, you must configure by declaring the configuration object `UploadOptions` like this :
-
-```typescript
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {NgxUploadModule} from '@wkoza/ngx-upload';
-
-const uploadOptions: UploadOptions = {
-  method : 'POST',
-  url: 'your_backend_upload_url',
-  httpStrategy: HttpClientUploadService // or XhrUploadService
-};
-
-@NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule, // or ReactiveFormsModule
-    HttpClientModule,
-    NgxUploadModule.forRoot(uploadOptions)
-  ]
-})
-export class AppModule {}
-```
-
-The `httpStrategy` property allows to specify if you wants to use HttpClient` or a simple XHR service for your upload.
 
 
 Ngx-upload also proposes to configure the drop zone aspect. Then, you can change the css class of your drop zone regarding the drop event:
@@ -92,14 +67,9 @@ For this, you should add the configuration object `DropTargetOptions` like this 
 ```typescript
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {NgxUploadModule} from '@wkoza/ngx-upload';
-
-const uploadOptions: UploadOptions = {
-  method : 'POST',
-  url: 'your_backend_upload_url',
-  httpStrategy: HttpClientUploadService // or XhrUploadService
-};
 
 export const ngxDropTargetOptions: DropTargetOptions = {
   color: 'dropZoneColor',
@@ -110,8 +80,9 @@ export const ngxDropTargetOptions: DropTargetOptions = {
 @NgModule({
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule, // or ReactiveFormsModule
-    NgxUploadModule.forRoot(uploadOptions, ngxDropTargetOptions)
+    NgxUploadModule.forRoot(ngxDropTargetOptions)
   ]
 })
 export class AppModule {}
@@ -178,7 +149,7 @@ Each file is added to a queue that you can manage with `uploader` service. Here 
                          [value]="uploader.progressTotal"></ngb-progressbar>
       </div>
       <div class="card-block">
-        <button type="button" class="btn btn-outline-success btn-s" (click)="uploader.uploadAll()"
+        <button type="button" class="btn btn-outline-success btn-s" (click)="uploader.uploadAll({method: 'POST', url: 'my_url'})"
                 [disabled]="!activeUploadAllBtn()">
           Upload all
         </button>
@@ -222,7 +193,7 @@ Each file is added to a queue that you can manage with `uploader` service. Here 
             </div>
           </td>
           <td style="text-align: center">
-            <button type="button" class="btn btn-outline-success btn-sm" (click)="itemFile.upload()"
+            <button type="button" class="btn btn-outline-success btn-sm" (click)="itemFile.upload({method: 'POST', url: 'my_url'})"
                     [disabled]="!itemFile.isReady">
                Upload
             </button>

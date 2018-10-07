@@ -1,4 +1,4 @@
-import { isDevMode, ModuleWithProviders, NgModule, Type } from '@angular/core';
+import { isDevMode, ModuleWithProviders, NgModule } from '@angular/core';
 
 import {
     DropTargetOptions,
@@ -6,7 +6,7 @@ import {
     NGX_DROP_TARGET_OPTIONS,
     ngxDropTargetOptions,
     ngxloggerOptions,
-    UploadService, NGX_UPLOAD_STRATEGY, NGX_LOGGER_OPTIONS, NGX_UPLOAD_ENDPOINT, UploadEndPoint
+    UploadService, NGX_UPLOAD_STRATEGY, NGX_LOGGER_OPTIONS, UploadEndPoint
 } from './utils/configuration.model';
 import { NgxDragAndDropDirective } from './directives/dropzone.directive';
 import { ConsoleLogger, NgxUploadLogger, NoOpLogger } from './utils/logger.model';
@@ -50,9 +50,7 @@ export function _loggerFactory(options: LoggerOptions): NgxUploadLogger {
 })
 
 export class NgxUploadModule {
-    static forRoot(uploadStrategy?: UploadService,
-                   dropTargetOptions?: DropTargetOptions,
-                   uploadEndPoint?: UploadEndPoint,
+    static forRoot(dropTargetOptions?: DropTargetOptions,
                    loggerOptions?: LoggerOptions): ModuleWithProviders {
 
         return {
@@ -60,12 +58,11 @@ export class NgxUploadModule {
             providers: [
 
                 {provide: NGX_LOGGER_OPTIONS, useValue: (loggerOptions) ? loggerOptions : ngxloggerOptions},
-                {provide: NGX_UPLOAD_ENDPOINT, useValue: (uploadEndPoint) ? uploadEndPoint : null},
                 {
                     provide: NGX_DROP_TARGET_OPTIONS,
                     useValue: (dropTargetOptions) ? dropTargetOptions : ngxDropTargetOptions
                 },
-                {provide: NGX_UPLOAD_STRATEGY, useValue: (uploadStrategy) ? uploadStrategy : HttpClientUploadService},
+                {provide: NGX_UPLOAD_STRATEGY, useValue: HttpClientUploadService},
                 {
                     provide: NgxUploadLogger,
                     useFactory: _loggerFactory,

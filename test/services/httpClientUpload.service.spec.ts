@@ -12,7 +12,6 @@ import * as FileAPI from "file-api";
 import { FileItem } from '../../src/services/fileItem.model';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { UploadEndPoint } from '../../src';
-import { NGX_UPLOAD_ENDPOINT } from '../../src/utils/configuration.model';
 
 export function _loggerFactory(): NgxUploadLogger {
     return new NoOpLogger();
@@ -38,7 +37,6 @@ describe('HttpClientUploadService', () => {
         HttpClientTestingModule
             ],
             providers: [
-                {provide: NGX_UPLOAD_ENDPOINT, useValue: endpoint},
                 {provide: NgxUploadLogger, useClass: MockLogger},
                 HttpClientUploadService
             ]

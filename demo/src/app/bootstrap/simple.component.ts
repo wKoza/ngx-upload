@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 
-import {Person} from './person.model';
+import { Person } from './person.model';
 import { FileItem, HttpClientUploadService, XhrUploadService } from '@wkoza/ngx-upload';
 
 @Component({
@@ -47,8 +47,15 @@ export class SimpleBootstrapComponent implements OnInit {
     upload(item: FileItem) {
         item.upload({
             method: 'POST',
-            url: 'http://localhost:8090/upload' //'ngx_upload_mock' //
+            url: 'ngx_upload_mock'
         });
+    }
+
+    uploadAll() {
+        this.uploader.uploadAll({
+            method: 'POST',
+            url: 'ngx_upload_mock'
+        })  //'http://localhost:8090/upload'
     }
 
 
@@ -58,7 +65,7 @@ export class SimpleBootstrapComponent implements OnInit {
         reader.onload = function (e) {
             // get loaded data and render thumbnail.
             //   document.getElementById("thumbnail").src = e.target.result;
-           // this.renderer.setProperty(el,'src',e.target.result)
+            // this.renderer.setProperty(el,'src',e.target.result)
         };
 
         // read the image file as a data URL.

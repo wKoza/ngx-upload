@@ -1,5 +1,4 @@
 import { InjectionToken, Type } from '@angular/core';
-
 import { XhrUploadService } from '../services/xhrUpload.service';
 import { HttpClientUploadService } from '../services/httpClientUpload.service';
 
@@ -27,7 +26,6 @@ export interface UploadEndPoint {
 export const NGX_DROP_TARGET_OPTIONS = new InjectionToken<DropTargetOptions>('Ngx drop Zone Options');
 export const NGX_UPLOAD_STRATEGY = new InjectionToken<UploadService>('Ngx Upload Strategy');
 export const NGX_LOGGER_OPTIONS = new InjectionToken<LoggerOptions>('Ngx Logger Options');
-export const NGX_UPLOAD_ENDPOINT = new InjectionToken<UploadEndPoint>('Ngx Upload EndPoint');
 
 
 export const ngxDropTargetOptions: DropTargetOptions = {

@@ -18,17 +18,14 @@ export class FileItem {
 
     sub: Subscription;
 
-    constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger,
-                private optionsEndPoint: UploadEndPoint) {
+    constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger) {
     }
 
     upload(endpoint: UploadEndPoint, options?: any) {
-        if(endpoint) {
+        if (endpoint) {
             this.uploadService.uploadFileItem(this, endpoint, options);
-        } else if (this.optionsEndPoint) {
-            this.uploadService.uploadFileItem(this, this.optionsEndPoint, options);
         } else {
-            this.logger.error('You must define a UploadEndPoint object or a global NGX_UPLOAD_ENDPOINT token.');
+            this.logger.error('You must define a UploadEndPoint object.');
         }
     }
 

@@ -4,8 +4,6 @@ import { NgxUploadLogger } from '../utils/logger.model';
 import { Subject } from 'rxjs';
 import { UploadEndPoint } from '../utils/configuration.model';
 
-
-
 export abstract class AbstractUploadService {
 
     queue: FileItem[];
@@ -25,7 +23,7 @@ export abstract class AbstractUploadService {
     public onProgress$ = new Subject<{ item: FileItem, progress: number }>();
     public onAddToQueue$ = new Subject<FileItem>();
 
-    constructor(protected logger: NgxUploadLogger, protected endpoint: UploadEndPoint) {
+    constructor(protected logger: NgxUploadLogger) {
         this.queue = new Array<FileItem>();
         this.headers = new Map();
         this.disableMultipart = false;
@@ -40,7 +38,7 @@ export abstract class AbstractUploadService {
 
         for (let i = 0; i < files.length; i++) {
             this.logger.debug(files.item(i));
-            const fileItem = new FileItem(files.item(i), this, this.logger, this.endpoint);
+            const fileItem = new FileItem(files.item(i), this, this.logger);
 
             if (formGroup) {
                 Object.keys(formGroup.controls).forEach((key) => {
@@ -64,14 +62,14 @@ export abstract class AbstractUploadService {
     /**
      * Uploads all not uploaded items of queue
      */
-    uploadAll() {
+    uploadAll(endpoint: UploadEndPoint, options?: any) {
         const items = this.queue.filter(item => (item.isReady));
         if (!items.length) {
             return;
         }
 
         for (const item of items) {
-            item.upload();
+            item.upload(endpoint, options);
         }
     }
 

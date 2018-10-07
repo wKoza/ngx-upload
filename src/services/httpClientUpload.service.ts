@@ -1,9 +1,7 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FileItem } from './fileItem.model';
 import { NgxUploadLogger } from '../utils/logger.model';
-import {
-    NGX_UPLOAD_ENDPOINT, UploadEndPoint
-} from '../utils/configuration.model';
+import { UploadEndPoint } from '../utils/configuration.model';
 import { HttpClient, HttpErrorResponse, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { AbstractUploadService } from './abstractUpload.service';
 import { Subscription } from 'rxjs/index';
@@ -18,18 +16,17 @@ export class HttpClientUploadService extends AbstractUploadService {
     sub: Subscription;
 
     constructor(protected logger: NgxUploadLogger,
-                @Inject(NGX_UPLOAD_ENDPOINT) protected endpoint: UploadEndPoint,
                 private httpClient: HttpClient) {
-        super(logger, endpoint);
+        super(logger);
     }
 
 
-    uploadFileItem(fileItem: FileItem, pEndpoint: UploadEndPoint, options: any = {}): void {
+    uploadFileItem(fileItem: FileItem, endpoint: UploadEndPoint, options: any = {}): void {
 
         this.logger.info('enter uploadService.uploadFileItem()');
 
-        const method = pEndpoint.method as string;
-        const url = pEndpoint.url as string;
+        const method = endpoint.method as string;
+        const url = endpoint.url as string;
 
         const index = this.queue.indexOf(fileItem);
         const item = this.queue[index];

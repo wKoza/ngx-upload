@@ -11,9 +11,8 @@ import { FileItem } from '../../src/services/fileItem.model';
 @Injectable()
 export class HttpClientUploadServiceMock extends AbstractUploadService {
 
-    constructor(protected logger: NgxUploadLogger,
-                @Inject(NGX_UPLOAD_STRATEGY) endpoint: UploadEndPoint) {
-        super(logger, endpoint);
+    constructor(protected logger: NgxUploadLogger) {
+        super(logger);
     }
 
 
