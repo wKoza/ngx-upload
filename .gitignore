@@ -1,0 +1,15 @@
+# Created by .ignore support plugin (hsz.mobi)
+.DS_Store
+.idea/
+.idea/misc.xml
+.idea/modules.xml
+.idea/ngx-upload-ok.iml
+.idea/workspace.xml
+coverage/
+dist/
+docs/
+demo/uploads
+demo/.DS_Store
+node_modules/
+npm-debug.log
+demo/src/generated
