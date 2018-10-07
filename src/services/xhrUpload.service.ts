@@ -1,10 +1,11 @@
 import { Injectable, Inject } from '@angular/core';
 import { FileItem } from './fileItem.model';
 import { NgxUploadLogger } from '../utils/logger.model';
-import { NGX_UPLOAD_OPTIONS, UploadOptions } from '../utils/configuration.model';
+import {
+    NGX_UPLOAD_ENDPOINT, UploadEndPoint
+} from '../utils/configuration.model';
 import { AbstractUploadService } from './abstractUpload.service';
 import { Subscription, Observer, Observable } from 'rxjs';
-
 
 // send an event for each upload event. These events can be catched by the user for call a callback
 
@@ -15,14 +16,19 @@ export class XhrUploadService extends AbstractUploadService {
     private xhr: XMLHttpRequest;
     sub: Subscription;
 
-    constructor(protected logger: NgxUploadLogger, @Inject(NGX_UPLOAD_OPTIONS) options: UploadOptions) {
-        super(logger, options);
+    constructor(protected logger: NgxUploadLogger,
+                @Inject(NGX_UPLOAD_ENDPOINT) endpoint: UploadEndPoint) {
+        super(logger, endpoint);
+
     }
 
 
-    uploadFileItem(fileItem: FileItem): void {
+    uploadFileItem(fileItem: FileItem, pEndpoint: UploadEndPoint, options: any = {}): void {
 
         this.logger.info('enter uploadService.uploadFileItem()');
+
+        const method = pEndpoint.method as string;
+        const url = pEndpoint.url as string;
 
         const index = this.queue.indexOf(fileItem);
         const item = this.queue[index];
@@ -38,7 +44,7 @@ export class XhrUploadService extends AbstractUploadService {
         fileItem.sub = new Observable<Response>((responseObserver: Observer<Response>) => {
 
             this.xhr = new XMLHttpRequest();
-            this.xhr.open(this.method, this.url, true);
+            this.xhr.open(method, url, true);
 
             if (!!this.withCredentials) {
                 this.xhr.withCredentials = true;
@@ -54,7 +60,7 @@ export class XhrUploadService extends AbstractUploadService {
 
                 const ok = this.xhr.status >= 200 && this.xhr.status < 300;
 
-                if (this.url === 'ngx_upload_mock') {
+                if (url === 'ngx_upload_mock') {
                     // A successful response is delivered on the event stream.
                     responseObserver.next(this.xhr.response);
                     this.onSuccess(item, this.xhr.response, this.xhr.status, this.xhr.getAllResponseHeaders());

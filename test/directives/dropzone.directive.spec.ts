@@ -5,12 +5,13 @@ import { NgxDragAndDropDirective } from '../../src/directives/dropzone.directive
 import { TestComponent } from './test.component';
 import {
     DropTargetOptions, NGX_DROP_TARGET_OPTIONS,
-    NGX_UPLOAD_OPTIONS, UploadOptions
+    NGX_UPLOAD_STRATEGY
 } from '../../src/utils/configuration.model';
 import { NgxUploadLogger, NoOpLogger } from '../../src/utils/logger.model';
 import { MockLogger } from '../mocks/logger.model.mock';
 import { HttpClientUploadService } from '../../src/services/httpClientUpload.service';
 import { HttpClientUploadServiceMock } from '../mocks/httpClientUpload.service.mock';
+import { UploadEndPoint } from '../../src';
 
 
 export function _loggerFactory(): NgxUploadLogger {
@@ -29,10 +30,9 @@ describe('NgxDragAndDropDirective', () => {
             colorDrop: 'dropZoneColorDrop'
         };
 
-        const uploadOptions: UploadOptions = {
+        const endpoint: UploadEndPoint = {
             method : 'POST',
-            url: 'ngx_upload_mock', // 'http://localhost:8090/upload'
-            httpStrategy: HttpClientUploadService
+            url: 'ngx_upload_mock' // 'http://localhost:8090/upload'
         };
 
         fixture = TestBed.configureTestingModule({
@@ -48,7 +48,7 @@ describe('NgxDragAndDropDirective', () => {
                    provide: NGX_DROP_TARGET_OPTIONS,
                    useValue: ngxDropTargetOptions
                },
-               {provide: NGX_UPLOAD_OPTIONS, useValue: uploadOptions},
+               {provide: NGX_UPLOAD_STRATEGY, useValue: HttpClientUploadService},
                {provide: NgxUploadLogger, useClass: MockLogger},
                {provide: HttpClientUploadService, useExisting: HttpClientUploadServiceMock},
                HttpClientUploadServiceMock

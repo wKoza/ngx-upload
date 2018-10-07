@@ -5,8 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
 import {
-    DropTargetOptions, HttpClientUploadService, LoggerOptions, NgxUploadModule, UploadOptions,
-    XhrUploadService
+    DropTargetOptions, HttpClientUploadService, NgxUploadModule, UploadEndPoint, XhrUploadService
 } from '@wkoza/ngx-upload';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -26,10 +25,9 @@ const routes: Routes = [
     {path: 'simple-material', component: SimpleMaterialComponent}
 ];
 
-const uploadOptions: UploadOptions = {
+const endpoint: UploadEndPoint = {
     method: 'POST',
-    url: 'ngx_upload_mock', // 'http://localhost:8090/upload'
-    httpStrategy: HttpClientUploadService
+    url: 'http://localhost:8090/upload' //'ngx_upload_mock' //
 };
 
 export const ngxDropTargetOptions: DropTargetOptions = {
@@ -49,7 +47,7 @@ export const ngxDropTargetOptions: DropTargetOptions = {
         FormsModule,
         HttpClientModule,
         RouterModule.forRoot(routes, {useHash: true}),
-        NgxUploadModule.forRoot(uploadOptions, ngxDropTargetOptions),
+        NgxUploadModule.forRoot(HttpClientUploadService, ngxDropTargetOptions),
         NgbModule.forRoot(),
         BrowserAnimationsModule,
         MatFormFieldModule,

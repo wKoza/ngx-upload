@@ -1,16 +1,15 @@
 import { FileItem } from './fileItem.model';
 import { FormGroup } from '@angular/forms';
 import { NgxUploadLogger } from '../utils/logger.model';
-import { Method, UploadOptions } from '../utils/configuration.model';
 import { Subject } from 'rxjs';
+import { UploadEndPoint } from '../utils/configuration.model';
+
 
 
 export abstract class AbstractUploadService {
 
     queue: FileItem[];
     progressTotal = 0;
-    method: Method;
-    url: string;
     disableMultipart: boolean;
     withCredentials: boolean;
 
@@ -26,10 +25,8 @@ export abstract class AbstractUploadService {
     public onProgress$ = new Subject<{ item: FileItem, progress: number }>();
     public onAddToQueue$ = new Subject<FileItem>();
 
-    constructor(protected logger: NgxUploadLogger, options: UploadOptions) {
+    constructor(protected logger: NgxUploadLogger, protected endpoint: UploadEndPoint) {
         this.queue = new Array<FileItem>();
-        this.method = options.method !;
-        this.url = options.url;
         this.headers = new Map();
         this.disableMultipart = false;
     }
@@ -43,7 +40,7 @@ export abstract class AbstractUploadService {
 
         for (let i = 0; i < files.length; i++) {
             this.logger.debug(files.item(i));
-            const fileItem = new FileItem(files.item(i), this, this.logger);
+            const fileItem = new FileItem(files.item(i), this, this.logger, this.endpoint);
 
             if (formGroup) {
                 Object.keys(formGroup.controls).forEach((key) => {
@@ -59,7 +56,7 @@ export abstract class AbstractUploadService {
     }
 
 
-    abstract uploadFileItem(fileItem: FileItem, options?: any): void;
+    abstract uploadFileItem(fileItem: FileItem, endpoint?: UploadEndPoint, options?: any): void;
 
 
     abstract cancelFileItem(fileItem: FileItem): void;
@@ -116,8 +113,6 @@ export abstract class AbstractUploadService {
         this.queue.splice(index, 1);
         this.progressTotal = this.computeTotalProgress();
     }
-
-
 
 
     /**

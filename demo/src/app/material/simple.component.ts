@@ -49,6 +49,11 @@ export class SimpleMaterialComponent implements OnInit {
 
     }
 
+    upload(item: FileItem) {
+        item.upload();
+    }
+
+
     activeRemoveAllBtn(): boolean {
         return this.uploader.queue.some(item => (item.isReady || item.isCancel || item.isError));
     }

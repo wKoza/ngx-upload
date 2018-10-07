@@ -1,6 +1,7 @@
 import { AbstractUploadService } from './abstractUpload.service';
 import { NgxUploadLogger } from '../utils/logger.model';
 import { Subscription } from 'rxjs';
+import { UploadEndPoint } from '../utils/configuration.model';
 
 export class FileItem {
 
@@ -17,12 +18,18 @@ export class FileItem {
 
     sub: Subscription;
 
-    constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger) {
+    constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger,
+                private optionsEndPoint: UploadEndPoint) {
     }
 
-    upload() {
-        console.log('upload item');
-        this.uploadService.uploadFileItem(this);
+    upload(endpoint: UploadEndPoint, options?: any) {
+        if(endpoint) {
+            this.uploadService.uploadFileItem(this, endpoint, options);
+        } else if (this.optionsEndPoint) {
+            this.uploadService.uploadFileItem(this, this.optionsEndPoint, options);
+        } else {
+            this.logger.error('You must define a UploadEndPoint object or a global NGX_UPLOAD_ENDPOINT token.');
+        }
     }
 
     cancel() {

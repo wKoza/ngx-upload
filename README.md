@@ -156,7 +156,7 @@ Ngx-upload offers one directive for your drop zone called `ngxDragAndDrop`. It a
 </form>
 ```
 
-To finish, we can overwrite the `DropTargetOptions` for a specific case due to property binding :
+To finish, we can overwrite the `DropTargetOptions` for a specific case with this property binding :
 
 ```html
 <div class="my-drop-zone" [ngxDragAndDrop]="options">

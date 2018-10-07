@@ -2,9 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
-import {
-    NGX_UPLOAD_OPTIONS, UploadOptions
-} from '../../src/utils/configuration.model';
+
 import { NgxUploadLogger, NoOpLogger } from '../../src/utils/logger.model';
 import { MockLogger } from '../mocks/logger.model.mock';
 import { HttpClientUploadService } from '../../src/services/httpClientUpload.service';
@@ -13,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import * as FileAPI from "file-api";
 import { FileItem } from '../../src/services/fileItem.model';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { UploadEndPoint } from '../../src';
+import { NGX_UPLOAD_ENDPOINT } from '../../src/utils/configuration.model';
 
 export function _loggerFactory(): NgxUploadLogger {
     return new NoOpLogger();
@@ -25,10 +25,9 @@ describe('HttpClientUploadService', () => {
 
     beforeEach(() => {
 
-        const uploadOptions: UploadOptions = {
+        const endpoint: UploadEndPoint = {
             method : 'POST',
-            url: 'ngx_upload_mock', // 'http://localhost:8090/upload'
-            httpStrategy: HttpClientUploadService
+            url: 'ngx_upload_mock' // 'http://localhost:8090/upload'
         };
 
         TestBed.configureTestingModule({
@@ -39,7 +38,7 @@ describe('HttpClientUploadService', () => {
         HttpClientTestingModule
             ],
             providers: [
-                {provide: NGX_UPLOAD_OPTIONS, useValue: uploadOptions},
+                {provide: NGX_UPLOAD_ENDPOINT, useValue: endpoint},
                 {provide: NgxUploadLogger, useClass: MockLogger},
                 HttpClientUploadService
             ]
@@ -129,7 +128,7 @@ describe('HttpClientUploadService', () => {
     it('should upload fileItem ', () => {
         const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
         httpClientUploadService.addToQueue(files, null);
-        httpClientUploadService.uploadFileItem(httpClientUploadService.queue[0]);
+        httpClientUploadService.uploadFileItem(httpClientUploadService.queue[0], this.endpoint);
 
         const req = httpMock.expectOne('ngx_upload_mock');
         expect(req.request.method).toEqual('POST');

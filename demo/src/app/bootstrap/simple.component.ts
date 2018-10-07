@@ -37,16 +37,22 @@ export class SimpleBootstrapComponent implements OnInit {
         this.uploader.onSuccess$.subscribe(
             (data: any) => {
                 console.log(`upload file successful:  ${data.item} ${data.body} ${data.status} ${data.headers}`);
-
-
-
             }
         );
 
 
     }
 
-    makeThumbnail(item: FileItem, el: any) {
+
+    upload(item: FileItem) {
+        item.upload({
+            method: 'POST',
+            url: 'http://localhost:8090/upload' //'ngx_upload_mock' //
+        });
+    }
+
+
+    makeThumbnail(item: FileItem) {
         const reader = new FileReader();
 
         reader.onload = function (e) {
