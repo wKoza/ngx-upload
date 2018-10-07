@@ -24,10 +24,7 @@ describe('HttpClientUploadService', () => {
 
     beforeEach(() => {
 
-        const endpoint: UploadEndPoint = {
-            method : 'POST',
-            url: 'ngx_upload_mock' // 'http://localhost:8090/upload'
-        };
+
 
         TestBed.configureTestingModule({
              imports: [
@@ -124,9 +121,14 @@ describe('HttpClientUploadService', () => {
     });
 
     it('should upload fileItem ', () => {
+        const endpoint: UploadEndPoint = {
+            method : 'POST',
+            url: 'ngx_upload_mock' // 'http://localhost:8090/upload'
+        };
+
         const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
         httpClientUploadService.addToQueue(files, null);
-        httpClientUploadService.uploadFileItem(httpClientUploadService.queue[0], this.endpoint);
+        httpClientUploadService.uploadFileItem(httpClientUploadService.queue[0], endpoint);
 
         const req = httpMock.expectOne('ngx_upload_mock');
         expect(req.request.method).toEqual('POST');
