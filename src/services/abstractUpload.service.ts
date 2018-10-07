@@ -38,7 +38,8 @@ export abstract class AbstractUploadService {
 
         for (let i = 0; i < files.length; i++) {
             this.logger.debug(files.item(i));
-            const fileItem = new FileItem(files.item(i), this, this.logger);
+
+            const fileItem = new FileItem(files.item(i) !, this, this.logger);
 
             if (formGroup) {
                 Object.keys(formGroup.controls).forEach((key) => {
@@ -54,7 +55,7 @@ export abstract class AbstractUploadService {
     }
 
 
-    abstract uploadFileItem(fileItem: FileItem, endpoint?: UploadEndPoint, options?: any): void;
+    abstract uploadFileItem(fileItem: FileItem, endpoint: UploadEndPoint, options?: any): void;
 
 
     abstract cancelFileItem(fileItem: FileItem): void;

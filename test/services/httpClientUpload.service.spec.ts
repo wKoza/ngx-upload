@@ -8,7 +8,7 @@ import { MockLogger } from '../mocks/logger.model.mock';
 import { HttpClientUploadService } from '../../src/services/httpClientUpload.service';
 import { HttpClientModule } from '@angular/common/http';
 
-import * as FileAPI from "file-api";
+import * as FileAPI from 'file-api';
 import { FileItem } from '../../src/services/fileItem.model';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { UploadEndPoint } from '../../src';
