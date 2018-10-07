@@ -11,8 +11,7 @@ import {
 } from '@angular/core';
 import { FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
 import {
-    DropTargetOptions, NGX_DROP_TARGET_OPTIONS, NGX_UPLOAD_OPTIONS,
-    UploadOptions
+    DropTargetOptions, NGX_DROP_TARGET_OPTIONS, NGX_UPLOAD_STRATEGY, UploadService
 } from '../utils/configuration.model';
 import { NgxUploadLogger } from '../utils/logger.model';
 import { AbstractUploadService } from '../services/abstractUpload.service';
@@ -46,7 +45,7 @@ export class NgxDragAndDropDirective implements OnInit {
                 private injector: Injector,
                 private logger: NgxUploadLogger,
                 @Inject(NGX_DROP_TARGET_OPTIONS) private dropOptions: DropTargetOptions,
-                @Inject(NGX_UPLOAD_OPTIONS) private uploadOptions: UploadOptions,
+                @Inject(NGX_UPLOAD_STRATEGY) private strategy: UploadService,
                 @Optional() private ngForm: NgForm, @Optional() private formGroupDirective: FormGroupDirective) {
 
         if (this.ngForm) {
@@ -60,8 +59,8 @@ export class NgxDragAndDropDirective implements OnInit {
 
     ngOnInit(): void {
         this.renderer.addClass(this.el.nativeElement, this.dropOptions.color);
-        this.logger.info('strategy : ' + this.uploadOptions.httpStrategy!.toString());
-        this.uploader = this.injector.get(this.uploadOptions.httpStrategy);
+        this.logger.info('strategy : ' + this.strategy!.toString());
+        this.uploader = this.injector.get(this.strategy);
     }
 
     @HostListener('dragleave', ['$event']) onDragLeave(event: DragEvent) {

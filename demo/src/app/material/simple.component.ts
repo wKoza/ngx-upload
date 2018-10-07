@@ -49,6 +49,21 @@ export class SimpleMaterialComponent implements OnInit {
 
     }
 
+    upload(item: FileItem) {
+        item.upload({
+            method: 'POST',
+            url: 'ngx_upload_mock' //'http://localhost:8090/upload' //
+        });
+    }
+
+    uploadAll() {
+        this.uploader.uploadAll({
+            method: 'POST',
+            url: 'ngx_upload_mock' //'http://localhost:8090/upload' //
+        })
+    }
+
+
     activeRemoveAllBtn(): boolean {
         return this.uploader.queue.some(item => (item.isReady || item.isCancel || item.isError));
     }

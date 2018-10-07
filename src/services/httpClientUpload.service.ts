@@ -1,10 +1,11 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FileItem } from './fileItem.model';
 import { NgxUploadLogger } from '../utils/logger.model';
-import { NGX_UPLOAD_OPTIONS, UploadOptions } from '../utils/configuration.model';
+import { UploadEndPoint } from '../utils/configuration.model';
 import { HttpClient, HttpErrorResponse, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { AbstractUploadService } from './abstractUpload.service';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/index';
+
 
 // send an event for each upload event. These events can be catched by the user for call a callback
 
@@ -15,15 +16,17 @@ export class HttpClientUploadService extends AbstractUploadService {
     sub: Subscription;
 
     constructor(protected logger: NgxUploadLogger,
-                @Inject(NGX_UPLOAD_OPTIONS) options: UploadOptions,
                 private httpClient: HttpClient) {
-        super(logger, options);
+        super(logger);
     }
 
 
-    uploadFileItem(fileItem: FileItem, options: any = {}): void {
+    uploadFileItem(fileItem: FileItem, endpoint: UploadEndPoint, options: any = {}): void {
 
         this.logger.info('enter uploadService.uploadFileItem()');
+
+        const method = endpoint.method as string;
+        const url = endpoint.url as string;
 
         const index = this.queue.indexOf(fileItem);
         const item = this.queue[index];
@@ -39,7 +42,7 @@ export class HttpClientUploadService extends AbstractUploadService {
         const sendable = item.formData;
         sendable.append(item.alias, item.file, item.file.name);
 
-        const req = new HttpRequest(this.method, this.url, sendable, Object.assign(options, {reportProgress: true}));
+        const req = new HttpRequest(method, url, sendable, Object.assign(options, {reportProgress: true}));
 
         fileItem.sub = this.httpClient.request(req).subscribe(
             (event) => {
@@ -58,7 +61,7 @@ export class HttpClientUploadService extends AbstractUploadService {
             },
             (err) => {
                 if (err instanceof HttpErrorResponse) {
-                    if (this.url === 'ngx_upload_mock') {
+                    if (url === 'ngx_upload_mock') {
                         item.ɵonSuccess();
                         this.onSuccess(item, err.message, err.status, err.headers);
                     } else if (err.error instanceof Error) {

@@ -2,7 +2,7 @@
     <h1>Simple upload example with Bootstrap</h1>
     <hr>
 
-    <form (ngSubmit)="uploader.uploadAll()">
+    <form>
         <div class="form-group row">
             <label class="col-2 col-form-label">Name</label>
             <div class="col-10">
@@ -37,7 +37,7 @@
                                          [value]="uploader.progressTotal"></ngb-progressbar>
                     </div>
                     <div class="card-block">
-                        <button type="button" class="btn btn-outline-success btn-s" (click)="uploader.uploadAll()"
+                        <button type="button" class="btn btn-outline-success btn-s" (click)="uploadAll()"
                                 [disabled]="!activeUploadAllBtn()">
                             Upload all
                         </button>
@@ -82,7 +82,7 @@
                                 </div>
                             </td>
                             <td style="text-align: center">
-                                <button type="button" class="btn btn-outline-success btn-sm" (click)="itemFile.upload()"
+                                <button type="button" class="btn btn-outline-success btn-sm" (click)="upload(itemFile)"
                                         [disabled]="!itemFile.isReady">
                                     Upload
                                 </button>
