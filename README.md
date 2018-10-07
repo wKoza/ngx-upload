@@ -36,7 +36,7 @@ yarn add @wkoza/ngx-upload
 
 ## Setup
 
-Just include ngx-upload in your root module with `HttpClient` and (`FormsModule` or `ReactiveFormsModule`):
+Just include ngx-upload in your root module with `HttpClientModule` and (`FormsModule` or `ReactiveFormsModule`):
 
 ```typescript
 import {BrowserModule} from '@angular/platform-browser';
@@ -214,6 +214,9 @@ Each file is added to a queue that you can manage with `uploader` service. Here 
   </div>
 
 ```
+
+
+`upload` or `uploadAll` method require a parameter with the type `UploadEndPoint`. It's your server's endpoint.
 
 
 Take a look at [those examples](https://github.com/wKoza/ngx-upload/tree/master/demo/src/app) for more details :
