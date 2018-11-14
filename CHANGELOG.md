@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.2.0"></a>
+# [6.2.0](https://github.com/wKoza/ngx-upload/compare/v6.0.0...v6.2.0) (2018-11-14)
+
+
+### Features
+
+* Add directive `ngxInputFile` allowing to navigate in the local … ([#12](https://github.com/wKoza/ngx-upload/issues/12)) ([93d6260](https://github.com/wKoza/ngx-upload/commit/93d6260))
+
+
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/wKoza/ngx-upload/compare/v6.0.0...v6.1.0) (2018-10-07)
 
