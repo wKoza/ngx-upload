@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Person } from './person.model';
 import { DropTargetOptions, FileItem, HttpClientUploadService } from '@wkoza/ngx-upload';
