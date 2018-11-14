@@ -1,7 +1,8 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Person } from './person.model';
-import { FileItem, HttpClientUploadService, XhrUploadService } from '@wkoza/ngx-upload';
+import { FileItem, HttpClientUploadService } from '@wkoza/ngx-upload';
+
 
 @Component({
     selector: 'app-root',
@@ -12,8 +13,9 @@ export class SimpleBootstrapComponent implements OnInit {
 
     model: Person;
 
-    constructor(public uploader: HttpClientUploadService, private renderer: Renderer2) {
-    }
+    @ViewChild('ourForm') ourForm;
+
+    constructor(public uploader: HttpClientUploadService) { }
 
     ngOnInit() {
 
@@ -39,6 +41,14 @@ export class SimpleBootstrapComponent implements OnInit {
                 console.log(`upload file successful:  ${data.item} ${data.body} ${data.status} ${data.headers}`);
             }
         );
+
+        this.uploader.onAddToQueue$.subscribe(
+            () => {
+                console.log(`reset of our form`);
+                this.ourForm.reset();
+
+            }
+        )
 
 
     }
@@ -84,6 +94,8 @@ export class SimpleBootstrapComponent implements OnInit {
     activeCancelAllBtn(): boolean {
         return this.uploader.queue.some((item: FileItem) => item.uploadInProgress);
     }
+
+
 
 
 }

@@ -7,7 +7,9 @@ import { Subscription, Observer, Observable } from 'rxjs';
 
 // send an event for each upload event. These events can be catched by the user for call a callback
 
-
+/*
+  @Deprecated since 6.1.0
+ */
 @Injectable()
 export class XhrUploadService extends AbstractUploadService {
 

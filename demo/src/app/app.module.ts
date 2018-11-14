@@ -5,17 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
 import {
-    DropTargetOptions, HttpClientUploadService, NgxUploadModule, UploadEndPoint, XhrUploadService
+    DropTargetOptions, NgxUploadModule
 } from '@wkoza/ngx-upload';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleBootstrapComponent } from './bootstrap/simple.component';
 import { SimpleMaterialComponent } from './material/simple.component';
-import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import {
-    MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatProgressBarModule,
-    MatSelectModule
+    MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatProgressBarModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -51,6 +49,7 @@ export const ngxDropTargetOptions: DropTargetOptions = {
         MatProgressBarModule,
         MatInputModule
     ],
+
     bootstrap: [AppComponent]
 })
 export class AppModule {
