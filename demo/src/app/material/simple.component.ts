@@ -13,6 +13,8 @@ export class SimpleMaterialComponent implements OnInit {
 
     model: Person;
 
+    @ViewChild('ourForm') ourForm;
+
     options: DropTargetOptions = {
         color: 'dropZoneColorMaterial',
         colorDrag: 'dropZoneColorDragMaterial',
@@ -46,6 +48,14 @@ export class SimpleMaterialComponent implements OnInit {
 
             }
         );
+
+        this.uploader.onAddToQueue$.subscribe(
+            () => {
+                console.log(`reset of our form`);
+                this.ourForm.reset();
+
+            }
+        )
 
     }
 

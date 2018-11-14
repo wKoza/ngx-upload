@@ -2,7 +2,7 @@
     <h1>Simple upload example with Bootstrap</h1>
     <hr>
 
-    <form>
+    <form #ourForm="ngForm">
         <div class="form-group row">
             <label class="col-2 col-form-label">Name</label>
             <div class="col-10">
@@ -21,9 +21,11 @@
             <div class="col-md-3">
                 <h3>Add files</h3>
                 <div>
-                    <div class="well my-drop-zone" ngxDragAndDrop>
-                        Drop files here to upload
-                    </div>
+                        <div class="well my-drop-zone" ngxDragAndDrop *ngxInputFile>
+                            <h5>Drop files here to upload</h5>
+                            <h6>Or click here to select local files.</h6>
+                        </div>
+                        or via a simple button-like : <span class="btn btn-outline-success btn-s" *ngxInputFile>Upload local files</span>
                 </div>
             </div>
 
@@ -58,7 +60,7 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th width="50%">Name</th>
+                            <th width="40%">Name</th>
                             <th>Size</th>
                             <th>Progress</th>
                             <th>Actions</th>
@@ -69,8 +71,9 @@
                             [ngClass]="{'table-success' : itemFile.isSuccess, 'table-danger' : itemFile.isError, 'table-warning' : itemFile.isUploading  }">
                             <td>
                                 <div [ngxThumbnail]="itemFile"></div>
+                                <div style="text-align: center">name: {{ itemFile.formData.get('name') }}</div>
                             </td>
-                            <td>{{ itemFile.file.name }}</td>
+                            <td style="padding-left: 10px;">{{ itemFile.file.name }}</td>
                             <td>{{ itemFile.file.size/1024/1024 | number:'1.0-2' }} MB</td>
                             <td>
                                 <div>

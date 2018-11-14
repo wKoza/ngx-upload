@@ -96,10 +96,10 @@
     "zone.js": "0.8.26"
   },
   "peerDependencies": {
-    "@angular/common": ">=6.0.0 <7.0.0",
-    "@angular/core": ">=6.0.0 <7.0.0",
+    "@angular/common": ">=6.0.0 <8.0.0",
+    "@angular/core": ">=6.0.0 <8.0.0",
     "rxjs": ">=6.0.0",
-    "@angular/forms": ">=6.0.0 <7.0.0"
+    "@angular/forms": ">=6.0.0 <8.0.0"
   },
   "config": {
     "commitizen": {

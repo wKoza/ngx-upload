@@ -110,7 +110,7 @@ In this example, you should also declare these css classes in your own css :
 
 ## Usage
 
-### Drop zone
+### Directive ngxDragAndDrop
 
 Ngx-upload offers one directive for your drop zone called `ngxDragAndDrop`. It allows to add the files in the upload queue. During the drop event, it throws an event called `onDrop` that you can catch :
 
@@ -133,6 +133,51 @@ To finish, we can overwrite the `DropTargetOptions` for a specific case with thi
 <div class="my-drop-zone" [ngxDragAndDrop]="options">
         Drop files here to upload
 </div>
+```
+
+
+### Directive ngxInputFile
+
+Ngx-upload offers one directive which allows the user to choose one or more files from their device storage.
+This structural directive can be use like this :
+
+```html
+<form>
+
+...
+
+<div class="my-drop-zone" ngxDragAndDrop *ngxInputFile>
+        Drop files here to upload
+</div>
+
+
+</form>
+```
+
+or like that with bootstrap:
+
+```html
+<form>
+
+...
+
+<span class="btn btn-outline-success btn-s" *ngxInputFile>Upload local files</span>
+
+</form>
+```
+
+
+and with Material
+
+```html
+<form>
+
+...
+
+<button mat-raised-button [color]="'primary'" >
+   <ng-template ngxInputFile> Upload local files</ng-template>
+</button>
+</form>
 ```
 
 ### Upload queue

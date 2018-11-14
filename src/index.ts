@@ -13,7 +13,8 @@ import { ConsoleLogger, NgxUploadLogger, NoOpLogger } from './utils/logger.model
 import { XhrUploadService } from './services/xhrUpload.service';
 import { HttpClientUploadService } from './services/httpClientUpload.service';
 import { NgxThumbnailDirective } from './directives/thumbnail.directive';
-
+import { NgxInputFileDirective } from './directives/inputfile.directive';
+import { InputfileComponent } from './components/inputfile.component';
 export { DropTargetOptions, UploadEndPoint, LoggerOptions } from './utils/configuration.model';
 export { FileItem } from './services/fileItem.model';
 export { XhrUploadService } from './services/xhrUpload.service';
@@ -21,7 +22,7 @@ export { HttpClientUploadService } from './services/httpClientUpload.service';
 export { UploadService } from './utils/configuration.model';
 
 const ngxDeclarations = [
-    NgxDragAndDropDirective, NgxThumbnailDirective
+    NgxDragAndDropDirective, NgxThumbnailDirective, NgxInputFileDirective, InputfileComponent
 ];
 
 /**
@@ -46,7 +47,8 @@ export function _loggerFactory(options: LoggerOptions): NgxUploadLogger {
     ],
     exports: [
         ...ngxDeclarations
-    ]
+    ],
+    entryComponents: [InputfileComponent]
 })
 
 export class NgxUploadModule {

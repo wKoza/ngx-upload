@@ -3,11 +3,8 @@
   height: 300px;
   cursor: pointer;
   padding: 1em;
-
-  background-size: 100px 100px;
-  background-position: center;
-  background-repeat: no-repeat;
   opacity: 0.4;
+  text-align: center;
 }
 
 ngb-progressbar {
