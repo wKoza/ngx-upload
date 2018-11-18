@@ -71,13 +71,6 @@ export class SimpleBootstrapComponent implements OnInit {
 
     makeThumbnail(item: FileItem) {
         const reader = new FileReader();
-
-        reader.onload = function (e) {
-            // get loaded data and render thumbnail.
-            //   document.getElementById("thumbnail").src = e.target.result;
-            // this.renderer.setProperty(el,'src',e.target.result)
-        };
-
         // read the image file as a data URL.
         reader.readAsDataURL(item.file);
 
