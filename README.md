@@ -268,14 +268,14 @@ Take a look at [those examples](https://github.com/wKoza/ngx-upload/tree/master/
 
 ## Hooks
 
-Ngx-upload offers 5 `Observable` to handle a specific behavior :
+Ngx-upload offers 6 `Observable` to handle a specific behavior :
 
 - onCancel$<FileItem> : This Observable emits when upload is canceled.
 - onError$<{ item: FileItem, body: any, status: number, headers: any }> : This Observable emits on error during the upload process.
 - onSuccess$<{ item: FileItem, body: any, status: number, headers: any }> : This Observable emits on success.
 - onBeforeUploadItem$<FileItem> : This Observable emits just before the upload process.
 - onProgress$<{ item: FileItem, progress: number }> : This Observable emits during the upload process.
-
+- onAddToQueue$<<FileItem>>: This Observable is trigged when a file is added in the queue.
 
 For example :
 
