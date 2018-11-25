@@ -62,7 +62,6 @@ describe('NgxDragAndDropDirective', () => {
     it('should have dropZoneColor class on init', () => {
         const de = fixture.debugElement.query(By.directive(NgxDragAndDropDirective));
         const cssClass = de.nativeElement.className;
-        // expect(de.nativeElement.classList.length).toBe(1);
         expect(cssClass).toBe('dropZoneColor');
     });
 
