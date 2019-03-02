@@ -1,12 +1,12 @@
 import { isDevMode, ModuleWithProviders, NgModule } from '@angular/core';
 
 import {
-    DropTargetOptions,
-    LoggerOptions,
-    NGX_DROP_TARGET_OPTIONS,
-    ngxDropTargetOptions,
-    ngxloggerOptions,
-    UploadService, NGX_UPLOAD_STRATEGY, NGX_LOGGER_OPTIONS, UploadEndPoint
+  DropTargetOptions,
+  LoggerOptions,
+  NGX_DROP_TARGET_OPTIONS,
+  ngxDropTargetOptions,
+  ngxloggerOptions,
+  UploadService, NGX_UPLOAD_STRATEGY, NGX_LOGGER_OPTIONS, UploadEndPoint
 } from './utils/configuration.model';
 import { NgxDragAndDropDirective } from './directives/dropzone.directive';
 import { ConsoleLogger, NgxUploadLogger, NoOpLogger } from './utils/logger.model';
@@ -15,7 +15,8 @@ import { HttpClientUploadService } from './services/httpClientUpload.service';
 import { NgxThumbnailDirective } from './directives/thumbnail.directive';
 import { NgxInputFileDirective } from './directives/inputfile.directive';
 import { InputfileComponent } from './components/inputfile.component';
-export { DropTargetOptions, UploadEndPoint, LoggerOptions } from './utils/configuration.model';
+export { DropTargetOptions, UploadEndPoint, LoggerOptions, InputFileOptions } from './utils/configuration.model';
+export { MineTypeEnum } from './utils/mimetype.model';
 export { FileItem } from './services/fileItem.model';
 export { XhrUploadService } from './services/xhrUpload.service';
 export { HttpClientUploadService } from './services/httpClientUpload.service';

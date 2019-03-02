@@ -21,11 +21,11 @@
             <div class="col-md-3">
                 <h3>Add files</h3>
                 <div>
-                        <div class="well my-drop-zone" ngxDragAndDrop *ngxInputFile>
+                        <div class="well my-drop-zone" [ngxDragAndDrop]="optionsDrop" *ngxInputFile="optionsInput">
                             <h5>Drop files here to upload</h5>
                             <h6>Or click here to select local files.</h6>
                         </div>
-                        or via a simple button-like : <span class="btn btn-outline-success btn-s" *ngxInputFile>Upload local files</span>
+                        or via a simple button-like : <span class="btn btn-outline-success btn-s" *ngxInputFile="optionsInput">Upload local files</span>
                 </div>
             </div>
 

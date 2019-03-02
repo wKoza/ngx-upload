@@ -36,8 +36,6 @@ export class NgxDragAndDropDirective implements OnInit {
         }
     }
 
-    @Output() onDrop = new EventEmitter();
-
     private formGroup: FormGroup | null;
 
     constructor(private el: ElementRef,
@@ -80,11 +78,9 @@ export class NgxDragAndDropDirective implements OnInit {
         if (!transfer) {
             return;
         }
-        const droppedFiles = transfer.files;
         transfer.dropEffect = 'copy';
-        this.onDrop.next(droppedFiles);
         this.stopAndPrevent(event);
-        this.uploader.addToQueue(transfer.files, this.formGroup);
+        this.uploader.addToQueue(transfer.files, this.formGroup, this.dropOptions);
     }
 
 

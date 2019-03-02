@@ -1,21 +1,27 @@
 import {
-    ComponentFactoryResolver, Directive, Injector, OnInit, TemplateRef, ViewContainerRef
+  ComponentFactoryResolver, ComponentRef, Directive, Injector, Input, OnInit, TemplateRef, ViewContainerRef
 } from '@angular/core';
 import { InputfileComponent } from '../components/inputfile.component';
+import { InputFileOptions, ngxInputFileOptions } from '../utils/configuration.model';
 
 
 @Directive({
-    selector: '[ngxInputFile]'
+  selector: '[ngxInputFile]'
 })
 export class NgxInputFileDirective implements OnInit {
 
-    constructor(private resolver: ComponentFactoryResolver, private injector: Injector,
-                private vcRef: ViewContainerRef, private templateRef: TemplateRef<any>) { }
+  @Input()
+  ngxInputFile: InputFileOptions;
 
-    ngOnInit() {
-        const _contentViewRef = this.templateRef.createEmbeddedView(null);
-        const factory = this.resolver.resolveComponentFactory(InputfileComponent);
-        this.vcRef.createComponent(factory, 0, this.injector, [_contentViewRef.rootNodes]);
-        _contentViewRef.detectChanges();
-     }
+  constructor(private resolver: ComponentFactoryResolver, private injector: Injector,
+              private vcRef: ViewContainerRef, private templateRef: TemplateRef<any>) {
+  }
+
+  ngOnInit() {
+    const _contentViewRef = this.templateRef.createEmbeddedView(null);
+    const factory = this.resolver.resolveComponentFactory(InputfileComponent);
+    const component: ComponentRef<InputfileComponent> = this.vcRef.createComponent(factory, 0, this.injector, [_contentViewRef.rootNodes]);
+    component.instance.options = (this.ngxInputFile) ? this.ngxInputFile : ngxInputFileOptions;
+    _contentViewRef.detectChanges();
+  }
 }

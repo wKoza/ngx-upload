@@ -11,18 +11,11 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li ngbDropdown class="d-inline-block">
-        <a class="nav-link dropdown-toggle"  id="dropdownBasic1" ngbDropdownToggle>With Bootstrap</a>
-        <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-          <a class="dropdown-item" [routerLink]="['simple-bootstrap']">Simple file upload</a>
-        </div>
+      <li class="nav-item active">
+        <a class="nav-link dropdown-toggle" id="dropdownBasic1" [routerLink]="['simple-bootstrap']"> With Bootstrap </a>
       </li>
-
-      <li ngbDropdown class="d-inline-block">
-        <a class="nav-link dropdown-toggle"  id="dropdownBasic2" ngbDropdownToggle>With Material</a>
-        <div class="dropdown-menu" aria-labelledby="dropdownBasic2">
-          <a class="dropdown-item" [routerLink]="['simple-material']">Simple file upload</a>
-        </div>
+      <li class="nav-item active">
+        <a class="nav-link dropdown-toggle"  id="dropdownBasic2" [routerLink]="['simple-material']">With Material</a>
       </li>
     </ul>
   </div>
