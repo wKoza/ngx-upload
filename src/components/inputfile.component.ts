@@ -1,38 +1,47 @@
-import { Component, Injector, Optional, ViewChild } from '@angular/core';
+import { Component, Injector, OnInit, Optional, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
 import { HttpClientUploadService } from '../';
+import { InputFileOptions } from '../utils/configuration.model';
 
 
 @Component({
-    selector: 'ngx-upload-inputfile',
-    template:  `
-        <label class="input-file">
-           <input type="file" #file (change)="onFilesAdded()" multiple >
-           <ng-content></ng-content>
-        </label>`,
-    styles: ['input[type="file"] { display: none; } .input-file { width: 100%; }']
+  selector: 'ngx-upload-inputfile',
+  template: `
+      <label class="input-file">
+          <input type="file" #file (change)="onFilesAdded()">
+          <ng-content></ng-content>
+      </label>`,
+  styles: ['input[type="file"] { display: none; } .input-file { width: 100%; }']
 })
-export class InputfileComponent {
+export class InputfileComponent implements OnInit {
 
-    @ViewChild('file') file;
-    public files: Set<File> = new Set();
+  @ViewChild('file') file;
 
-    private formGroup: FormGroup | null;
+  files: Set<File> = new Set();
+
+  options: InputFileOptions;
+
+  private formGroup: FormGroup | null;
 
 
-
-    constructor(private injector: Injector, public uploader: HttpClientUploadService,
-                @Optional() private ngForm: NgForm, @Optional() private formGroupDirective: FormGroupDirective) {
-        if (this.ngForm) {
-            this.formGroup = ngForm.form;
-        } else if (this.formGroupDirective) {
-            this.formGroup = formGroupDirective.form;
-        } else {
-            this.formGroup = null;
-        }
+  constructor(private injector: Injector, private uploader: HttpClientUploadService, private renderer: Renderer2,
+              @Optional() private ngForm: NgForm, @Optional() private formGroupDirective: FormGroupDirective) {
+    if (this.ngForm) {
+      this.formGroup = ngForm.form;
+    } else if (this.formGroupDirective) {
+      this.formGroup = formGroupDirective.form;
+    } else {
+      this.formGroup = null;
     }
+  }
 
-    onFilesAdded() {
-        this.uploader.addToQueue(this.file.nativeElement.files, this.formGroup);
-    }
+  onFilesAdded() {
+    this.uploader.addToQueue(this.file.nativeElement.files, this.formGroup);
+  }
+
+  ngOnInit() {
+    if (this.options.multiple !== false) this.renderer.setProperty(this.file.nativeElement, 'multiple', 'multiple');
+    if (this.options.accept) this.renderer.setProperty(this.file.nativeElement, 'accept', this.options.accept.join());
+    if (this.options.capture) this.renderer.setProperty(this.file.nativeElement, 'capture', this.options.capture);
+  }
 }

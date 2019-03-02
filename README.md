@@ -2,7 +2,6 @@
 [![Build Status](https://travis-ci.org/wKoza/ngx-upload.svg)](https://travis-ci.org/wKoza/ngx-upload)
 [![codecov](https://codecov.io/gh/wKoza/ngx-upload/branch/master/graph/badge.svg)](https://codecov.io/gh/wKoza/ngx-upload)
 [![npm version](https://badge.fury.io/js/%40wkoza%2Fngx-upload.svg)](https://badge.fury.io/js/%40wkoza%2Fngx-upload)
-[![devDependency Status](https://david-dm.org/wKoza/ngx-upload/dev-status.svg)](https://david-dm.org/wKoza/ngx-upload?type=dev)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/wKoza/ngx-upload/master/LICENSE)
 
 ## Demo
@@ -69,12 +68,14 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import {NgxUploadModule} from '@wkoza/ngx-upload';
+import {NgxUploadModule, MineTypeEnum, DropTargetOptions} from '@wkoza/ngx-upload';
 
 export const ngxDropTargetOptions: DropTargetOptions = {
   color: 'dropZoneColor',
   colorDrag: 'dropZoneColorDrag',
-  colorDrop: 'dropZoneColorDrop'
+  colorDrop: 'dropZoneColorDrop',
+  multiple: true,
+  accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf]
 };
 
 @NgModule({
@@ -108,6 +109,11 @@ In this example, you should also declare these css classes in your own css :
 }
 ```
 
+There are also 3 properties:
+- `accept`	One or more unique file type specifiers describing file types to allow
+- `capture`	What source to use for capturing image or video data
+- `multiple` A Boolean which, if present, indicates that the user may choose more than one file. Default `true`. 
+ 
 ## Usage
 
 ### Directive ngxDragAndDrop
@@ -179,6 +185,20 @@ and with Material
 </button>
 </form>
 ```
+
+`*ngxInputFile` supports a configuration object of type `InputFileOptions`. For instance: 
+
+```typescript
+optionsInput: InputFileOptions = {
+  multiple: true,
+  accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf]
+};
+```
+
+There are 3 properties:
+- `accept`	One or more unique file type specifiers describing file types to allow
+- `capture`	What source to use for capturing image or video data
+- `multiple` A Boolean which, if present, indicates that the user may choose more than one file. Default `true`.
 
 ### Upload queue
 
@@ -268,7 +288,7 @@ Take a look at [those examples](https://github.com/wKoza/ngx-upload/tree/master/
 
 ## Hooks
 
-Ngx-upload offers 6 `Observable` to handle a specific behavior :
+Ngx-upload offers 7 `Observable` to handle a specific behavior :
 
 - onCancel$<FileItem> : This Observable emits when upload is canceled.
 - onError$<{ item: FileItem, body: any, status: number, headers: any }> : This Observable emits on error during the upload process.
@@ -276,6 +296,8 @@ Ngx-upload offers 6 `Observable` to handle a specific behavior :
 - onBeforeUploadItem$<FileItem> : This Observable emits just before the upload process.
 - onProgress$<{ item: FileItem, progress: number }> : This Observable emits during the upload process.
 - onAddToQueue$<<FileItem>>: This Observable is trigged when a file is added in the queue.
+- onDropError$<{ item?: File, errorAccept: boolean, errorMultiple: boolean }>: This Observable is trigged when a file is not accepted in the queue.
+
 
 For example :
 

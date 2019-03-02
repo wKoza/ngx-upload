@@ -20,13 +20,13 @@
             <div class="col-md-3">
                 <h3>Add files</h3>
                 <div>
-                    <div class="my-drop-zone" [ngxDragAndDrop]="options" *ngxInputFile>
+                    <div class="my-drop-zone" [ngxDragAndDrop]="optionsDrop" *ngxInputFile="optionsInput">
                         <h5>Drop files here to upload</h5>
                         <h6>Or click here to select local files.</h6>
                     </div>
                     or via a simple button-like :
                     <button mat-raised-button [color]="'primary'" >
-                        <ng-template ngxInputFile> Upload local files</ng-template>
+                        <ng-template ngxInputFile="optionsInput"> Upload local files</ng-template>
                     </button>
                 </div>
             </div>

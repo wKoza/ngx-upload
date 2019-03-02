@@ -14,3 +14,18 @@ ngb-progressbar {
 tr th {
   text-align: center
 }
+
+.dropZoneColorMaterial {
+  border: 3px dotted rgba(0,0,0,0.08);
+  background-color: #D8D8D8
+}
+
+.dropZoneColorDragMaterial {
+  border: 3px dotted rgba(0,0,0,0.28);
+  background-color: #673AB7
+}
+
+.dropZoneColorDropMaterial {
+  border: 3px dotted rgba(0,0,0,0.08);
+  background-color: #D8D8D8
+}
