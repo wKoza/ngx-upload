@@ -142,7 +142,7 @@ export abstract class AbstractUploadService {
       if (item.uploadInProgress || item.isSuccess) {
         totalCurrent += (item.file.size / 100) * item.progress || 0;
         total += item.file.size;
-        console.log(totalCurrent + ' / ' + total);
+        this.logger.debug(totalCurrent + ' / ' + total);
       }
     }
     return Math.round((totalCurrent * 100) / total);
