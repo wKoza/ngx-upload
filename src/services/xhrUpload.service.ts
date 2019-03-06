@@ -117,7 +117,6 @@ export class XhrUploadService extends AbstractUploadService {
 
             return () => {
                 // On a cancellation, remove all registered event listeners.
-                console.log('stop !!!!@');
                 this.xhr.removeEventListener('error', onError);
                 this.xhr.removeEventListener('load', onLoad);
                 this.xhr.upload.removeEventListener('progress', onProgress);

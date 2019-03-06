@@ -23,7 +23,7 @@
     "@angular/router": "6.0.6",
     "@fortawesome/fontawesome-free": "^5.5.0",
     "@ng-bootstrap/ng-bootstrap": "^3.2.0",
-    "@wkoza/ngx-upload": "^6.1.0",
+    "@wkoza/ngx-upload": "^6.4.0",
     "core-js": "2.4.1",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
