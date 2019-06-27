@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Injector, OnInit, Optional, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Injector, Optional, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
 import { HttpClientUploadService } from '../';
 import { InputFileOptions } from '../utils/configuration.model';
@@ -37,6 +37,8 @@ export class InputfileComponent implements AfterViewInit {
 
   onFilesAdded() {
     this.uploader.addToQueue(this.file.nativeElement.files, this.formGroup);
+    // Clear the previous input value
+    this.file.nativeElement.value = '';
   }
 
   ngAfterViewInit() {

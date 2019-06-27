@@ -1,11 +1,7 @@
-import { InjectionToken, Type } from '@angular/core';
-import { XhrUploadService } from '../services/xhrUpload.service';
-import { HttpClientUploadService } from '../services/httpClientUpload.service';
+import { InjectionToken } from '@angular/core';
 import { MineTypeEnum } from './mimetype.model';
 
 export type Method = 'POST' | 'GET';
-
-export type UploadService = Type<XhrUploadService> | Type<HttpClientUploadService>;
 
 export interface DropTargetOptions {
   color: string,
@@ -33,7 +29,6 @@ export interface InputFileOptions {
 }
 
 export const NGX_DROP_TARGET_OPTIONS = new InjectionToken<DropTargetOptions>('Ngx drop Zone Options');
-export const NGX_UPLOAD_STRATEGY = new InjectionToken<UploadService>('Ngx Upload Strategy');
 export const NGX_LOGGER_OPTIONS = new InjectionToken<LoggerOptions>('Ngx Logger Options');
 
 
