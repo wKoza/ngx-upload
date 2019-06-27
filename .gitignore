@@ -6,7 +6,6 @@
 .idea/ngx-upload-ok.iml
 .idea/workspace.xml
 coverage/
-dist/
 docs/
 demo/uploads
 demo/.DS_Store
