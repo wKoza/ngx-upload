@@ -12,6 +12,7 @@ export class FileItem {
     isError: boolean;
     progress = 0;
 
+    disableMultipart: boolean = false;
     formData: FormData = new FormData();
 
     alias = 'file';
