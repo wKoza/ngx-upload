@@ -78,9 +78,26 @@ export class NgxDragAndDropDirective implements OnInit {
         if (!transfer) {
             return;
         }
+        if (this.dropOptions.folderAccept == true)
+        {
+            this.getFilesWebkitDataTransferItems(transfer.items).then(
+                (data : File[])=>{
+                    this.uploader.addToQueue(data, this.formGroup, this.dropOptions);
+                }
+            )
+        }
+        else
+        {
+            var files = transfer.files;
+            var filelist: File[] = [];
+            for(var i = 0;i < files.length;i++)
+            {
+                filelist.push(files.item(i));
+            }
+            this.uploader.addToQueue(filelist, this.formGroup, this.dropOptions);
+        }
         transfer.dropEffect = 'copy';
         this.stopAndPrevent(event);
-        this.uploader.addToQueue(transfer.files, this.formGroup, this.dropOptions);
     }
 
 
@@ -118,5 +135,48 @@ export class NgxDragAndDropDirective implements OnInit {
             return false;
         }
     }
+
+
+
+
+    private getFilesWebkitDataTransferItems(dataTransferItems) {
+        function traverseFileTreePromise(item, path='') {
+          return new Promise(
+              resolve => {
+                if (item.isFile) {
+                    item.file(
+                        file => {
+                            file.filePath = path + file.name; //save full path
+                            files.push(file);
+                            resolve(file);
+                        }
+                    );
+                } else if (item.isDirectory) {
+                    let dirReader = item.createReader();
+                    dirReader.readEntries(entries => {
+                        let entriesPromises = [];
+                        entries.forEach(element => {
+                            entriesPromises.push(traverseFileTreePromise(element, path + item.name + "/"))
+                        });
+                        resolve(Promise.all(entriesPromises))
+                    })
+                }
+            })
+        }
+      
+        let files = [];
+        return new Promise((resolve) => {
+            let entriesPromises = [];
+            
+             for (let it of dataTransferItems)
+                entriesPromises.push(traverseFileTreePromise(it.webkitGetAsEntry()));
+
+            Promise.all(entriesPromises).then(entries => {
+              resolve(files)
+            });
+        });
+      }
+
+
 
 }

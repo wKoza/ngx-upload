@@ -21,6 +21,12 @@ export class FileItem {
     constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger) {
     }
 
+    public get filePath() : string
+    {
+        var file : any = this.file;
+        return file.filePath != undefined ? file.filePath : file.name;
+    }
+
     upload(endpoint: UploadEndPoint, options?: any) {
         if (endpoint) {
             this.uploadService.uploadFileItem(this, endpoint, options);

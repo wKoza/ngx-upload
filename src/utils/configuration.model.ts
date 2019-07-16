@@ -13,7 +13,8 @@ export interface DropTargetOptions {
   colorDrop: string,
   accept?: MineTypeEnum[],
   capture?: 'user' | 'environment',
-  multiple?: boolean
+  multiple?: boolean,
+  folderAccept?: boolean
 }
 
 export interface LoggerOptions {

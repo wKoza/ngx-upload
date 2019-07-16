@@ -33,7 +33,7 @@ export abstract class AbstractUploadService {
   /**
    * Adds files to the queue
    */
-  addToQueue(files: FileList, formGroup: FormGroup | null, dropOptions?: DropTargetOptions) {
+  addToQueue(files: File[], formGroup: FormGroup | null, dropOptions?: DropTargetOptions) {
 
     this.logger.info('add to queue');
 
@@ -46,8 +46,8 @@ export abstract class AbstractUploadService {
     }
 
     for (let i = 0; i < files.length; i++) {
-      const file = files.item(i)!;
-      this.logger.debug(files.item(i));
+      const file = files[i]!;
+      this.logger.debug(files[i]);
 
       if (dropOptions && dropOptions.accept) {
         const accepted = dropOptions.accept.some((type: string) => type === file.type);
