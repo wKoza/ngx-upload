@@ -22,7 +22,6 @@ export class HttpClientUploadService extends AbstractUploadService {
 
 
     uploadFileItem(fileItem: FileItem, endpoint: UploadEndPoint, options: any = {}): void {
-
         this.logger.info('enter uploadService.uploadFileItem()');
 
         const method = endpoint.method as string;
