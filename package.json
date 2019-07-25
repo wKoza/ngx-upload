@@ -51,7 +51,7 @@
     "@angular/platform-browser-dynamic": "6.1.10",
     "@compodoc/compodoc": "1.1.10",
     "@types/html-webpack-plugin": "2.30.4",
-    "@types/jasmine": "2.5.47",
+    "@types/jasmine": "2.8.16",
     "@types/node": "7.10.7",
     "@types/webpack": "2.2.16",
     "codecov": "2.3.1",
