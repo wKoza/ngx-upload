@@ -12,9 +12,22 @@ import * as FileAPI from 'file-api';
 import { FileItem } from '../../src/services/fileItem.model';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DropTargetOptions, MineTypeEnum, UploadEndPoint } from '../../src';
+import {imageBase64} from '../utils/image';
 
 export function _loggerFactory(): NgxUploadLogger {
   return new NoOpLogger();
+}
+
+// convert image to base64 encoded string
+
+function createFile(base64): File {
+  var arr = base64.split(',');
+  var mime = arr[0].match(/:(.*?);/)![1];
+  var bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+  while(n--){
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], 'postit.jpg', {type: mime});
 }
 
 describe('HttpClientUploadService', () => {
@@ -158,7 +171,7 @@ describe('HttpClientUploadService', () => {
       url: 'ngx_upload_mock' // 'http://localhost:8090/upload'
     };
 
-    const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
+    const files = new FileAPI.FileList(createFile(imageBase64));
     httpClientUploadService.addToQueue(files, null);
     httpClientUploadService.uploadFileItem(httpClientUploadService.queue[0], endpoint);
 
