@@ -59,7 +59,7 @@
     "commitizen": "2.10.1",
     "concurrently": "3.6.1",
     "copyfiles": "1.2.0",
-    "core-js": "2.4.1",
+    "core-js": "2.6.9",
     "del-cli": "1.1.0",
     "file-api": "0.10.4",
     "fork-ts-checker-webpack-plugin": "0.2.10",
