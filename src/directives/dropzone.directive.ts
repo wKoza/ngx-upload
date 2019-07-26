@@ -78,7 +78,8 @@ export class NgxDragAndDropDirective implements OnInit {
         if (!transfer) {
             return;
         }
-        if (this.dropOptions.folderAccept == true)
+        // Not support IE (folder upload)
+        if (this.dropOptions.folderAccept == true && NgxDragAndDropDirective.getVersionOfIE() == -1)
         {
             this.getFilesWebkitDataTransferItems(transfer.items).then(
                 (data : File[])=>{
@@ -137,7 +138,26 @@ export class NgxDragAndDropDirective implements OnInit {
     }
 
 
+    private static getVersionOfIE() { 
+        var word; 
+        var agent = navigator.userAgent.toLowerCase(); 
+   
+        // IE old version ( IE 10 or Lower ) 
+        if ( navigator.appName == "Microsoft Internet Explorer" ) word = "msie "; 
 
+        // IE 11 
+        else if ( agent.search( "trident" ) > -1 ) word = "trident/.*rv:"; 
+
+        // Microsoft Edge
+        else if ( agent.search( "edge/" ) > -1 ) word = "edge/"; 
+
+        else return -1; 
+   
+        var reg = new RegExp( word + "([0-9]{1,})(\\.{0,}[0-9]{0,1})" ); 
+        if (reg.exec( agent ) != null) 
+            return parseFloat( RegExp.$1 + RegExp.$2 ); 
+        return -1; 
+   }
 
     private getFilesWebkitDataTransferItems(dataTransferItems) {
         function traverseFileTreePromise(item, path='') {
