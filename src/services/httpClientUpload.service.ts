@@ -41,12 +41,14 @@ export class HttpClientUploadService extends AbstractUploadService {
 
         var sendable;
 
-        if (item.disableMultipart == true)
-            sendable = item.file;
-        else
+        if (!this.disableMultipart)
         {
             sendable = item.formData;
             sendable.append(item.alias, item.file, item.file.name);
+        }
+        else
+        {
+            sendable = item.file;
         }
 
         const req = new HttpRequest(method, url, sendable, Object.assign(options, {reportProgress: true}));
