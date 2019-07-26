@@ -71,7 +71,7 @@
     "karma-webpack": "3.0.0",
     "mini-css-extract-plugin": "0.4.5",
     "ngc-webpack": "4.1.2",
-    "optimize-css-assets-webpack-plugin": "4.0.2",
+    "optimize-css-assets-webpack-plugin": "4.0.3",
     "phantomjs-prebuilt": "2.1.16",
     "postcss-loader": "2.1.5",
     "raw-loader": "0.5.1",
