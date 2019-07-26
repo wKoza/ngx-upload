@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.0-beta.0"></a>
+# [8.0.0-beta.0](https://github.com/wKoza/ngx-upload/compare/v6.4.0...v8.0.0-beta.0) (2019-07-26)
+
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([#25](https://github.com/wKoza/ngx-upload/issues/25)) ([9b07076](https://github.com/wKoza/ngx-upload/commit/9b07076))
+* **xhrService:** remove log ([#19](https://github.com/wKoza/ngx-upload/issues/19)) ([450e17c](https://github.com/wKoza/ngx-upload/commit/450e17c))
+
+
+
 <a name="6.4.0"></a>
 # [6.4.0](https://github.com/wKoza/ngx-upload/compare/v6.3.0...v6.4.0) (2019-03-02)
 
