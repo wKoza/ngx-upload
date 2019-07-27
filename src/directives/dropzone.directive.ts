@@ -38,7 +38,7 @@ export class NgxDragAndDropDirective implements OnInit {
                 private renderer: Renderer2,
                 private injector: Injector,
                 private logger: NgxUploadLogger,
-                private uploader: HttpClientUploadService,
+                public uploader: HttpClientUploadService,
                 @Inject(NGX_DROP_TARGET_OPTIONS) private dropOptions: DropTargetOptions,
                 @Optional() private ngForm: NgForm, @Optional() private formGroupDirective: FormGroupDirective) {
         if (this.ngForm) {
