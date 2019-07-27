@@ -6,11 +6,10 @@ import {
   NGX_DROP_TARGET_OPTIONS,
   ngxDropTargetOptions,
   ngxloggerOptions,
-  UploadService, NGX_UPLOAD_STRATEGY, NGX_LOGGER_OPTIONS, UploadEndPoint
+  NGX_LOGGER_OPTIONS, UploadEndPoint
 } from './utils/configuration.model';
 import { NgxDragAndDropDirective } from './directives/dropzone.directive';
 import { ConsoleLogger, NgxUploadLogger, NoOpLogger } from './utils/logger.model';
-import { XhrUploadService } from './services/xhrUpload.service';
 import { HttpClientUploadService } from './services/httpClientUpload.service';
 import { NgxThumbnailDirective } from './directives/thumbnail.directive';
 import { NgxInputFileDirective } from './directives/inputfile.directive';
@@ -18,9 +17,7 @@ import { InputfileComponent } from './components/inputfile.component';
 export { DropTargetOptions, UploadEndPoint, LoggerOptions, InputFileOptions } from './utils/configuration.model';
 export { MineTypeEnum } from './utils/mimetype.model';
 export { FileItem } from './services/fileItem.model';
-export { XhrUploadService } from './services/xhrUpload.service';
 export { HttpClientUploadService } from './services/httpClientUpload.service';
-export { UploadService } from './utils/configuration.model';
 
 const ngxDeclarations = [
     NgxDragAndDropDirective, NgxThumbnailDirective, NgxInputFileDirective, InputfileComponent
@@ -65,13 +62,11 @@ export class NgxUploadModule {
                     provide: NGX_DROP_TARGET_OPTIONS,
                     useValue: (dropTargetOptions) ? dropTargetOptions : ngxDropTargetOptions
                 },
-                {provide: NGX_UPLOAD_STRATEGY, useValue: HttpClientUploadService},
                 {
                     provide: NgxUploadLogger,
                     useFactory: _loggerFactory,
                     deps: [NGX_LOGGER_OPTIONS]
                 },
-                XhrUploadService,
                 HttpClientUploadService
             ]
         }

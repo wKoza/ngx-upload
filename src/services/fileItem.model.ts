@@ -1,7 +1,7 @@
-import { AbstractUploadService } from './abstractUpload.service';
 import { NgxUploadLogger } from '../utils/logger.model';
 import { Subscription } from 'rxjs';
 import { UploadEndPoint } from '../utils/configuration.model';
+import { HttpClientUploadService } from './httpClientUpload.service';
 
 export class FileItem {
 
@@ -18,7 +18,7 @@ export class FileItem {
 
     sub: Subscription;
 
-    constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger) {
+    constructor(public file: File, private uploadService: HttpClientUploadService, protected logger: NgxUploadLogger) {
     }
 
     upload(endpoint: UploadEndPoint, options?: any) {

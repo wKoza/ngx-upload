@@ -1,27 +1,13 @@
-import { Inject, Injectable } from '@angular/core';
-import { Observable, EMPTY} from 'rxjs';
-
-import { AbstractUploadService } from '../../src/services/abstractUpload.service';
+import { Injectable } from '@angular/core';
 import { NgxUploadLogger } from '../../src/utils/logger.model';
-import {
-     NGX_UPLOAD_STRATEGY, UploadEndPoint
-} from '../../src/utils/configuration.model';
-import { FileItem } from '../../src/services/fileItem.model';
+import { HttpClientUploadService } from '../../src';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class HttpClientUploadServiceMock extends AbstractUploadService {
+export class HttpClientUploadServiceMock extends HttpClientUploadService {
 
-    constructor(protected logger: NgxUploadLogger) {
-        super(logger);
-    }
-
-
-    uploadFileItem(fileItem: FileItem, options?: any): Observable<any> {
-        return EMPTY;
-    }
-
-    cancelFileItem(fileItem: FileItem) {
-
+    constructor(logger: NgxUploadLogger, httpClient: HttpClient) {
+        super(logger, httpClient);
     }
 
 }

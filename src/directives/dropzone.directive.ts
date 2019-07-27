@@ -1,20 +1,18 @@
 import {
     Directive,
     ElementRef,
-    EventEmitter,
     HostListener,
     Input,
     OnInit,
-    Output,
     Renderer2,
     Inject, Injector, Optional
 } from '@angular/core';
 import { FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
 import {
-    DropTargetOptions, NGX_DROP_TARGET_OPTIONS, NGX_UPLOAD_STRATEGY, UploadService
+    DropTargetOptions, NGX_DROP_TARGET_OPTIONS
 } from '../utils/configuration.model';
 import { NgxUploadLogger } from '../utils/logger.model';
-import { AbstractUploadService } from '../services/abstractUpload.service';
+import { HttpClientUploadService } from '../services/httpClientUpload.service';
 
 
 /**
@@ -25,8 +23,6 @@ import { AbstractUploadService } from '../services/abstractUpload.service';
     exportAs: 'ngxDragAndDrop'
 })
 export class NgxDragAndDropDirective implements OnInit {
-
-    uploader: AbstractUploadService;
 
     @Input()
     set ngxDragAndDrop(dropOptions: DropTargetOptions) {
@@ -42,10 +38,9 @@ export class NgxDragAndDropDirective implements OnInit {
                 private renderer: Renderer2,
                 private injector: Injector,
                 private logger: NgxUploadLogger,
+                private uploader: HttpClientUploadService,
                 @Inject(NGX_DROP_TARGET_OPTIONS) private dropOptions: DropTargetOptions,
-                @Inject(NGX_UPLOAD_STRATEGY) private strategy: UploadService,
                 @Optional() private ngForm: NgForm, @Optional() private formGroupDirective: FormGroupDirective) {
-
         if (this.ngForm) {
             this.formGroup = ngForm.form;
         } else if (this.formGroupDirective) {
@@ -57,8 +52,6 @@ export class NgxDragAndDropDirective implements OnInit {
 
     ngOnInit(): void {
         this.renderer.addClass(this.el.nativeElement, this.dropOptions.color);
-        this.logger.info('strategy : ' + this.strategy!.toString());
-        this.uploader = this.injector.get(this.strategy);
     }
 
     @HostListener('dragleave', ['$event']) onDragLeave(event: DragEvent) {

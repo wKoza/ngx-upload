@@ -3,11 +3,14 @@ import { NgxThumbnailDirective } from '../../src/directives/thumbnail.directive'
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { FileItem } from '../../src/services/fileItem.model';
-import { AbstractUploadService } from '../../src/services/abstractUpload.service';
 import { MockLogger } from '../mocks/logger.model.mock';
 import {imageBase64} from '../utils/image';
 import { UploadEndPoint } from '../../src/utils/configuration.model';
 import { CommonModule } from '@angular/common';
+import { HttpClientUploadService } from '../../src';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NgxUploadLogger } from '../../src/utils/logger.model';
 
 // convert image to base64 encoded string
 
@@ -21,16 +24,14 @@ function createFile(base64): File {
     return new File([u8arr], 'postit.jpg', {type: mime});
 }
 
-class HttpClientUploadServiceStub extends AbstractUploadService {
-    uploadFileItem(fileItem: FileItem, endpoint: UploadEndPoint, options?: any) { };
-    cancelFileItem(fileItem: FileItem) { };
-}
-
 @Component({
     template: `<div [ngxThumbnail]="itemFile"></div>`
 })
 class TestComponent {
-    itemFile = new FileItem(createFile(imageBase64), new HttpClientUploadServiceStub(new MockLogger()), new MockLogger());
+
+    constructor(private httpClient: HttpClient, private logger: NgxUploadLogger) { }
+
+    itemFile = new FileItem(createFile(imageBase64), new HttpClientUploadService(this.logger, this.httpClient), this.logger);
 }
 
 describe('ngxThumbnailDirective', () => {
@@ -43,8 +44,9 @@ describe('ngxThumbnailDirective', () => {
     beforeEach(() => {
 
         fixture = TestBed.configureTestingModule({
-            imports: [ BrowserModule, CommonModule],
-            declarations: [ NgxThumbnailDirective, TestComponent ]
+            imports: [ BrowserModule, CommonModule, HttpClientTestingModule],
+            declarations: [ NgxThumbnailDirective, TestComponent ],
+            providers: [ {provide: NgxUploadLogger, useClass: MockLogger} ]
         }).createComponent(TestComponent);
 
         des = fixture.debugElement.queryAll(By.directive(NgxThumbnailDirective));
