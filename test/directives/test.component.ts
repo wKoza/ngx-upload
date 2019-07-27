@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 
 
 @Component({
@@ -9,6 +9,3 @@ import { Component, NgModule } from '@angular/core';
 })
 export class TestComponent { }
 
-
-@NgModule({declarations: [TestComponent]})
-export class TestModule { }
