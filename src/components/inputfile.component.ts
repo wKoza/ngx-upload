@@ -36,7 +36,7 @@ export class InputfileComponent implements AfterViewInit {
   }
 
   onFilesAdded() {
-    this.uploader.addToQueue(this.file.nativeElement.files, this.formGroup);
+    this.uploader.addToQueue(this.file.nativeElement.files, this.formGroup, this.options);
     // Clear the previous input value
     this.file.nativeElement.value = '';
   }

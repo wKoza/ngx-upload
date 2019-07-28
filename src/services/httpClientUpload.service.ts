@@ -2,7 +2,7 @@ import { FileItem } from './fileItem.model';
 import { FormGroup } from '@angular/forms';
 import { NgxUploadLogger } from '../utils/logger.model';
 import { Subject, Subscription } from 'rxjs';
-import { DropTargetOptions, UploadEndPoint } from '../utils/configuration.model';
+import { DropTargetOptions, InputFileOptions, UploadEndPoint } from '../utils/configuration.model';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -22,7 +22,6 @@ export class HttpClientUploadService {
 
   queue: FileItem[];
   progressTotal = 0;
-  disableMultipart: boolean;
   withCredentials: boolean;
 
   sub: Subscription;
@@ -43,17 +42,16 @@ export class HttpClientUploadService {
   constructor(protected logger: NgxUploadLogger, private httpClient: HttpClient) {
     this.queue = new Array<FileItem>();
     this.headers = new Map();
-    this.disableMultipart = false;
   }
 
   /**
    * Adds files to the queue
    */
-  addToQueue(files: FileList, formGroup: FormGroup | null, dropOptions?: DropTargetOptions) {
+  addToQueue(files: FileList, formGroup: FormGroup | null, options: DropTargetOptions | InputFileOptions) {
 
     this.logger.info('add to queue');
 
-    if (dropOptions && !dropOptions.multiple) {
+    if (options && !options.multiple) {
       if (files.length > 1) {
         this.logger.error('there is more than one file.');
         this.onDropError$.next({errorAccept: false, errorMultiple: true});
@@ -65,8 +63,8 @@ export class HttpClientUploadService {
       const file = files.item(i)!;
       this.logger.debug(files.item(i));
 
-      if (dropOptions && dropOptions.accept) {
-        const accepted = dropOptions.accept.some((type: string) => type === file.type);
+      if (options && options.accept) {
+        const accepted = options.accept.some((type: string) => type === file.type);
         if (!accepted) {
           this.logger.error('this file is not accepted because of its type', file);
           this.onDropError$.next({item: file, errorAccept: true, errorMultiple: false});
@@ -74,11 +72,16 @@ export class HttpClientUploadService {
         }
       }
 
-      const fileItem = new FileItem(file, this, this.logger);
-      if (formGroup) {
-        Object.keys(formGroup.controls).forEach((key) => {
-          fileItem.formData.append(key, formGroup.get(key) !.value);
-        });
+      let fileItem;
+      if (options && options.disableMultipart) {
+        fileItem = new FileItem(file, this, this.logger, true);
+      } else {
+        fileItem = new FileItem(file, this, this.logger, false);
+        if (formGroup) {
+          Object.keys(formGroup.controls).forEach((key) => {
+            fileItem.formData.append(key, formGroup.get(key) !.value);
+          });
+        }
       }
       this.queue.push(fileItem);
       this.onAddToQueue$.next(fileItem);
@@ -110,11 +113,10 @@ export class HttpClientUploadService {
 
     let sendable;
 
-    if (!this.disableMultipart) {
+    if (!fileItem.disableMultipart) {
       sendable = item.formData;
       sendable.append(item.alias, item.file, item.file.name);
     } else {
-      this.logger.debug(item.file);
       sendable = item.file;
     }
 
