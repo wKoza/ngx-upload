@@ -76,8 +76,8 @@ describe('HttpClientUploadService', () => {
   it('should add 3 files in the queue', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'), new FileAPI.File('./image2.jpg'), new FileAPI.File('./image3.jpg'));
     expect(httpClientUploadService.queue.length).toBe(0);
-    const ngxDropTargetOptions: DropTargetOptions = { color: 'dropZoneColor', colorDrag: 'dropZoneColorDrag', colorDrop: 'dropZoneColorDrop', disableMultipart: false };
-    httpClientUploadService.addToQueue(files, null, ngxDropTargetOptions);
+    const dropOptions: DropTargetOptions = {color: '', colorDrag: '', colorDrop: '', multiple: true, accept: [MineTypeEnum.Image_Jpeg], disableMultipart: false};
+    httpClientUploadService.addToQueue(files, null, dropOptions);
     expect(httpClientUploadService.queue.length).toBe(3);
   });
 
