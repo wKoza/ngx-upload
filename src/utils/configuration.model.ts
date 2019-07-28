@@ -4,12 +4,13 @@ import { MineTypeEnum } from './mimetype.model';
 export type Method = 'POST' | 'GET';
 
 export interface DropTargetOptions {
-  color: string,
-  colorDrag: string,
-  colorDrop: string,
-  accept?: MineTypeEnum[],
-  capture?: 'user' | 'environment',
-  multiple?: boolean
+  color: string;
+  colorDrag: string;
+  colorDrop: string;
+  accept?: MineTypeEnum[];
+  capture?: 'user' | 'environment';
+  multiple?: boolean;
+  disableMultipart?: boolean;
 }
 
 export interface LoggerOptions {
@@ -18,14 +19,15 @@ export interface LoggerOptions {
 }
 
 export interface UploadEndPoint {
-  method?: Method,
-  url?: string
+  method?: Method;
+  url?: string;
 }
 
 export interface InputFileOptions {
-  accept?: MineTypeEnum[],
-  capture?: 'user' | 'environment',
-  multiple?: boolean
+  accept?: MineTypeEnum[];
+  capture?: 'user' | 'environment';
+  multiple?: boolean;
+  disableMultipart?: boolean;
 }
 
 export const NGX_DROP_TARGET_OPTIONS = new InjectionToken<DropTargetOptions>('Ngx drop Zone Options');
@@ -36,7 +38,8 @@ export const ngxDropTargetOptions: DropTargetOptions = {
   color: '',
   colorDrag: '',
   colorDrop: '',
-  multiple: true
+  multiple: true,
+  disableMultipart: false
 };
 
 export const ngxloggerOptions: LoggerOptions = {
@@ -45,5 +48,6 @@ export const ngxloggerOptions: LoggerOptions = {
 };
 
 export const ngxInputFileOptions: InputFileOptions = {
-  multiple: true
+  multiple: true,
+  disableMultipart: false
 };

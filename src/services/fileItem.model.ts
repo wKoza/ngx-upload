@@ -18,8 +18,8 @@ export class FileItem {
 
     sub: Subscription;
 
-    constructor(public file: File, private uploadService: HttpClientUploadService, protected logger: NgxUploadLogger) {
-    }
+    constructor(public file: File, private uploadService: HttpClientUploadService, protected logger: NgxUploadLogger,
+                public disableMultipart) { }
 
     upload(endpoint: UploadEndPoint, options?: any) {
         if (endpoint) {

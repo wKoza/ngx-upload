@@ -31,7 +31,7 @@ class TestComponent {
 
     constructor(private httpClient: HttpClient, private logger: NgxUploadLogger) { }
 
-    itemFile = new FileItem(createFile(imageBase64), new HttpClientUploadService(this.logger, this.httpClient), this.logger);
+    itemFile = new FileItem(createFile(imageBase64), new HttpClientUploadService(this.logger, this.httpClient), this.logger, false);
 }
 
 describe('ngxThumbnailDirective', () => {

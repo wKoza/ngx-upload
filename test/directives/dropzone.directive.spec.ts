@@ -21,7 +21,8 @@ describe('NgxDragAndDropDirective', () => {
         const ngxDropTargetOptions: DropTargetOptions = {
             color: 'dropZoneColor',
             colorDrag: 'dropZoneColorDrag',
-            colorDrop: 'dropZoneColorDrop'
+            colorDrop: 'dropZoneColorDrop',
+            disableMultipart: false
         };
 
         fixture = TestBed.configureTestingModule({
