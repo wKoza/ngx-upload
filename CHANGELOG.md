@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.0-beta.1"></a>
+# [8.0.0-beta.1](https://github.com/wKoza/ngx-upload/compare/v8.0.0-beta.0...v8.0.0-beta.1) (2019-07-28)
+
+
+### Bug Fixes
+
+* **directive:** change access modifier of uploader ([#59](https://github.com/wKoza/ngx-upload/issues/59)) ([b2b8745](https://github.com/wKoza/ngx-upload/commit/b2b8745))
+
+
+### Features
+
+* **configuration:** add disableMultipart option ([#61](https://github.com/wKoza/ngx-upload/issues/61)) ([a39a062](https://github.com/wKoza/ngx-upload/commit/a39a062))
+* **core:** remove deprecated xhr client ([#58](https://github.com/wKoza/ngx-upload/issues/58)) ([cb95dd5](https://github.com/wKoza/ngx-upload/commit/cb95dd5))
+
+
+
 <a name="8.0.0-beta.0"></a>
 # [8.0.0-beta.0](https://github.com/wKoza/ngx-upload/compare/v6.4.0...v8.0.0-beta.0) (2019-07-26)
 
