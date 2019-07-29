@@ -81,6 +81,14 @@ describe('HttpClientUploadService', () => {
     expect(httpClientUploadService.queue.length).toBe(3);
   });
 
+  it('should add 3 files in the queue when we use a wildcard', () => {
+    const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'), new FileAPI.File('./image2.png'), new FileAPI.File('./image3.jpg'));
+    expect(httpClientUploadService.queue.length).toBe(0);
+    const dropOptions: DropTargetOptions = {color: '', colorDrag: '', colorDrop: '', multiple: true, accept: [MineTypeEnum.Image], disableMultipart: false};
+    httpClientUploadService.addToQueue(files, null, dropOptions);
+    expect(httpClientUploadService.queue.length).toBe(3);
+  });
+
   it('should add 3 files with different types in the queue', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'), new FileAPI.File('./doc.pdf'), new FileAPI.File('./image3.jpg'));
     expect(httpClientUploadService.queue.length).toBe(0);
@@ -154,7 +162,6 @@ describe('HttpClientUploadService', () => {
   it('should have a fileItem in the queue', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
     httpClientUploadService.addToQueue(files, null, this.ngxDropTargetOptions);
-
     const fileItem = httpClientUploadService.queue[0] as FileItem;
     expect(fileItem.file.name).toBe('image.jpg');
     expect(fileItem.file.type).toBe('image/jpeg');
@@ -165,10 +172,8 @@ describe('HttpClientUploadService', () => {
   it('should have a fileItem in the queue', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
     httpClientUploadService.addToQueue(files, null, this.ngxDropTargetOptions);
-
     const fileItem = httpClientUploadService.queue[0] as FileItem;
     fileItem.ɵonBeforeUploadItem();
-
     expect(fileItem.uploadInProgress).toBe(false);
     expect(fileItem.isReady).toBe(true);
     expect(fileItem.isSuccess).toBe(false);

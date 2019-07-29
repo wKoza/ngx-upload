@@ -64,7 +64,13 @@ export class HttpClientUploadService {
       this.logger.debug(files.item(i));
 
       if (options && options.accept) {
-        const accepted = options.accept.some((type: string) => type === file.type);
+        const accepted = options.accept.some((type: string) => {
+          if (type.indexOf('/*')) {
+            return type.split('/')[0] === file.type.split('/')[0]
+          } else {
+            return type === file.type
+          }
+        });
         if (!accepted) {
           this.logger.error('this file is not accepted because of its type', file);
           this.onDropError$.next({item: file, errorAccept: true, errorMultiple: false});
