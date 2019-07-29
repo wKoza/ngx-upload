@@ -113,6 +113,7 @@ There are also 3 properties:
 - `accept`	One or more unique file type specifiers describing file types to allow
 - `capture`	What source to use for capturing image or video data
 - `multiple` A Boolean which, if present, indicates that the user may choose more than one file. Default `true`. 
+- `disableMultipart`. Ngx-uploader uses, by default, the content-type `multipart` when it sends a file. This boolean allows to change the content-type of the request by the type of the file when its value is `true`.
  
 ## Usage
 

@@ -23,7 +23,8 @@ export class SimpleBootstrapComponent implements OnInit {
 
   optionsInput: InputFileOptions = {
     multiple: true,
-    accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf]
+    accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf],
+    disableMultipart: false
   };
 
   optionsDrop: DropTargetOptions = {
@@ -31,7 +32,8 @@ export class SimpleBootstrapComponent implements OnInit {
     colorDrag: 'dropZoneColorDragMaterial',
     colorDrop: 'dropZoneColorDropMaterial',
     multiple: true,
-    accept: [MineTypeEnum.Image_Jpeg, MineTypeEnum.Image_Png]
+    accept: [MineTypeEnum.Image_Jpeg, MineTypeEnum.Image_Png],
+    disableMultipart: false
   };
 
   constructor(public uploader: HttpClientUploadService) {

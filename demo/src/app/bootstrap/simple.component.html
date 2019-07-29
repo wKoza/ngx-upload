@@ -27,7 +27,12 @@
                         </div>
                         or via a simple button-like : <span class="btn btn-outline-success btn-s" *ngxInputFile="optionsInput">Upload local files</span>
                 </div>
+                <div>
+                    <div><input type="checkbox" (change)="optionsDrop.disableMultipart = !optionsDrop.disableMultipart"> optionsDrop.disableMultipart : {{optionsDrop.disableMultipart}}</div>
+                    <div><input type="checkbox" (change)="optionsInput.disableMultipart = !optionsInput.disableMultipart"> optionsInput.disableMultipart : {{optionsInput.disableMultipart}}</div>
+                </div>
             </div>
+
 
             <div class="col-md-9" style="margin-bottom: 40px">
                 <h3>Upload queue <span *ngIf="uploader.queue.length>0"> - {{ uploader.queue.length }} item(s)</span>

@@ -34,6 +34,8 @@ export class SimpleMaterialComponent implements OnInit {
     accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf]
   };
 
+  title = 'Upload local files';
+
   constructor(public uploader: HttpClientUploadService) {
   }
 

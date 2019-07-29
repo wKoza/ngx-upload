@@ -26,8 +26,12 @@
                     </div>
                     or via a simple button-like :
                     <button mat-raised-button [color]="'primary'" >
-                        <ng-template ngxInputFile="optionsInput"> Upload local files</ng-template>
+                        <ng-template ngxInputFile="optionsInput"> {{title}}</ng-template>
                     </button>
+                </div>
+                <div>
+                    <div><input type="checkbox" (change)="optionsDrop.disableMultipart = !optionsDrop.disableMultipart"> optionsDrop.disableMultipart : {{optionsDrop.disableMultipart}}</div>
+                    <div><input type="checkbox" (change)="optionsInput.disableMultipart = !optionsInput.disableMultipart"> optionsInput.disableMultipart : {{optionsInput.disableMultipart}}</div>
                 </div>
             </div>
 
