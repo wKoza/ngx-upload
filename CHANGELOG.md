@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.0-beta.2"></a>
+# [8.0.0-beta.2](https://github.com/wKoza/ngx-upload/compare/v8.0.0-beta.1...v8.0.0-beta.2) (2019-07-29)
+
+
+### Bug Fixes
+
+* **options:** now, we accept a minetype with a wildcard ([c4f18fa](https://github.com/wKoza/ngx-upload/commit/c4f18fa))
+
+
+
 <a name="8.0.0-beta.1"></a>
 # [8.0.0-beta.1](https://github.com/wKoza/ngx-upload/compare/v8.0.0-beta.0...v8.0.0-beta.1) (2019-07-28)
 
