@@ -1,6 +1,6 @@
 {
   "name": "@wkoza/ngx-upload",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Upload module for Angular",
   "ngPackage": {
     "lib": {
@@ -36,14 +36,14 @@
   },
   "homepage": "https://github.com/wKoza/ngx-upload#readme",
   "devDependencies": {
-    "@angular/common": "8.2.0",
-    "@angular/compiler": "8.2.0",
-    "@angular/compiler-cli": "8.2.0",
-    "@angular/core": "8.2.0",
-    "@angular/forms": "8.2.0",
-    "@angular/language-service": "8.2.0",
-    "@angular/platform-browser": "8.2.0",
-    "@angular/platform-browser-dynamic": "8.2.0",
+    "@angular/common": "8.0.0",
+    "@angular/compiler": "8.0.0",
+    "@angular/compiler-cli": "8.0.0",
+    "@angular/core": "8.0.0",
+    "@angular/forms": "8.0.0",
+    "@angular/language-service": "8.0.0",
+    "@angular/platform-browser": "8.0.0",
+    "@angular/platform-browser-dynamic": "8.0.0",
     "@compodoc/compodoc": "1.1.10",
     "@types/html-webpack-plugin": "2.30.4",
     "@types/jasmine": "2.8.16",
