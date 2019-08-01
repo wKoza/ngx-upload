@@ -18,7 +18,7 @@ function _testLoggerFactory(options: LoggerOptions): NgxUploadLogger {
 
 
 describe('NgxLogger', () => {
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 {provide: NGX_LOGGER_OPTIONS, useValue: {enabled: true}},
@@ -33,33 +33,34 @@ describe('NgxLogger', () => {
                 CommonModule
             ]
         });
-    }));
+    });
 
 
-    it('should display hello world', inject([NgxUploadLogger], (logger: NgxUploadLogger) => {
+    it('should display hello world', () => {
+        const logger = TestBed.get(NgxUploadLogger);
         expect(logger instanceof ConsoleLogger).toBeTruthy();
         logger.info('hello world');
-    }));
+    });
 
-    it('should display hello world', inject([NgxUploadLogger], (logger: NgxUploadLogger) => {
-        expect(logger instanceof ConsoleLogger).toBeTruthy();
-        logger.log('hello world');
-    }));
+     it('should display hello world', inject([NgxUploadLogger], (logger: NgxUploadLogger) => {
+          expect(logger instanceof ConsoleLogger).toBeTruthy();
+          logger.log('hello world');
+      }));
 
-    it('should display hello world', inject([NgxUploadLogger], (logger: NgxUploadLogger) => {
-        expect(logger instanceof ConsoleLogger).toBeTruthy();
-        logger.debug('hello world');
-    }));
+      it('should display hello world', inject([NgxUploadLogger], (logger: NgxUploadLogger) => {
+          expect(logger instanceof ConsoleLogger).toBeTruthy();
+          logger.debug('hello world');
+      }));
 
-    it('should display hello world', inject([NgxUploadLogger], (logger: NgxUploadLogger) => {
-        expect(logger instanceof ConsoleLogger).toBeTruthy();
-        logger.error('hello world');
-    }));
+      it('should display hello world', inject([NgxUploadLogger], (logger: NgxUploadLogger) => {
+          expect(logger instanceof ConsoleLogger).toBeTruthy();
+          logger.error('hello world');
+      }));
 
-    it('should display hello world', inject([NgxUploadLogger], (logger: NgxUploadLogger) => {
-        expect(logger instanceof ConsoleLogger).toBeTruthy();
-        logger.warn('hello world');
-    }));
+      it('should display hello world', inject([NgxUploadLogger], (logger: NgxUploadLogger) => {
+          expect(logger instanceof ConsoleLogger).toBeTruthy();
+          logger.warn('hello world');
+      }));
 
 
 });

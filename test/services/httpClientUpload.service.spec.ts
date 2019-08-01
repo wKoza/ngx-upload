@@ -41,7 +41,6 @@ describe('HttpClientUploadService', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
-        HttpClientModule,
         CommonModule,
         HttpClientTestingModule
       ],

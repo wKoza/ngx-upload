@@ -32,7 +32,7 @@ export class NgxDragAndDropDirective implements OnInit {
         }
     }
 
-    private formGroup: FormGroup | null;
+    private readonly formGroup: FormGroup | null;
 
     constructor(private el: ElementRef,
                 private renderer: Renderer2,
