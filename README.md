@@ -109,7 +109,7 @@ In this example, you should also declare these css classes in your own css :
 }
 ```
 
-There are also 3 properties:
+There are also 4 properties:
 - `accept`	One or more unique file type specifiers describing file types to allow
 - `capture`	What source to use for capturing image or video data
 - `multiple` A Boolean which, if present, indicates that the user may choose more than one file. Default `true`. 
