@@ -1,8 +1,5 @@
-import { FileItem } from './fileItem.model';
 import { FormGroup } from '@angular/forms';
-import { NgxUploadLogger } from '../utils/logger.model';
 import { Subject, Subscription } from 'rxjs';
-import { DropTargetOptions, InputFileOptions, UploadEndPoint } from '../utils/configuration.model';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -13,6 +10,10 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { FileItem } from './fileItem.model';
+import { NgxUploadLogger } from '../utils/logger.model';
+import { DropTargetOptions, InputFileOptions, UploadEndPoint } from '../utils/configuration.model';
 
 
 // send an event for each upload event. These events can be catched by the user for call a callback
