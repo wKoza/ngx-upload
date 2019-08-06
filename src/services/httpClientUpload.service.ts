@@ -17,7 +17,9 @@ import { Injectable } from '@angular/core';
 
 // send an event for each upload event. These events can be catched by the user for call a callback
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HttpClientUploadService {
 
   queue: FileItem[];

@@ -66,8 +66,7 @@ export class NgxUploadModule {
                     provide: NgxUploadLogger,
                     useFactory: _loggerFactory,
                     deps: [NGX_LOGGER_OPTIONS]
-                },
-                HttpClientUploadService
+                }
             ]
         }
 
