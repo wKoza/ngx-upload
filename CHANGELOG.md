@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.2-beta.O"></a>
+## [8.0.2-beta.O](https://github.com/wKoza/ngx-upload/compare/v8.0.2...v8.0.2-beta.O) (2019-08-06)
+
+
+### Bug Fixes
+
+* add file with module NgxUploadModule ([14544ae](https://github.com/wKoza/ngx-upload/commit/14544ae))
+
+
+
 <a name="8.0.2"></a>
 ## [8.0.2](https://github.com/wKoza/ngx-upload/compare/v8.0.2-beta.0...v8.0.2) (2019-08-06)
 

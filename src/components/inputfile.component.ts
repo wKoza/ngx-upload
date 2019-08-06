@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, Injector, Optional, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
-import { HttpClientUploadService } from '../';
+
 import { InputFileOptions } from '../utils/configuration.model';
+import { HttpClientUploadService } from '../services/httpClientUpload.service';
 
 
 @Component({
