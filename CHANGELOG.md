@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.2-beta.1"></a>
+## [8.0.2-beta.1](https://github.com/wKoza/ngx-upload/compare/v8.0.2-beta.O...v8.0.2-beta.1) (2019-08-06)
+
+
+### Bug Fixes
+
+* import barrel ([6fd7b3c](https://github.com/wKoza/ngx-upload/commit/6fd7b3c))
+
+
+
 <a name="8.0.2-beta.O"></a>
 ## [8.0.2-beta.O](https://github.com/wKoza/ngx-upload/compare/v8.0.2...v8.0.2-beta.O) (2019-08-06)
 
