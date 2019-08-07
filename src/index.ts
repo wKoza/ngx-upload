@@ -15,6 +15,7 @@ import { HttpClientUploadService } from './services/httpClientUpload.service';
 import { NgxThumbnailDirective } from './directives/thumbnail.directive';
 import { NgxInputFileDirective } from './directives/inputfile.directive';
 import { InputfileComponent } from './components/inputfile.component';
+import { CommonModule } from '@angular/common';
 export { DropTargetOptions, UploadEndPoint, LoggerOptions, InputFileOptions } from './utils/configuration.model';
 export { MineTypeEnum } from './utils/mimetype.model';
 export { FileItem } from './services/fileItem.model';
@@ -43,6 +44,8 @@ export function _loggerFactory(options: LoggerOptions): NgxUploadLogger {
 }
 
 @NgModule({
+    
+    imports: [CommonModule],
     declarations: [
         ...ngxDeclarations
     ],

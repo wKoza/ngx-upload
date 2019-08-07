@@ -24,7 +24,15 @@ export class FileItem {
     public get filePath() : string
     {
         var file : any = this.file;
-        return file.filePath != undefined ? file.filePath : file.name;
+        if (file.webkitRelativePath != undefined && file.webkitRelativePath != "")
+        {
+            return file.webkitRelativePath;
+        }
+        
+        if (file.filePath != undefined)
+            return file.filePath;
+
+        return file.name;
     }
 
     upload(endpoint: UploadEndPoint, options?: any) {
