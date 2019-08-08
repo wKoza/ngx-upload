@@ -16,7 +16,7 @@ import { HttpClientUploadService } from '../services/httpClientUpload.service';
 })
 export class InputfileComponent implements AfterViewInit {
 
-  @ViewChild('file', {static: true}) file;
+  @ViewChild('file') file;
 
   files: Set<File> = new Set();
 

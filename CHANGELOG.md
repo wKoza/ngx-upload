@@ -2,39 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-<a name="8.0.3"></a>
-## [8.0.3](https://github.com/wKoza/ngx-upload/compare/v8.0.2...v8.0.3) (2019-08-06)
-
-
-
-<a name="8.0.2-beta.O"></a>
-## [8.0.2-beta.O](https://github.com/wKoza/ngx-upload/compare/v8.0.2...v8.0.2-beta.O) (2019-08-06)
-
-
-### Bug Fixes
-
-* add file with module NgxUploadModule ([14544ae](https://github.com/wKoza/ngx-upload/commit/14544ae))
-
-
-
-<a name="8.0.2"></a>
-## [8.0.2](https://github.com/wKoza/ngx-upload/compare/v8.0.2-beta.0...v8.0.2) (2019-08-06)
-
-
-
-<a name="8.0.2-beta.0"></a>
-## [8.0.2-beta.0](https://github.com/wKoza/ngx-upload/compare/v8.0.1...v8.0.2-beta.0) (2019-08-06)
-
-
-### Bug Fixes
-
-* Use providedIn instead of provider property ([900e3c4](https://github.com/wKoza/ngx-upload/commit/900e3c4))
-
-
-
-<a name="8.0.0"></a>
-# [8.0.0](https://github.com/wKoza/ngx-upload/compare/v8.0.0-beta.4...v8.0.0) (2019-08-01)
-
+# [7.0.0](https://github.com/wKoza/ngx-upload/compare/v8.0.0-beta.4...v8.0.0) (2019-08-01)
 
 ### Features
 
@@ -45,6 +13,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **options:** now, we accept a minetype with a wildcard ([c4f18fa](https://github.com/wKoza/ngx-upload/commit/c4f18fa))
 * **directive:** change access modifier of uploader ([#59](https://github.com/wKoza/ngx-upload/issues/59)) ([b2b8745](https://github.com/wKoza/ngx-upload/commit/b2b8745))
+* Use providedIn instead of provider property ([900e3c4](https://github.com/wKoza/ngx-upload/commit/900e3c4))
+* add file with module NgxUploadModule ([14544ae](https://github.com/wKoza/ngx-upload/commit/14544ae))
 
 <a name="6.4.0"></a>
 # [6.4.0](https://github.com/wKoza/ngx-upload/compare/v6.3.0...v6.4.0) (2019-03-02)
