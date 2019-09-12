@@ -55,6 +55,8 @@ import {NgxUploadModule} from '@wkoza/ngx-upload';
 export class AppModule {}
 ```
 
+Remenber: When you are in a sub module, you haven't to call the `forRoot()` method. You just have to import `NgxUploadModule`.
+
 
 Ngx-upload also proposes to configure the drop zone aspect. Then, you can change the css class of your drop zone regarding the drop event:
  - When you drag a file
