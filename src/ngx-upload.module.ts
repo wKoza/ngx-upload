@@ -1,4 +1,4 @@
-import { isDevMode, ModuleWithProviders, NgModule } from '@angular/core';
+import { InjectionToken, isDevMode, ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { NgxDragAndDropDirective } from './directives/dropzone.directive';
 import { NgxThumbnailDirective } from './directives/thumbnail.directive';
 import { NgxInputFileDirective } from './directives/inputfile.directive';
@@ -33,6 +33,15 @@ export function _loggerFactory(options: LoggerOptions): NgxUploadLogger {
   return new NoOpLogger();
 }
 
+export const NGXUPLOAD_ROOT_GUARD = new InjectionToken<void>('Internal forRoot Guard');
+
+export function createNgxUploadRootGuard(NGX_LOGGER_OPTIONS) {
+  if (NGX_LOGGER_OPTIONS) {
+    throw new TypeError('NgxUploadModule.forRoot() is called twice.')
+  }
+  return 'guarded';
+}
+
 @NgModule({
   declarations: [
     ...ngxDeclarations
@@ -45,6 +54,7 @@ export function _loggerFactory(options: LoggerOptions): NgxUploadLogger {
 })
 
 export class NgxUploadModule {
+
   static forRoot(dropTargetOptions?: DropTargetOptions,
                  loggerOptions?: LoggerOptions): ModuleWithProviders {
 
@@ -60,9 +70,14 @@ export class NgxUploadModule {
           provide: NgxUploadLogger,
           useFactory: _loggerFactory,
           deps: [NGX_LOGGER_OPTIONS]
+        },
+        {
+          provide: NGXUPLOAD_ROOT_GUARD,
+          useFactory: createNgxUploadRootGuard,
+          deps: [[NGX_LOGGER_OPTIONS, new Optional(), new SkipSelf()]]
         }
       ]
     }
-
   };
 }
+
