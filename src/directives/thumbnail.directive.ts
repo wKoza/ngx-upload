@@ -23,7 +23,8 @@ export class NgxThumbnailDirective implements OnInit {
 
             const imgEl = this.renderer.createElement('img');
             this.renderer.appendChild(this.el.nativeElement, imgEl);
-            this.renderer.setStyle(imgEl, 'width', '100px');
+            this.renderer.setStyle(imgEl, 'width', '100%');
+            this.renderer.setStyle(imgEl, 'height', '100%');
 
             this._getOrientation(this.fileItem.file, (srcOrientation) => {
 
