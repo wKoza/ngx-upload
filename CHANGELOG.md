@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.5"></a>
+## [8.0.5](https://github.com/wKoza/ngx-upload/compare/v8.0.4...v8.0.5) (2019-09-29)
+
+
+### Bug Fixes
+
+* change style of the thumbnail. Now, width and height are valued at 100% ([1eaadfb](https://github.com/wKoza/ngx-upload/commit/1eaadfb))
+* change style of the thumbnail. Now, width and height are valued at 100% + TU ([f617564](https://github.com/wKoza/ngx-upload/commit/f617564))
+
+
+### Features
+
+* add forRoot() guard ([#67](https://github.com/wKoza/ngx-upload/issues/67)) ([7984bc7](https://github.com/wKoza/ngx-upload/commit/7984bc7))
+
+
+
 <a name="8.0.4"></a>
 ## [8.0.4](https://github.com/wKoza/ngx-upload/compare/v8.0.3...v8.0.4) (2019-08-08)
 
