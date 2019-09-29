@@ -84,6 +84,8 @@ describe('ngxThumbnailDirective', () => {
     it("create an img element", function() {
         fixture.detectChanges(); // initial binding
         const img = fixture.debugElement.query(By.css('img'));
+        expect(img.styles.width).toEqual('100%');
+        expect(img.styles.height).toEqual('100%');
         expect(img).toBeDefined();
     });
 
