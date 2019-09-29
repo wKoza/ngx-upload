@@ -287,7 +287,7 @@ Each file is added to a queue that you can manage with `uploader` service. Here 
 `upload` or `uploadAll` method require a parameter with the type `UploadEndPoint`. It's your server's endpoint.
 
 
-Take a look at [those examples](https://github.com/wKoza/ngx-upload/tree/master/demo/src/app) for more details :
+Take a look at [those examples](https://github.com/wKoza/ngx-uploader-app) for more details :
 
 ## Hooks
 
