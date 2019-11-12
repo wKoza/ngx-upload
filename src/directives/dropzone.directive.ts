@@ -5,7 +5,7 @@ import {
     Input,
     OnInit,
     Renderer2,
-    Inject, Injector, Optional
+    Inject, Injector, Optional, PLATFORM_ID
 } from '@angular/core';
 import { FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
 import {
@@ -13,6 +13,7 @@ import {
 } from '../utils/configuration.model';
 import { NgxUploadLogger } from '../utils/logger.model';
 import { HttpClientUploadService } from '../services/httpClientUpload.service';
+import {isPlatformBrowser} from '@angular/common';
 
 
 /**
@@ -40,7 +41,8 @@ export class NgxDragAndDropDirective implements OnInit {
                 private logger: NgxUploadLogger,
                 public uploader: HttpClientUploadService,
                 @Inject(NGX_DROP_TARGET_OPTIONS) private dropOptions: DropTargetOptions,
-                @Optional() private ngForm: NgForm, @Optional() private formGroupDirective: FormGroupDirective) {
+                @Optional() private ngForm: NgForm, @Optional() private formGroupDirective: FormGroupDirective,
+                @Inject(PLATFORM_ID) platformId: Object) {
         if (this.ngForm) {
             this.formGroup = ngForm.form;
         } else if (this.formGroupDirective) {
@@ -48,13 +50,18 @@ export class NgxDragAndDropDirective implements OnInit {
         } else {
             this.formGroup = null;
         }
+        if (isPlatformBrowser(platformId)) {
+            this.renderer.listen(undefined, 'dragleave', this.onDragLeave);
+            this.renderer.listen(undefined, 'drop', this.dropEvent);
+            this.renderer.listen(undefined, 'dragover', this.onDragOver);
+        }
     }
 
     ngOnInit(): void {
         this.renderer.addClass(this.el.nativeElement, this.dropOptions.color);
     }
 
-    @HostListener('dragleave', ['$event']) onDragLeave(event: DragEvent) {
+    onDragLeave(event) {
         this.logger.debug('dragleave event');
         this.renderer.removeClass(this.el.nativeElement, this.dropOptions.colorDrag);
         this.renderer.removeClass(this.el.nativeElement, this.dropOptions.colorDrop);
@@ -62,7 +69,7 @@ export class NgxDragAndDropDirective implements OnInit {
         this.stopAndPrevent(event);
     }
 
-    @HostListener('drop', ['$event']) dropEvent(event: Event) {
+    dropEvent(event) {
         this.logger.debug('drop event');
         this.renderer.removeClass(this.el.nativeElement, this.dropOptions.color);
         this.renderer.removeClass(this.el.nativeElement, this.dropOptions.colorDrag);
@@ -77,8 +84,7 @@ export class NgxDragAndDropDirective implements OnInit {
     }
 
 
-    @HostListener('dragover', ['$event'])
-    onDragOver(event: DragEvent) {
+    onDragOver(event) {
         this.logger.debug('dragover event');
         this.renderer.removeClass(this.el.nativeElement, this.dropOptions.color);
         this.renderer.removeClass(this.el.nativeElement, this.dropOptions.colorDrop);
@@ -90,7 +96,7 @@ export class NgxDragAndDropDirective implements OnInit {
         this.stopAndPrevent(event);
     }
 
-    private stopAndPrevent(event: Event): void {
+    private stopAndPrevent(event): void {
         event.stopPropagation();
         event.preventDefault();
     }
