@@ -51,9 +51,9 @@ export class NgxDragAndDropDirective implements OnInit {
             this.formGroup = null;
         }
         if (isPlatformBrowser(platformId)) {
-            this.renderer.listen(undefined, 'dragleave', this.onDragLeave);
-            this.renderer.listen(undefined, 'drop', this.dropEvent);
-            this.renderer.listen(undefined, 'dragover', this.onDragOver);
+            this.renderer.listen(el.nativeElement, 'dragleave', ($event) => this.onDragLeave($event));
+            this.renderer.listen(el.nativeElement, 'drop', ($event) => this.dropEvent($event));
+            this.renderer.listen(el.nativeElement, 'dragover', ($event) => this.onDragOver($event));
         }
     }
 
