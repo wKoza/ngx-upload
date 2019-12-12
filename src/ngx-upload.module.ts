@@ -24,19 +24,19 @@ const ngxDeclarations = [
  * @private
  */
 export function _loggerFactory(options: LoggerOptions): NgxUploadLogger {
-  const enabled = options.enabled != null ? options.enabled : isDevMode();
+  const enabled = options.enabled ? options.enabled : isDevMode();
   if (enabled) {
     const _console: Console = typeof console === 'object' ? console : <any>{};
-    const debug = options.debug != null ? options.debug : true;
+    const debug = options.debug ? options.debug : true;
     return new ConsoleLogger(_console, debug);
   }
   return new NoOpLogger();
 }
 
-export const NGXUPLOAD_ROOT_GUARD = new InjectionToken<void>('Internal forRoot Guard');
+export const NGX_UPLOAD_ROOT_GUARD = new InjectionToken<void>('Internal forRoot Guard');
 
-export function createNgxUploadRootGuard(NGX_LOGGER_OPTIONS) {
-  if (NGX_LOGGER_OPTIONS) {
+export function createNgxUploadRootGuard(options: LoggerOptions) {
+  if (options) {
     throw new TypeError('NgxUploadModule.forRoot() is called twice.')
   }
   return 'guarded';
@@ -72,7 +72,7 @@ export class NgxUploadModule {
           deps: [NGX_LOGGER_OPTIONS]
         },
         {
-          provide: NGXUPLOAD_ROOT_GUARD,
+          provide: NGX_UPLOAD_ROOT_GUARD,
           useFactory: createNgxUploadRootGuard,
           deps: [[NGX_LOGGER_OPTIONS, new Optional(), new SkipSelf()]]
         }
