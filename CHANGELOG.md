@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.6"></a>
+## [8.0.6](https://github.com/wKoza/ngx-upload/compare/v8.0.5...v8.0.6) (2019-12-12)
+
+
+
 <a name="8.0.5"></a>
 ## [8.0.5](https://github.com/wKoza/ngx-upload/compare/v8.0.4...v8.0.5) (2019-09-29)
 
