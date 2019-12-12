@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
@@ -6,13 +6,12 @@ import { CommonModule } from '@angular/common';
 import { NgxUploadLogger, NoOpLogger } from '../../src/utils/logger.model';
 import { MockLogger } from '../mocks/logger.model.mock';
 import { HttpClientUploadService } from '../../src/services/httpClientUpload.service';
-import { HttpClientModule } from '@angular/common/http';
 
 import * as FileAPI from 'file-api';
 import { FileItem } from '../../src/services/fileItem.model';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DropTargetOptions, InputFileOptions, MineTypeEnum, UploadEndPoint } from '../../src';
-import {imageBase64} from '../utils/image';
+import { imageBase64 } from '../utils/image';
 
 export function _loggerFactory(): NgxUploadLogger {
   return new NoOpLogger();
@@ -108,6 +107,14 @@ describe('HttpClientUploadService', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'), new FileAPI.File('./doc.pdf'), new FileAPI.File('./image3.jpg'));
     expect(httpClientUploadService.queue.length).toBe(0);
     const dropOptions: DropTargetOptions = {color: '', colorDrag: '', colorDrop: '', multiple: true, accept: [MineTypeEnum.Image_Jpeg], disableMultipart: false};
+    httpClientUploadService.addToQueue(files, null, dropOptions);
+    expect(httpClientUploadService.queue.length).toBe(2);
+  });
+
+  it('should not accept Word file', () => {
+    const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'), new FileAPI.File('./doc.docx'), new FileAPI.File('./image3.jpg'));
+    expect(httpClientUploadService.queue.length).toBe(0);
+    const dropOptions: DropTargetOptions = {color: '', colorDrag: '', colorDrop: '', multiple: true, accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf], disableMultipart: false};
     httpClientUploadService.addToQueue(files, null, dropOptions);
     expect(httpClientUploadService.queue.length).toBe(2);
   });
