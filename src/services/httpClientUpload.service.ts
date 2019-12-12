@@ -68,7 +68,7 @@ export class HttpClientUploadService {
 
       if (options && options.accept) {
         const accepted = options.accept.some((type: string) => {
-          if (type.indexOf('/*')) {
+          if (type.indexOf('/*') > -1) {
             return type.split('/')[0] === file.type.split('/')[0]
           } else {
             return type === file.type
@@ -142,7 +142,7 @@ export class HttpClientUploadService {
 
         } else if (event instanceof HttpResponse) {
           // A successful response is delivered on the event stream.
-          item.ɵonSuccess();
+          fileItem.ɵonSuccess();
           this.onSuccess(item, event.body, event.status, event.headers);
         }
       },
