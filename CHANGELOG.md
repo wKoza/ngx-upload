@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.0"></a>
+# [8.1.0](https://github.com/wKoza/ngx-upload/compare/v8.0.6...v8.1.0) (2020-01-09)
+
+
+### Features
+
+* Add new MineType `All` which corresponds to '*' ([#75](https://github.com/wKoza/ngx-upload/issues/75)) ([430a89f](https://github.com/wKoza/ngx-upload/commit/430a89f))
+
+
+
 <a name="8.0.6"></a>
 ## [8.0.6](https://github.com/wKoza/ngx-upload/compare/v8.0.5...v8.0.6) (2019-12-12)
 
