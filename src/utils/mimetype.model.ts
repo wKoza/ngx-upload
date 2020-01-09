@@ -1,4 +1,5 @@
 export const enum MineTypeEnum {
+  All = '*',
   Application = 'application/*',
   Application_AtomXml = 'application/atom+xml',
   Application_AtomcatXml = 'application/atomcat+xml',
