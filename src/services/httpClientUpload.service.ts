@@ -71,7 +71,7 @@ export class HttpClientUploadService {
           if (type.indexOf('/*') > -1) {
             return type.split('/')[0] === file.type.split('/')[0]
           } else {
-            return type === file.type
+            return (type === '*' || type === file.type)
           }
         });
         if (!accepted) {
