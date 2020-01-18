@@ -119,6 +119,14 @@ describe('HttpClientUploadService', () => {
     expect(httpClientUploadService.queue.length).toBe(2);
   });
 
+  it('should accept All file', () => {
+    const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'), new FileAPI.File('./doc.docx'), new FileAPI.File('./image3.jpg'));
+    expect(httpClientUploadService.queue.length).toBe(0);
+    const dropOptions: DropTargetOptions = {color: '', colorDrag: '', colorDrop: '', multiple: true, accept: [MineTypeEnum.All], disableMultipart: false};
+    httpClientUploadService.addToQueue(files, null, dropOptions);
+    expect(httpClientUploadService.queue.length).toBe(3);
+  });
+
   it('should set FileItem with a true disable multipart when we use DropTargetOptions', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
     expect(httpClientUploadService.queue.length).toBe(0);
