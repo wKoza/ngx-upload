@@ -2,6 +2,7 @@
   "name": "@wkoza/ngx-upload",
   "version": "9.0.0",
   "description": "Upload module for Angular",
+  "sideEffects": false,
   "ngPackage": {
     "lib": {
       "entryFile": "./src/index.ts"
