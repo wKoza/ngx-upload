@@ -49,7 +49,6 @@ export function createNgxUploadRootGuard(options: LoggerOptions) {
   exports: [
     ...ngxDeclarations
   ],
-  imports: [ HttpClientModule ],
   entryComponents: [InputfileComponent]
 })
 
