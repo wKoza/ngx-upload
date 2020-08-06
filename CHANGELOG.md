@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.0-beta.13](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.12...v10.0.0-beta.13) (2020-09-03)
+
+
+### Bug Fixes
+
+* EXIF thumbnail ([76fb6ae](https://github.com/wKoza/ngx-upload/commit/76fb6ae812b9f56e16c2b1f3bc68b359caf85a4a))
+
 ## [10.0.0-beta.12](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.11...v10.0.0-beta.12) (2020-09-03)
 
 

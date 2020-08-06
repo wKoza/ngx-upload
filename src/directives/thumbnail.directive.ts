@@ -39,15 +39,6 @@ export class NgxThumbnailDirective implements OnInit {
                             canvas = document.createElement('canvas'),
                             ctx = canvas.getContext('2d')!;
 
-                        // set proper canvas dimensions before transform & export
-                     //   if (4 < srcOrientation && srcOrientation < 9) {
-                     //       canvas.width = height;
-                       //     canvas.height = width;
-                    /*    } else {
-                            canvas.width = width;
-                            canvas.height = height;
-                        }*/
-
                         canvas.width = width;
                         canvas.height = height;
 
@@ -80,9 +71,6 @@ export class NgxThumbnailDirective implements OnInit {
                             default:
                                 break;
                         }
-
-
-
                         this.renderer.setProperty(imgEl, 'src', canvas.toDataURL());
                     };
 
@@ -132,6 +120,4 @@ export class NgxThumbnailDirective implements OnInit {
         };
         reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
     };
-
-
 }
