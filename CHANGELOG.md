@@ -1,7 +1,13 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.0-beta.0](https://github.com/wKoza/ngx-upload/compare/v8.2.0...v10.0.0-beta.0) (2020-08-06)
+
+
+### Bug Fixes
+
+* Remove HttpClientModule form library ([d870612](https://github.com/wKoza/ngx-upload/commit/d87061261db4687748e8bea37e682bf45f658995))
 
 <a name="9.0.0-beta.0"></a>
 # [9.0.0-beta.0](https://github.com/wKoza/ngx-upload/compare/v8.1.1...v9.0.0-beta.0) (2020-03-21)
