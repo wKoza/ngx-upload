@@ -28,7 +28,7 @@ export class NgxThumbnailDirective implements OnInit {
 
             this._getOrientation(this.fileItem.file, (srcOrientation) => {
 
-              //  const img = new Image();
+                const img = new Image();
                 const reader = new FileReader();
                 const canvas = document.createElement('canvas');
 
@@ -88,7 +88,7 @@ export class NgxThumbnailDirective implements OnInit {
                         this.renderer.setProperty(imgEl, 'src', canvas.toDataURL());
                     };
 
-                    imgEl.src = canvas.toDataURL() as string;
+                    img.src = evt.target!.result as string;
                 };
                 reader.readAsDataURL(this.fileItem.file);
 
