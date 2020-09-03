@@ -1,6 +1,6 @@
 {
   "name": "@wkoza/ngx-upload",
-  "version": "10.0.0-beta.4",
+  "version": "10.0.0-beta.5",
   "description": "Upload module for Angular",
   "sideEffects": false,
   "ngPackage": {
