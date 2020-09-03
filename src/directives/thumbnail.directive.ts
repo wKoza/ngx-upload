@@ -28,60 +28,66 @@ export class NgxThumbnailDirective implements OnInit {
 
             this._getOrientation(this.fileItem.file, (srcOrientation) => {
 
-                const img = new Image();
+              //  const img = new Image();
                 const reader = new FileReader();
 
                 reader.onload = (evt) => {
+                    const canvas = document.createElement('canvas');
 
-                    img.onload = () => {
-                        const width = img.width,
-                            height = img.height,
-                            canvas = document.createElement('canvas'),
-                            ctx = canvas.getContext('2d')!;
-
-                        // set proper canvas dimensions before transform & export
-                        if (4 < srcOrientation && srcOrientation < 9) {
-                            canvas.width = height;
-                            canvas.height = width;
-                        } else {
-                            canvas.width = width;
-                            canvas.height = height;
-                        }
+                     imgEl.onload = () => {
+                        canvas.width = srcOrientation > 4 ? imgEl.height : imgEl.width;
+                        canvas.height = srcOrientation > 4 ? imgEl.width : imgEl.height;
+                        const ctx = canvas.getContext('2d')!;
 
                         // transform context before drawing image
                         switch (srcOrientation) {
                             case 2:
-                                ctx.transform(-1, 0, 0, 1, width, 0);
+                                // horizontal flip
+                                ctx.translate(imgEl.width, 0);
+                                ctx.scale(-1, 1);
                                 break;
                             case 3:
-                                ctx.transform(-1, 0, 0, -1, width, height);
+                                // 180° rotate left
+                                ctx.translate(imgEl.width, imgEl.height);
+                                ctx.rotate(Math.PI);
                                 break;
                             case 4:
-                                ctx.transform(1, 0, 0, -1, 0, height);
+                                // vertical flip
+                                ctx.translate(0, imgEl.height);
+                                ctx.scale(1, -1);
                                 break;
                             case 5:
-                                ctx.transform(0, 1, 1, 0, 0, 0);
+                                // vertical flip + 90 rotate right
+                                ctx.rotate(0.5 * Math.PI);
+                                ctx.scale(1, -1);
                                 break;
                             case 6:
-                                ctx.transform(0, 1, -1, 0, height, 0);
+                                // 90° rotate right
+                                ctx.rotate(0.5 * Math.PI);
+                                ctx.translate(0, -imgEl.height);
                                 break;
                             case 7:
-                                ctx.transform(0, -1, -1, 0, height, width);
+                                // horizontal flip + 90 rotate right
+                                ctx.rotate(0.5 * Math.PI);
+                                ctx.translate(imgEl.width, -imgEl.height);
+                                ctx.scale(-1, 1);
                                 break;
                             case 8:
-                                ctx.transform(0, -1, 1, 0, 0, width);
+                                // 90° rotate left
+                                ctx.rotate(-0.5 * Math.PI);
+                                ctx.translate(-imgEl.width, 0);
                                 break;
                             default:
                                 break;
                         }
 
                         // draw image
-                        ctx.drawImage(img, 0, 0);
+                        ctx.drawImage(imgEl, 0, 0);
 
                         this.renderer.setProperty(imgEl, 'src', canvas.toDataURL());
                     };
 
-                    img.src = evt.target!.result as string;
+                    imgEl.src = evt.target!.result as string;
                 };
                 reader.readAsDataURL(this.fileItem.file);
 
