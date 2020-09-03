@@ -87,7 +87,7 @@ export class NgxThumbnailDirective implements OnInit {
                         this.renderer.setProperty(imgEl, 'src', canvas.toDataURL());
                     };
 
-                    imgEl.src = evt.target!.result as string;
+                 //   imgEl.src = evt.target!.result as string;
                 };
                 reader.readAsDataURL(this.fileItem.file);
 
