@@ -23,8 +23,7 @@ export class NgxThumbnailDirective implements OnInit {
 
             const imgEl = this.renderer.createElement('img');
             this.renderer.appendChild(this.el.nativeElement, imgEl);
-            this.renderer.setStyle(imgEl, 'width', '100%');
-            this.renderer.setStyle(imgEl, 'height', '100%');
+
 
             this._getOrientation(this.fileItem.file, (srcOrientation) => {
 
@@ -43,9 +42,13 @@ export class NgxThumbnailDirective implements OnInit {
                         if (4 < srcOrientation && srcOrientation < 9) {
                             canvas.width = height;
                             canvas.height = width;
+                            this.renderer.setStyle(imgEl, 'width', height);
+                            this.renderer.setStyle(imgEl, 'height', width);
                         } else {
                             canvas.width = width;
                             canvas.height = height;
+                            this.renderer.setStyle(imgEl, 'width', width);
+                            this.renderer.setStyle(imgEl, 'height', height);
                         }
 
                         // draw image
