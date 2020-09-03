@@ -30,60 +30,55 @@ export class NgxThumbnailDirective implements OnInit {
 
                 const img = new Image();
                 const reader = new FileReader();
-                const canvas = document.createElement('canvas');
 
                 reader.onload = (evt) => {
 
+                    img.onload = () => {
+                        const width = img.width,
+                            height = img.height,
+                            canvas = document.createElement('canvas'),
+                            ctx = canvas.getContext('2d')!;
 
-                     imgEl.onload = () => {
-                        canvas.width = srcOrientation > 4 ? imgEl.height : imgEl.width;
-                        canvas.height = srcOrientation > 4 ? imgEl.width : imgEl.height;
-                        const ctx = canvas.getContext('2d')!;
+                        // set proper canvas dimensions before transform & export
+                        if (4 < srcOrientation && srcOrientation < 9) {
+                            canvas.width = height;
+                            canvas.height = width;
+                        } else {
+                            canvas.width = width;
+                            canvas.height = height;
+                        }
+
+                        // draw image
+                        ctx.drawImage(img, 0, 0);
 
                         // transform context before drawing image
                         switch (srcOrientation) {
                             case 2:
-                                // horizontal flip
-                                ctx.translate(imgEl.width, 0);
-                                ctx.scale(-1, 1);
+                                ctx.transform(-1, 0, 0, 1, width, 0);
                                 break;
                             case 3:
-                                // 180° rotate left
-                                ctx.translate(imgEl.width, imgEl.height);
-                                ctx.rotate(Math.PI);
+                                ctx.transform(-1, 0, 0, -1, width, height);
                                 break;
                             case 4:
-                                // vertical flip
-                                ctx.translate(0, imgEl.height);
-                                ctx.scale(1, -1);
+                                ctx.transform(1, 0, 0, -1, 0, height);
                                 break;
                             case 5:
-                                // vertical flip + 90 rotate right
-                                ctx.rotate(0.5 * Math.PI);
-                                ctx.scale(1, -1);
+                                ctx.transform(0, 1, 1, 0, 0, 0);
                                 break;
                             case 6:
-                                // 90° rotate right
-                                ctx.rotate(0.5 * Math.PI);
-                                ctx.translate(0, -imgEl.height);
+                                ctx.transform(0, 1, -1, 0, height, 0);
                                 break;
                             case 7:
-                                // horizontal flip + 90 rotate right
-                                ctx.rotate(0.5 * Math.PI);
-                                ctx.translate(imgEl.width, -imgEl.height);
-                                ctx.scale(-1, 1);
+                                ctx.transform(0, -1, -1, 0, height, width);
                                 break;
                             case 8:
-                                // 90° rotate left
-                                ctx.rotate(-0.5 * Math.PI);
-                                ctx.translate(-imgEl.width, 0);
+                                ctx.transform(0, -1, 1, 0, 0, width);
                                 break;
                             default:
                                 break;
                         }
 
-                        // draw image
-                        ctx.drawImage(imgEl, 0, 0);
+
 
                         this.renderer.setProperty(imgEl, 'src', canvas.toDataURL());
                     };
