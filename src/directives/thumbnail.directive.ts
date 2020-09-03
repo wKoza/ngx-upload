@@ -48,6 +48,9 @@ export class NgxThumbnailDirective implements OnInit {
                             canvas.height = height;
                         }
 
+                        // draw image
+                        ctx.drawImage(img, 0, 0);
+
                         // transform context before drawing image
                         switch (srcOrientation) {
                             case 2:
@@ -75,8 +78,7 @@ export class NgxThumbnailDirective implements OnInit {
                                 break;
                         }
 
-                        // draw image
-                        ctx.drawImage(img, 0, 0);
+
 
                         this.renderer.setProperty(imgEl, 'src', canvas.toDataURL());
                     };
