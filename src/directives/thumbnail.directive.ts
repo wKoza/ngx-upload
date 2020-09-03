@@ -40,13 +40,13 @@ export class NgxThumbnailDirective implements OnInit {
                             ctx = canvas.getContext('2d')!;
 
                         // set proper canvas dimensions before transform & export
-                        if (4 < srcOrientation && srcOrientation < 9) {
+                       /* if (4 < srcOrientation && srcOrientation < 9) {
                             canvas.width = height;
                             canvas.height = width;
                         } else {
                             canvas.width = width;
                             canvas.height = height;
-                        }
+                        }*/
 
                         // draw image
                         ctx.drawImage(img, 0, 0);
