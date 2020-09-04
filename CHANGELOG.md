@@ -2,97 +2,9 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [10.0.0-beta.13](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.12...v10.0.0-beta.13) (2020-09-03)
-
-
 ### Bug Fixes
 
 * EXIF thumbnail ([76fb6ae](https://github.com/wKoza/ngx-upload/commit/76fb6ae812b9f56e16c2b1f3bc68b359caf85a4a))
-
-## [10.0.0-beta.12](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.11...v10.0.0-beta.12) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([33ef7fa](https://github.com/wKoza/ngx-upload/commit/33ef7fa8ec731cddfc5cbb18fb8d3376e8dfedf6))
-
-## [10.0.0-beta.11](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.10...v10.0.0-beta.11) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([57429d8](https://github.com/wKoza/ngx-upload/commit/57429d8b991b7f4737308120b481748fe750f4a6))
-
-## [10.0.0-beta.10](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.9...v10.0.0-beta.10) (2020-09-03)
-
-## [10.0.0-beta.9](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.8...v10.0.0-beta.9) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([32fab7d](https://github.com/wKoza/ngx-upload/commit/32fab7dcb573713d5d850dc1aad778b7452734c9))
-
-## [10.0.0-beta.8](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.7...v10.0.0-beta.8) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([fa33861](https://github.com/wKoza/ngx-upload/commit/fa3386151076280c1f8ca8327ad15bae5fba158c))
-
-## [10.0.0-beta.7](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.6...v10.0.0-beta.7) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([f6b661e](https://github.com/wKoza/ngx-upload/commit/f6b661ebc688bf237964fb8f7648cbde90c28c05))
-
-## [10.0.0-beta.6](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.5...v10.0.0-beta.6) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([56d875a](https://github.com/wKoza/ngx-upload/commit/56d875a2a6d1d59bd641057127b4a4d95c8bc9de))
-
-## [10.0.0-beta.5](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.4...v10.0.0-beta.5) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([ae1fb2b](https://github.com/wKoza/ngx-upload/commit/ae1fb2beb3527fe134760eb59ddf134d0959f21f))
-
-## [10.0.0-beta.4](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.3...v10.0.0-beta.4) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([8243977](https://github.com/wKoza/ngx-upload/commit/82439777b8063ca44b4c1424182a7878bd8b270c))
-
-## [10.0.0-beta.3](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.2...v10.0.0-beta.3) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([8d223d4](https://github.com/wKoza/ngx-upload/commit/8d223d4e72ca331035c05ad47586d60b1b40675b))
-
-## [10.0.0-beta.2](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.1...v10.0.0-beta.2) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([e9b2a4c](https://github.com/wKoza/ngx-upload/commit/e9b2a4c07718c6a5525969080d9b92630c55e5f6))
-
-## [10.0.0-beta.1](https://github.com/wKoza/ngx-upload/compare/v10.0.0-beta.0...v10.0.0-beta.1) (2020-09-03)
-
-
-### Bug Fixes
-
-* EXIF thumbnail ([e18b773](https://github.com/wKoza/ngx-upload/commit/e18b7733aa13947bbb297e837f8df6559f5c4528))
-
-## [10.0.0-beta.0](https://github.com/wKoza/ngx-upload/compare/v8.2.0...v10.0.0-beta.0) (2020-08-06)
-
-
-### Bug Fixes
-
 * Remove HttpClientModule form library ([d870612](https://github.com/wKoza/ngx-upload/commit/d87061261db4687748e8bea37e682bf45f658995))
 
 <a name="9.0.0-beta.0"></a>

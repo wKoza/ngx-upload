@@ -48,25 +48,25 @@ export class NgxThumbnailDirective implements OnInit {
                         // transform context before drawing image
                         switch (srcOrientation) {
                             case 2:
-                                ctx.transform(-1, 0, 0, 1, canvas.width, 0);
+                                ctx.transform(-1, 0, 0, 1, width, 0);
                                 break;
                             case 3:
-                                ctx.transform(-1, 0, 0, -1, canvas.width, canvas.height);
+                                ctx.transform(-1, 0, 0, -1, width, height);
                                 break;
                             case 4:
-                                ctx.transform(1, 0, 0, -1, 0, canvas.height);
+                                ctx.transform(1, 0, 0, -1, 0, height);
                                 break;
                             case 5:
                                 ctx.transform(0, 1, 1, 0, 0, 0);
                                 break;
                             case 6:
-                                ctx.transform(0, 1, -1, 0, canvas.height, 0);
+                                ctx.transform(0, 1, -1, 0, height, 0);
                                 break;
                             case 7:
-                                ctx.transform(0, -1, -1, 0, canvas.height, canvas.width);
+                                ctx.transform(0, -1, -1, 0, height, width);
                                 break;
                             case 8:
-                                ctx.transform(0, -1, 1, 0, 0, canvas.width);
+                                ctx.transform(0, -1, 1, 0, 0, width);
                                 break;
                             default:
                                 break;

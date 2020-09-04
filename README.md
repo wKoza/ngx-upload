@@ -35,7 +35,7 @@ yarn add @wkoza/ngx-upload
 
 ## Setup
 
-Just include ngx-upload in your root module with `HttpClientModule` and (`FormsModule` or `ReactiveFormsModule`):
+Just include `NgxUploadModule` in your root module with `HttpClientModule` and (`FormsModule` or `ReactiveFormsModule`):
 
 ```typescript
 import {BrowserModule} from '@angular/platform-browser';

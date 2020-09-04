@@ -49,13 +49,14 @@ export function createNgxUploadRootGuard(options: LoggerOptions) {
   exports: [
     ...ngxDeclarations
   ],
+  imports: [],
   entryComponents: [InputfileComponent]
 })
 
 export class NgxUploadModule {
 
   static forRoot(dropTargetOptions?: DropTargetOptions,
-                 loggerOptions?: LoggerOptions): ModuleWithProviders<NgxUploadModule> {
+    loggerOptions?: LoggerOptions): ModuleWithProviders<NgxUploadModule> {
 
     return {
       ngModule: NgxUploadModule,
