@@ -58,6 +58,7 @@ export class NgxUploadModule {
   static forRoot(dropTargetOptions?: DropTargetOptions,
     loggerOptions?: LoggerOptions): ModuleWithProviders<NgxUploadModule> {
 
+
     return {
       ngModule: NgxUploadModule,
       providers: [
