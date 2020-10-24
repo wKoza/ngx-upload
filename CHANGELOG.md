@@ -1,18 +1,16 @@
-# Changelog
+# Change Log
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [8.3.0](https://github.com/wKoza/ngx-upload/compare/v8.2.0...v8.3.0) (2020-09-04)
+<a name="8.4.0"></a>
+# [8.4.0](https://github.com/wKoza/ngx-upload/compare/v8.3.0...v8.4.0) (2020-10-24)
 
 
 ### Features
 
-* Add new MineType `All` which corresponds to '*' ([c42c6cd](https://github.com/wKoza/ngx-upload/commit/c42c6cd21af42ad7d412e79b78c3012a59d8680b))
+* Add limit size property ([b0190f7](https://github.com/wKoza/ngx-upload/commit/b0190f7))
 
 
-### Bug Fixes
-
-* EXIF orientation ([23e99e5](https://github.com/wKoza/ngx-upload/commit/23e99e5087072597bd4f899eb4806476c6a171e7))
 
 <a name="8.2.0"></a>
 # [8.2.0](https://github.com/wKoza/ngx-upload/compare/v8.1.1...v8.2.0) (2020-03-24)
