@@ -25,6 +25,8 @@ import {isPlatformBrowser} from '@angular/common';
 })
 export class NgxDragAndDropDirective implements OnInit {
 
+    private readonly formGroup: FormGroup | null;
+
     @Input()
     set ngxDragAndDrop(dropOptions: DropTargetOptions) {
         if (dropOptions) {
@@ -32,8 +34,6 @@ export class NgxDragAndDropDirective implements OnInit {
             this.dropOptions = dropOptions;
         }
     }
-
-    private readonly formGroup: FormGroup | null;
 
     constructor(private el: ElementRef,
                 private renderer: Renderer2,

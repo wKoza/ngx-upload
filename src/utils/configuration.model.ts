@@ -11,6 +11,7 @@ export interface DropTargetOptions {
   capture?: 'user' | 'environment';
   multiple?: boolean;
   disableMultipart?: boolean;
+  size?: number;
 }
 
 export interface LoggerOptions {
@@ -28,6 +29,7 @@ export interface InputFileOptions {
   capture?: 'user' | 'environment';
   multiple?: boolean;
   disableMultipart?: boolean;
+  size?: number;
 }
 
 export const NGX_DROP_TARGET_OPTIONS = new InjectionToken<DropTargetOptions>('Ngx drop Zone Options');

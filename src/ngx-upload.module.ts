@@ -49,7 +49,7 @@ export function createNgxUploadRootGuard(options: LoggerOptions) {
   exports: [
     ...ngxDeclarations
   ],
-  imports: [ HttpClientModule ],
+  imports: [],
   entryComponents: [InputfileComponent]
 })
 

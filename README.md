@@ -35,7 +35,7 @@ yarn add @wkoza/ngx-upload
 
 ## Setup
 
-Just include ngx-upload in your root module with `HttpClientModule` and (`FormsModule` or `ReactiveFormsModule`):
+Just include `NgxUploadModule` in your root module with `HttpClientModule` and (`FormsModule` or `ReactiveFormsModule`):
 
 ```typescript
 import {BrowserModule} from '@angular/platform-browser';
@@ -77,7 +77,8 @@ export const ngxDropTargetOptions: DropTargetOptions = {
   colorDrag: 'dropZoneColorDrag',
   colorDrop: 'dropZoneColorDrop',
   multiple: true,
-  accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf]
+  accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf],
+  size: 5000,
 };
 
 @NgModule({
@@ -111,11 +112,12 @@ In this example, you should also declare these css classes in your own css :
 }
 ```
 
-There are also 4 properties:
+There are also 5 properties:
 - `accept`	One or more unique file type specifiers describing file types to allow
 - `capture`	What source to use for capturing image or video data
 - `multiple` A Boolean which, if present, indicates that the user may choose more than one file. Default `true`. 
 - `disableMultipart`. Ngx-uploader uses, by default, the content-type `multipart` when it sends a file. This boolean allows to change the content-type of the request by the type of the file when its value is `true`.
+- `size`. The limit size of the file in kb.
  
 ## Usage
 
@@ -198,10 +200,12 @@ optionsInput: InputFileOptions = {
 };
 ```
 
-There are 3 properties:
+There are 4 properties:
 - `accept`	One or more unique file type specifiers describing file types to allow
 - `capture`	What source to use for capturing image or video data
 - `multiple` A Boolean which, if present, indicates that the user may choose more than one file. Default `true`.
+- `disableMultipart`. Ngx-uploader uses, by default, the content-type `multipart` when it sends a file. This boolean allows to change the content-type of the request by the type of the file when its value is `true`.
+- `size`. The limit size of the file in kb.
 
 ### Upload queue
 
@@ -299,10 +303,10 @@ Ngx-upload offers 7 `Observable` to handle a specific behavior :
 - onBeforeUploadItem$<FileItem> : This Observable emits just before the upload process.
 - onProgress$<{ item: FileItem, progress: number }> : This Observable emits during the upload process.
 - onAddToQueue$<<FileItem>>: This Observable is trigged when a file is added in the queue.
-- onDropError$<{ item?: File, errorAccept: boolean, errorMultiple: boolean }>: This Observable is trigged when a file is not accepted in the queue.
+- onDropError$<{ item?: File, errorAccept: boolean, errorMultiple: boolean, errorSize: boolean }>: This Observable is trigged when a file is not accepted in the queue.
 
 
-For example :
+For instance :
 
 
 ```javascript

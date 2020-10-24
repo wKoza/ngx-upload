@@ -36,7 +36,7 @@ export class HttpClientUploadService {
 
   public onCancel$ = new Subject<FileItem>();
   public onError$ = new Subject<{ item: FileItem, body: any, status: number, headers: any }>();
-  public onDropError$ = new Subject<{ item?: File, errorAccept: boolean, errorMultiple: boolean }>();
+  public onDropError$ = new Subject<{ item?: File, errorAccept: boolean, errorMultiple: boolean, errorSize: boolean }>();
   public onSuccess$ = new Subject<{ item: FileItem, body: any, status: number, headers: any }>(); // TODO headers isn't `any` but `Array`
   public onBeforeUploadItem$ = new Subject<FileItem>();
   public onProgress$ = new Subject<{ item: FileItem, progress: number }>();
@@ -57,7 +57,7 @@ export class HttpClientUploadService {
     if (options && !options.multiple) {
       if (files.length > 1) {
         this.logger.error('there is more than one file.');
-        this.onDropError$.next({errorAccept: false, errorMultiple: true});
+        this.onDropError$.next({errorAccept: false, errorMultiple: true, errorSize: false});
         return;
       }
     }
@@ -76,9 +76,15 @@ export class HttpClientUploadService {
         });
         if (!accepted) {
           this.logger.error('this file is not accepted because of its type', file);
-          this.onDropError$.next({item: file, errorAccept: true, errorMultiple: false});
+          this.onDropError$.next({item: file, errorAccept: true, errorMultiple: false, errorSize: false});
           continue
         }
+      }
+
+      if (options && options.size &&  (file.size / 1024) > options.size) {
+        this.logger.error('this file exceeds the size limit', file);
+        this.onDropError$.next({item: file, errorAccept: false, errorMultiple: false, errorSize: true});
+        continue
       }
 
       let fileItem;
