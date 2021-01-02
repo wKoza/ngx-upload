@@ -22,6 +22,8 @@ https://ngx-upload.github.io
 Ngx-upload is a module for the Angular framework. Ngx-upload supports drag and drop, upload progress and manages a file upload queue for you.
 Ngx-upload is bound to anyone presentation framework but you can use it with ng(x)-bootstrap or Angular Material Design without any problems.
 
+Ngx-upload follows the same update cycle than Angular. Thereby, Ngx-upload 8.x.x is compatible with Angular 8, Ngx-upload 9.x.x is compatible with Angular 9, ... 
+
 ## Installation
 
 Install through npm:

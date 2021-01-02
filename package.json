@@ -26,7 +26,7 @@
     "url": "git+https://github.com/wKoza/ngx-upload.git"
   },
   "keywords": [
-    "angular 9",
+    "angular 11",
     "angular",
     "upload"
   ],
@@ -37,16 +37,16 @@
   },
   "homepage": "https://github.com/wKoza/ngx-upload#readme",
   "devDependencies": {
-    "@angular/common": "10.0.8",
-    "@angular/compiler": "10.0.8",
-    "@angular/compiler-cli": "10.0.8",
-    "@angular/core": "10.0.8",
-    "@angular/forms": "10.0.8",
-    "@angular/language-service": "10.0.8",
-    "@angular/platform-browser": "10.0.8",
-    "@angular/platform-browser-dynamic": "10.0.8",
+    "@angular/common": "11.0.5",
+    "@angular/compiler": "11.0.5",
+    "@angular/compiler-cli": "11.0.5",
+    "@angular/core": "11.0.5",
+    "@angular/forms": "11.0.5",
+    "@angular/language-service": "11.0.5",
+    "@angular/platform-browser": "11.0.5",
+    "@angular/platform-browser-dynamic": "11.0.5",
     "@compodoc/compodoc": "1.1.11",
-    "@types/html-webpack-plugin": "3.2.3",
+    "@types/html-webpack-plugin": "3.2.4",
     "@types/jasmine": "3.5.12",
     "@types/node": "12.12.6",
     "@types/webpack": "4.41.21",
@@ -86,9 +86,9 @@
     "zone.js": "0.10.3"
   },
   "peerDependencies": {
-    "@angular/common": ">=9.0.0 <11.0.0",
-    "@angular/core": ">=9.0.0 <11.0.0",
+    "@angular/common": ">=9.0.0 <12.0.0",
+    "@angular/core": ">=9.0.0 <12.0.0",
     "rxjs": ">=6.0.0",
-    "@angular/forms": ">=9.0.0 <11.0.0"
+    "@angular/forms": ">=9.0.0 <12.0.0"
   }
 }
