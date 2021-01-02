@@ -74,7 +74,7 @@ export class NgxThumbnailDirective implements OnInit {
                         this.renderer.setProperty(imgEl, 'src', canvas.toDataURL());
                     };
 
-                    img.src = evt.target!.result as string;
+                    img.src = (evt.target! as any).result as string;
                 };
                 reader.readAsDataURL(this.fileItem.file);
 
@@ -90,7 +90,7 @@ export class NgxThumbnailDirective implements OnInit {
         const reader = new FileReader();
         reader.onload = (event) => {
 
-            const view = new DataView(event.target!.result as ArrayBuffer);
+            const view = new DataView((event.target! as any).result as ArrayBuffer);
 
             if (view.getUint16(0, false) !== 0xFFD8) return callback(-2);
 
