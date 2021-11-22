@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { MineTypeEnum } from './mimetype.model';
 
-export type Method = 'POST' | 'GET';
+export type Method = 'POST' | 'PUT' | 'GET';
 
 export interface DropTargetOptions {
   color: string;
