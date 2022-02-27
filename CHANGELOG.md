@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.0.0](https://github.com/wKoza/ngx-upload/compare/v12.0.1...v13.0.0) (2022-02-27)
+
 ### [12.0.1](https://github.com/wKoza/ngx-upload/compare/v12.0.0...v12.0.1) (2022-02-27)
 
 ## [12.0.0](https://github.com/wKoza/ngx-upload/compare/v11.0.0...v12.0.0) (2022-02-27)
