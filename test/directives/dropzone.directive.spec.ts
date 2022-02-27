@@ -96,8 +96,8 @@ describe('NgxDragAndDropDirective', () => {
         const de = fixture.debugElement.query(By.directive(NgxDragAndDropDirective));
         de.triggerEventHandler('drop', new DragEvent('drop', { dataTransfer: new DataTransfer() }));
 
-        this.uploader = de.injector.get<NgxDragAndDropDirective>(NgxDragAndDropDirective).uploader;
-        expect(this.uploader.queue.length).toBe(0);
+        const uploader = de.injector.get<NgxDragAndDropDirective>(NgxDragAndDropDirective).uploader;
+        expect(uploader.queue.length).toBe(0);
 
     });
 });
