@@ -175,7 +175,8 @@ describe('HttpClientUploadService', () => {
 
   it('should have a fileItem in the queue', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
-    httpClientUploadService.addToQueue(files, null, this.ngxDropTargetOptions);
+    const ngxDropTargetOptions: DropTargetOptions = { color: 'dropZoneColor', colorDrag: 'dropZoneColorDrag', colorDrop: 'dropZoneColorDrop', disableMultipart: false };
+    httpClientUploadService.addToQueue(files, null, ngxDropTargetOptions);
     const fileItem = httpClientUploadService.queue[0] as FileItem;
     expect(fileItem.file.name).toBe('image.jpg');
     expect(fileItem.file.type).toBe('image/jpeg');
@@ -185,7 +186,8 @@ describe('HttpClientUploadService', () => {
 
   it('should have a fileItem in the queue', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
-    httpClientUploadService.addToQueue(files, null, this.ngxDropTargetOptions);
+    const ngxDropTargetOptions: DropTargetOptions = { color: 'dropZoneColor', colorDrag: 'dropZoneColorDrag', colorDrop: 'dropZoneColorDrop', disableMultipart: false };
+    httpClientUploadService.addToQueue(files, null, ngxDropTargetOptions);
     const fileItem = httpClientUploadService.queue[0] as FileItem;
     fileItem.ɵonBeforeUploadItem();
     expect(fileItem.uploadInProgress).toBe(false);
@@ -198,7 +200,8 @@ describe('HttpClientUploadService', () => {
 
   it('should remove a fileItem ', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'));
-    httpClientUploadService.addToQueue(files, null, this.ngxDropTargetOptions);
+    const ngxDropTargetOptions: DropTargetOptions = { color: 'dropZoneColor', colorDrag: 'dropZoneColorDrag', colorDrop: 'dropZoneColorDrop',multiple: true, disableMultipart: false };
+    httpClientUploadService.addToQueue(files, null, ngxDropTargetOptions);
     expect(httpClientUploadService.queue.length).toBe(1);
     httpClientUploadService.removeFromQueue(httpClientUploadService.queue[0]);
     expect(httpClientUploadService.queue.length).toBe(0);
@@ -207,9 +210,10 @@ describe('HttpClientUploadService', () => {
   });
 
 
-  it('should remove a fileItem ', () => {
+  it('should remove a fileItem / 3', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'), new FileAPI.File('./image2.jpg'), new FileAPI.File('./image3.jpg'));
-    httpClientUploadService.addToQueue(files, null, this.ngxDropTargetOptions);
+    const ngxDropTargetOptions: DropTargetOptions = { color: 'dropZoneColor', colorDrag: 'dropZoneColorDrag', colorDrop: 'dropZoneColorDrop', multiple: true, disableMultipart: false };
+    httpClientUploadService.addToQueue(files, null, ngxDropTargetOptions);
     expect(httpClientUploadService.queue.length).toBe(3);
     httpClientUploadService.removeAllFromQueue();
     expect(httpClientUploadService.queue.length).toBe(0);
@@ -218,7 +222,8 @@ describe('HttpClientUploadService', () => {
 
   it('should remove all fileItem ', () => {
     const files = new FileAPI.FileList(new FileAPI.File('./image.jpg'), new FileAPI.File('./image2.jpg'), new FileAPI.File('./image3.jpg'));
-    httpClientUploadService.addToQueue(files, null, this.ngxDropTargetOptions);
+    const ngxDropTargetOptions: DropTargetOptions = { color: 'dropZoneColor', colorDrag: 'dropZoneColorDrag', colorDrop: 'dropZoneColorDrop', multiple: true, disableMultipart: false };
+    httpClientUploadService.addToQueue(files, null, ngxDropTargetOptions);
     expect(httpClientUploadService.queue.length).toBe(3);
     expect(httpClientUploadService.queue.filter(item => (item.isReady)).length).toBe(3);
   });
@@ -230,7 +235,8 @@ describe('HttpClientUploadService', () => {
     };
 
     const files = new FileAPI.FileList(createFile(imageBase64));
-    httpClientUploadService.addToQueue(files, null, this.ngxDropTargetOptions);
+    const ngxDropTargetOptions: DropTargetOptions = { color: 'dropZoneColor', colorDrag: 'dropZoneColorDrag', colorDrop: 'dropZoneColorDrop', disableMultipart: false };
+    httpClientUploadService.addToQueue(files, null, ngxDropTargetOptions);
     httpClientUploadService.uploadFileItem(httpClientUploadService.queue[0], endpoint);
 
     const req = httpMock.expectOne('ngx_upload_mock');
