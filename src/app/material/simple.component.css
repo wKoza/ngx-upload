@@ -1,0 +1,31 @@
+.full-width {
+  width: 100%;
+}
+
+.my-drop-zone {
+  width: 100%;
+  height: 300px;
+  cursor: pointer;
+  padding: 1em;
+  opacity: 0.4;
+  text-align: center;
+}
+
+tr th {
+  text-align: center
+}
+
+.dropZoneColorMaterial {
+  border: 3px dotted rgba(0,0,0,0.08);
+  background-color: #D8D8D8
+}
+
+.dropZoneColorDragMaterial {
+  border: 3px dotted rgba(0,0,0,0.28);
+  background-color: #673AB7
+}
+
+.dropZoneColorDropMaterial {
+  border: 3px dotted rgba(0,0,0,0.08);
+  background-color: #D8D8D8
+}
