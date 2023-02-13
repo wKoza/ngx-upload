@@ -1,12 +1,9 @@
 {
-  "root": true,
   "ignorePatterns": ["!**/*"],
-  "plugins": ["@nrwl/nx"],
   "overrides": [
     {
       "files": ["*.ts"],
       "extends": [
-        "plugin:@nrwl/nx/typescript",
         "plugin:@nrwl/nx/angular",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
@@ -34,5 +31,6 @@
       "extends": ["plugin:@nrwl/nx/angular-template"],
       "rules": {}
     }
-  ]
+  ],
+  "extends": ["./.eslintrc.base.json"]
 }

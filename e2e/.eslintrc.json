@@ -1,15 +1,13 @@
 {
-  "extends": ["plugin:cypress/recommended"],
+  "extends": ["plugin:cypress/recommended", "../.eslintrc.base.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
       "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     },
     {
@@ -23,6 +21,5 @@
         "no-undef": "off"
       }
     }
-  ],
-  "plugins": ["@nrwl/nx"]
+  ]
 }

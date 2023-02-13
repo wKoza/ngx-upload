@@ -1,0 +1,121 @@
+<div style="margin-left: 15px; margin-right: 15px; margin-top: 60px">
+    <h1>Simple upload example with Material</h1>
+    <hr>
+
+    <form #ourForm="ngForm">
+        <div>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Name" [(ngModel)]="model.name" name="name">
+            </mat-form-field>
+        </div>
+        <div>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Email" [(ngModel)]="model.email" name="email">
+            </mat-form-field>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                <h3>Add files</h3>
+                <div>
+                    <div class="my-drop-zone" [ngxDragAndDrop]="optionsDrop" *ngxInputFile="optionsInput">
+                        <h5>Drop files here to upload</h5>
+                        <h6>Or click here to select local files.</h6>
+                    </div>
+                    or via a simple button-like :
+                    <button mat-raised-button [color]="'primary'" >
+                        <ng-template [ngxInputFile]="optionsInput"> {{title}}</ng-template>
+                    </button>
+                </div>
+                <div>
+                    <div><input type="checkbox" (change)="optionsDrop.disableMultipart = !optionsDrop.disableMultipart"> optionsDrop.disableMultipart : {{optionsDrop.disableMultipart}}</div>
+                    <div><input type="checkbox" (change)="optionsInput.disableMultipart = !optionsInput.disableMultipart"> optionsInput.disableMultipart : {{optionsInput.disableMultipart}}</div>
+                </div>
+            </div>
+
+            <div class="col-md-9" style="margin-bottom: 40px">
+                <h3>Upload queue <span *ngIf="uploader.queue.length>0"> - {{ uploader.queue.length }} item(s)</span>
+                </h3>
+
+                <mat-card class="text-right">
+                    <div style="margin: 15px">
+                        <mat-progress-bar
+                                [color]="'primary'"
+                                [mode]="'determinate'"
+                                [value]="uploader.progressTotal">
+                        </mat-progress-bar>
+
+                    </div>
+                    <div class="card-block">
+                        <button mat-raised-button [color]="'primary'" (click)="uploadAll()"
+                                [disabled]="!activeUploadAllBtn()">
+                            Upload all
+                        </button>
+                        <button mat-raised-button [color]="'accent'" (click)="uploader.cancelAll()"
+                                [disabled]="!activeCancelAllBtn()">
+                            Cancel all
+                        </button>
+                        <button mat-raised-button [color]="'warn'" (click)="uploader.removeAllFromQueue()"
+                                [disabled]="!activeRemoveAllBtn()">
+                            Remove all
+                        </button>
+                    </div>
+                </mat-card>
+                <div class="card" style="margin-top: 20px">
+
+
+                    <mat-card>
+                        <table style="font-size: 14px; width:100%">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th width="40%">Name</th>
+                                <th>Size</th>
+                                <th>Progress</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let itemFile of uploader.queue"
+                                [ngClass]="{'table-success' : itemFile.isSuccess, 'table-danger' : itemFile.isError }">
+                                <td>
+                                    <div [ngxThumbnail]="itemFile"></div>
+                                    <div style="text-align: center">name: {{ itemFile.formData.get('name') }}</div>
+                                </td>
+                                <td style="padding-left: 10px;">{{ itemFile.file.name }}</td>
+                                <td>{{ itemFile.file.size/1024/1024 | number:'1.0-2' }} MB</td>
+                                <td>
+                                    <div>
+                                        <mat-progress-bar
+                                                class="example-margin"
+                                                [color]="'primary'"
+                                                [mode]="'determinate'"
+                                                [value]="itemFile.progress">
+                                        </mat-progress-bar>
+                                    </div>
+                                </td>
+                                <td style="text-align: center">
+                                    <button mat-raised-button [color]="'primary'" (click)="upload(itemFile)"
+                                            [disabled]="!itemFile.isReady">
+                                        Upload
+                                    </button>
+                                    <button mat-raised-button [color]="'accent'" (click)="itemFile.cancel()"
+                                            [disabled]="!itemFile.uploadInProgress || itemFile.isCancel">
+                                        Cancel
+                                    </button>
+                                    <button mat-raised-button [color]="'warn'" (click)="itemFile.remove()"
+                                            [disabled]="itemFile.uploadInProgress || itemFile.isSuccess">
+                                        Remove
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+h1 {
+    margin: 5px ;
+}
+
+.dropZoneColor {
+    border: 3px dotted rgba(0,0,0,0.08);
+    background-color: rgba(0,0,0,0.12)
+}
+
+.dropZoneColorDrag {
+    border: 3px dotted rgba(0,0,0,0.28);
+    background-color: grey
+}
+
+.dropZoneColorDrop {
+    border: 3px dotted rgba(0,0,0,0.08);
+    background-color: rgba(0,0,0,0.12)
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
