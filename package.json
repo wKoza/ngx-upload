@@ -1,6 +1,6 @@
 {
   "name": "ngx-upload-workspace",
-  "version": "16.0.1",
+  "version": "16.0.2",
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
