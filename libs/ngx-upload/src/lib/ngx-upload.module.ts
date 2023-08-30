@@ -11,7 +11,6 @@ import {
 } from './utils/configuration.model';
 import { ConsoleLogger, NgxUploadLogger, NoOpLogger } from './utils/logger.model';
 import { InputfileComponent } from './components/inputfile.component';
-import { HttpClientModule } from '@angular/common/http';
 
 const ngxDeclarations = [
   NgxDragAndDropDirective, NgxThumbnailDirective, InputfileComponent, NgxInputFileDirective
@@ -49,8 +48,7 @@ export function createNgxUploadRootGuard(options: LoggerOptions) {
   exports: [
     ...ngxDeclarations
   ],
-  imports: [],
-  entryComponents: [InputfileComponent]
+  imports: []
 })
 
 export class NgxUploadModule {
