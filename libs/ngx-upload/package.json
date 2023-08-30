@@ -12,9 +12,8 @@
   },
   "homepage": "https://github.com/wKoza/ngx-upload#readme",
   "keywords": [
-    "angular 16",
-    "drag and drop",
     "angular",
+    "drag and drop",
     "upload",
     "component"
   ],
