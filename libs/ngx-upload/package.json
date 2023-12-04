@@ -1,6 +1,6 @@
 {
   "name": "@wkoza/ngx-upload",
-  "version": "16.0.2",
+  "version": "16.1.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wKoza/ngx-upload.git"
@@ -18,11 +18,11 @@
     "component"
   ],
   "peerDependencies": {
-    "@angular/core": ">=16.0.0 <17.0.0",
-    "@angular/forms": ">=16.0.0 <17.0.0",
-    "@angular/common": ">=16.0.0 <17.0.0",
+    "@angular/core": ">=16.0.0 <18.0.0",
+    "@angular/forms": ">=16.0.0 <18.0.0",
+    "@angular/common": ">=16.0.0 <18.0.0",
     "rxjs": ">= 7.0.0",
-    "@angular/platform-browser": ">=16.0.0 <17.0.0"
+    "@angular/platform-browser": ">=16.0.0 <18.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
