@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.0](https://github.com/wKoza/ngx-upload/compare/v16.0.2...v16.1.0) (2023-12-04)
+
+
+### Features
+
+* add standard-version ([216b853](https://github.com/wKoza/ngx-upload/commit/216b8533b8fb5bcef9ee2e0a1c67999f3fe46cd5))
+
 ### [16.0.2](https://github.com/wKoza/ngx-upload/compare/v16.0.1...v16.0.2) (2023-08-30)
 
 ### [16.0.1](https://github.com/wKoza/ngx-upload/compare/v16.0.0...v16.0.1) (2023-08-30)
